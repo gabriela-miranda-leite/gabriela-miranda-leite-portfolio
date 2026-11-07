@@ -83,7 +83,7 @@ export function PostHeader({ post }: PostHeaderProps) {
         }}
       >
         {/* Author */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-6)' }}>
+        <div className="meta-author" style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-6)' }}>
           <div
             aria-hidden="true"
             style={{
@@ -107,7 +107,7 @@ export function PostHeader({ post }: PostHeaderProps) {
           </span>
         </div>
 
-        <span aria-hidden="true" style={{ width: '1px', height: '16px', background: 'var(--border)', flexShrink: 0 }} />
+        <span aria-hidden="true" className="divider-inline" />
 
         <time
           dateTime={post.date}
@@ -127,7 +127,7 @@ export function PostHeader({ post }: PostHeaderProps) {
 
         {post.readingTime && (
           <>
-            <span aria-hidden="true" style={{ width: '1px', height: '16px', background: 'var(--border)', flexShrink: 0 }} />
+            <span aria-hidden="true" className="divider-inline" />
             <span
               style={{
                 fontFamily: 'var(--font-mono)',

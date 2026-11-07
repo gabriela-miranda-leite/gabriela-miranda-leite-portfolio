@@ -37,13 +37,7 @@ export function PostList({ posts, allTags }: PostListProps) {
           {t('no_results')}
         </p>
       ) : (
-        <div
-          style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))',
-            gap: 'var(--space-10)',
-          }}
-        >
+        <div className="grid-cards">
           {filtered.map((post) => (
             <PostCard key={post.slug} post={post} />
           ))}

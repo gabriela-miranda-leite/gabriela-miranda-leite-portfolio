@@ -115,10 +115,7 @@ export function Prose({ children }: ProseProps) {
 
         @media (max-width: 639px) {
           .prose pre {
-            border-radius: 0;
-            margin-left: calc(-1 * var(--space-13));
-            margin-right: calc(-1 * var(--space-13));
-            padding: var(--space-10) var(--space-13);
+            font-size: var(--text-chip);
           }
         }
       `}</style>

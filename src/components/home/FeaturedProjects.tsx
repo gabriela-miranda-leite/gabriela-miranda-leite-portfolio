@@ -58,22 +58,7 @@ export function FeaturedProjects({ repos }: FeaturedProjectsProps) {
           </Link>
         </div>
 
-        <style>{`
-          @media (max-width: 639px) {
-            .project-grid { grid-template-columns: 1fr !important; }
-            .project-card { flex-direction: row !important; align-items: flex-start !important; }
-            .project-card-icon { flex-shrink: 0; }
-            .project-card-body { flex: 1; min-width: 0; }
-          }
-        `}</style>
-        <div
-          className="project-grid"
-          style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))',
-            gap: 'var(--space-10)',
-          }}
-        >
+        <div className="grid-projects">
           {repos.map((repo) => (
             <a
               key={repo.id}

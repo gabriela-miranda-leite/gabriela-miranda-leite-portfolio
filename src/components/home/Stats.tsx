@@ -20,20 +20,7 @@ export function Stats() {
       }}
     >
       <Container>
-        <style>{`
-          @media (max-width: 639px) {
-            .stats-dl {
-              overflow-x: auto;
-              scrollbar-width: none;
-              margin-inline: -24px;
-              padding-inline: 24px;
-            }
-            .stats-dl::-webkit-scrollbar { display: none; }
-            .stats-item { flex-shrink: 0; min-width: 90px; flex: 0 0 auto !important; }
-          }
-        `}</style>
         <dl
-          className="stats-dl"
           style={{
             display: 'flex',
             margin: 0,
@@ -42,9 +29,9 @@ export function Stats() {
           {STAT_VALUES.map(({ key, value }, i) => (
             <div
               key={key}
-              className="stats-item"
               style={{
                 flex: 1,
+                minWidth: 0,
                 display: 'flex',
                 flexDirection: 'column',
                 gap: 'var(--space-3)',
@@ -73,6 +60,8 @@ export function Stats() {
                   color: 'var(--fg-2)',
                   letterSpacing: '0.05em',
                   textTransform: 'uppercase',
+                  overflowWrap: 'break-word',
+                  wordBreak: 'break-word',
                 }}
               >
                 {t(key)}

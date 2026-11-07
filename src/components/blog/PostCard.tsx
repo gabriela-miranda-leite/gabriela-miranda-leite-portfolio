@@ -90,9 +90,11 @@ export function PostCard({ post }: PostCardProps) {
           color: 'var(--fg-3)',
           letterSpacing: '0.04em',
           marginTop: 'auto',
+          flexWrap: 'nowrap',
+          overflow: 'hidden',
         }}
       >
-        <time dateTime={post.date}>
+        <time dateTime={post.date} style={{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
           {new Date(post.date).toLocaleDateString(post.locale === 'pt' ? 'pt-BR' : 'en-US', {
             year: 'numeric',
             month: 'short',
@@ -102,7 +104,7 @@ export function PostCard({ post }: PostCardProps) {
         {post.readingTime && (
           <>
             <span aria-hidden="true">·</span>
-            <span>{t('reading_time', { minutes: post.readingTime })}</span>
+            <span style={{ whiteSpace: 'nowrap' }}>{t('reading_time', { minutes: post.readingTime })}</span>
           </>
         )}
       </div>
