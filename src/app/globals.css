@@ -233,12 +233,18 @@
   }
 }
 
+/* Base resets — ensure box model and margin are correct across browsers */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
 body {
+  margin: 0;
   background: var(--bg);
   color: var(--fg);
   font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
-  overflow-x: clip; /* prevents horizontal scroll without breaking sticky nav */
+  overflow-x: clip;
 }
 
 /* Accessible focus */
