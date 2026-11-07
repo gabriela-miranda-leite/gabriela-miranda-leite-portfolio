@@ -13,12 +13,6 @@ export function PostNav({ prev, next }: PostNavProps) {
   if (!prev && !next) return null;
 
   return (
-    <>
-      <style>{`
-        @media (max-width: 639px) {
-          .post-nav { grid-template-columns: 1fr !important; }
-        }
-      `}</style>
     <nav
       aria-label="Navegação entre posts"
       className="post-nav"
@@ -119,6 +113,5 @@ export function PostNav({ prev, next }: PostNavProps) {
         </Link>
       )}
     </nav>
-    </>
   );
 }
