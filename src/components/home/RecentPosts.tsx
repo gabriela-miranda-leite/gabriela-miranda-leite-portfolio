@@ -13,99 +13,120 @@ export function RecentPosts({ posts }: RecentPostsProps) {
   return (
     <section
       aria-labelledby="recent-posts-heading"
-      style={{
-        paddingTop: '4rem',
-        paddingBottom: '4rem',
-      }}
+      style={{ paddingTop: '80px' }}
     >
       <Container>
-      <div
-        style={{
-          display: 'flex',
-          alignItems: 'baseline',
-          justifyContent: 'space-between',
-          gap: '1rem',
-          flexWrap: 'wrap',
-          marginBottom: '2rem',
-        }}
-      >
-        <h2
-          id="recent-posts-heading"
+        <div
           style={{
-            fontFamily: 'var(--font-serif)',
-            fontSize: 'var(--text-section)',
-            lineHeight: 'var(--leading-heading)',
-            color: 'var(--fg)',
-            margin: 0,
+            display: 'flex',
+            alignItems: 'baseline',
+            justifyContent: 'space-between',
+            gap: '16px',
+            flexWrap: 'wrap',
+            marginBottom: '40px',
           }}
         >
-          {t('recent_posts')}
-        </h2>
-        <Link
-          href="/blog"
-          style={{
-            fontFamily: 'var(--font-mono)',
-            fontSize: 'var(--text-sm)',
-            color: 'var(--accent)',
-            textDecoration: 'none',
-          }}
-        >
-          {t('see_all')}
-        </Link>
-      </div>
+          <h2
+            id="recent-posts-heading"
+            style={{
+              fontFamily: 'var(--font-serif)',
+              fontStyle: 'italic',
+              fontSize: '30px',
+              fontWeight: 400,
+              lineHeight: 'var(--leading-heading)',
+              color: 'var(--fg)',
+              margin: 0,
+            }}
+          >
+            {t('recent_posts')}
+          </h2>
+          <Link
+            href="/blog"
+            style={{
+              fontFamily: 'var(--font-mono)',
+              fontSize: '11px',
+              color: 'var(--accent)',
+              letterSpacing: '0.06em',
+              textTransform: 'uppercase',
+              textDecoration: 'none',
+              whiteSpace: 'nowrap',
+            }}
+          >
+            {t('see_all')}
+          </Link>
+        </div>
 
-      {posts.length === 0 ? null : (
-        <ul
-          style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '1.5rem' }}
-        >
-          {posts.map((post) => (
-            <li
-              key={post.slug}
+        {posts.map((post, i) => (
+          <Link
+            key={post.slug}
+            href={`/blog/${post.slug}`}
+            style={{
+              display: 'grid',
+              gridTemplateColumns: '40px 1fr auto',
+              alignItems: 'start',
+              gap: '20px 24px',
+              padding: '24px 0',
+              borderTop: '1px solid var(--border)',
+              textDecoration: 'none',
+              color: 'inherit',
+            }}
+          >
+            <span
+              aria-hidden="true"
               style={{
-                borderTop: '1px solid var(--border)',
-                paddingTop: '1.5rem',
+                fontFamily: 'var(--font-mono)',
+                fontSize: '11px',
+                color: 'var(--fg-3)',
+                paddingTop: '4px',
+                textAlign: 'right',
+                letterSpacing: '0.02em',
               }}
             >
-              <Link
-                href={`/blog/${post.slug}`}
-                style={{ textDecoration: 'none', color: 'inherit' }}
+              {String(i + 1).padStart(2, '0')}
+            </span>
+            <div>
+              <p
+                style={{
+                  fontWeight: 600,
+                  fontSize: '16px',
+                  color: 'var(--fg)',
+                  lineHeight: 1.4,
+                  marginBottom: '7px',
+                  margin: '0 0 7px',
+                }}
               >
-                <p
-                  style={{
-                    fontFamily: 'var(--font-mono)',
-                    fontSize: 'var(--text-meta)',
-                    color: 'var(--fg-2)',
-                    marginBottom: '0.5rem',
-                  }}
-                >
-                  {post.date}
-                </p>
-                <h3
-                  style={{
-                    fontFamily: 'var(--font-sans)',
-                    fontSize: 'var(--text-card)',
-                    fontWeight: 600,
-                    color: 'var(--fg)',
-                    marginBottom: '0.5rem',
-                  }}
-                >
-                  {post.title}
-                </h3>
-                <p
-                  style={{
-                    fontFamily: 'var(--font-sans)',
-                    fontSize: 'var(--text-sm)',
-                    lineHeight: 'var(--leading-sm)',
-                    color: 'var(--fg-2)',
-                  }}
-                >
-                  {post.excerpt}
-                </p>
-              </Link>
-            </li>
-          ))}
-        </ul>
-      )}
+                {post.title}
+              </p>
+              <p
+                style={{
+                  fontSize: '14px',
+                  color: 'var(--fg-2)',
+                  lineHeight: 1.6,
+                  margin: 0,
+                }}
+              >
+                {post.excerpt}
+              </p>
+            </div>
+            {post.tags[0] && (
+              <span
+                style={{
+                  fontFamily: 'var(--font-mono)',
+                  fontSize: '10px',
+                  letterSpacing: '0.04em',
+                  background: 'var(--acc-a)',
+                  color: 'var(--accent)',
+                  padding: '4px 10px',
+                  borderRadius: '100px',
+                  whiteSpace: 'nowrap',
+                  marginTop: '3px',
+                }}
+              >
+                {post.tags[0]}
+              </span>
+            )}
+          </Link>
+        ))}
       </Container>
     </section>
   );

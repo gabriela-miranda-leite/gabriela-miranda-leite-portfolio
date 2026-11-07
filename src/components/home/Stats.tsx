@@ -2,7 +2,7 @@ import { useTranslations } from 'next-intl';
 import { Container } from '@/components/layout/Container';
 
 const STAT_VALUES = [
-  { key: 'years', value: '4+' },
+  { key: 'years', value: '5+' },
   { key: 'design_systems', value: '3' },
   { key: 'platforms', value: '2' },
 ] as const;
@@ -16,48 +16,56 @@ export function Stats() {
       style={{
         borderTop: '1px solid var(--border)',
         borderBottom: '1px solid var(--border)',
-        paddingTop: '2rem',
-        paddingBottom: '2rem',
+        padding: '36px 0',
       }}
     >
       <Container>
-      <dl
-        style={{
-          display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(120px, 1fr))',
-          gap: '2rem',
-          maxWidth: '100%',
-        }}
-      >
-        {STAT_VALUES.map(({ key, value }) => (
-          <div key={key}>
-            <dt
+        <dl
+          style={{
+            display: 'flex',
+            margin: 0,
+          }}
+        >
+          {STAT_VALUES.map(({ key, value }, i) => (
+            <div
+              key={key}
               style={{
-                fontFamily: 'var(--font-mono)',
-                fontSize: 'var(--text-eyebrow)',
-                color: 'var(--fg-2)',
-                textTransform: 'uppercase',
-                letterSpacing: '0.08em',
-                marginBottom: '0.5rem',
+                flex: 1,
+                display: 'flex',
+                flexDirection: 'column',
+                gap: '6px',
+                paddingLeft: i > 0 ? '40px' : undefined,
+                paddingRight: i < STAT_VALUES.length - 1 ? '40px' : undefined,
+                borderLeft: i > 0 ? '1px solid var(--border)' : undefined,
               }}
             >
-              {t(key)}
-            </dt>
-            <dd
-              style={{
-                fontFamily: 'var(--font-serif)',
-                fontSize: '44px',
-                fontWeight: 700,
-                lineHeight: 1,
-                color: 'var(--fg)',
-                margin: 0,
-              }}
-            >
-              {value}
-            </dd>
-          </div>
-        ))}
-      </dl>
+              <dd
+                style={{
+                  fontFamily: 'var(--font-serif)',
+                  fontSize: '44px',
+                  fontWeight: 700,
+                  lineHeight: 1,
+                  color: 'var(--fg)',
+                  margin: 0,
+                  fontOpticalSizing: 'auto',
+                }}
+              >
+                {value}
+              </dd>
+              <dt
+                style={{
+                  fontFamily: 'var(--font-mono)',
+                  fontSize: '11px',
+                  color: 'var(--fg-2)',
+                  letterSpacing: '0.05em',
+                  textTransform: 'uppercase',
+                }}
+              >
+                {t(key)}
+              </dt>
+            </div>
+          ))}
+        </dl>
       </Container>
     </section>
   );

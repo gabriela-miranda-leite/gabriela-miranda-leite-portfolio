@@ -40,6 +40,7 @@ export function Hero() {
             fontSize: 'clamp(3rem, 10vw, 116px)',
             letterSpacing: '-0.025em',
             lineHeight: 0.91,
+            fontOpticalSizing: 'auto',
             margin: '0 0 28px',
           }}
         >
