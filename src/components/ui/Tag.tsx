@@ -9,21 +9,22 @@ interface TagProps {
   className?: string;
 }
 
+const tagStyle = (variant: 'tech' | 'pill', selected: boolean): React.CSSProperties => ({
+  display: 'inline-flex',
+  alignItems: 'center',
+  padding: variant === 'pill' ? 'var(--space-2) var(--space-7)' : 'var(--space-1) var(--space-5)',
+  borderRadius: variant === 'pill' ? 'var(--radius-pill)' : 'var(--radius-sm)',
+  fontFamily: 'var(--font-mono)',
+  fontSize: 'var(--text-chip)',
+  textTransform: 'uppercase',
+  letterSpacing: '0.06em',
+  background: selected ? 'var(--acc-a)' : 'var(--bg)',
+  color: selected ? 'var(--accent)' : 'var(--fg-2)',
+  border: selected ? 'none' : '1px solid var(--border)',
+});
+
 export function Tag({ label, variant = 'tech', selected = false, onClick, className = '' }: TagProps) {
   const interactive = Boolean(onClick);
-
-  const base = 'inline-flex items-center font-mono uppercase tracking-wider transition-colors';
-
-  const variantStyles = {
-    tech: 'px-2 py-0.5 rounded',
-    pill: 'px-3 py-1 rounded-full',
-  };
-
-  const colorStyles = selected
-    ? 'bg-[var(--acc-a)] text-[var(--accent)]'
-    : 'bg-[var(--bg)] text-[var(--fg-2)] border border-[var(--border)] hover:text-[var(--fg)]';
-
-  const classes = `${base} ${variantStyles[variant]} ${colorStyles} ${className}`;
 
   if (interactive) {
     return (
@@ -31,8 +32,8 @@ export function Tag({ label, variant = 'tech', selected = false, onClick, classN
         type="button"
         aria-pressed={selected}
         onClick={onClick}
-        className={`${classes} cursor-pointer focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--accent)]`}
-        style={{ fontSize: 'var(--text-chip)' }}
+        className={className}
+        style={{ ...tagStyle(variant, selected), cursor: 'pointer' }}
       >
         {label}
       </button>
@@ -40,7 +41,7 @@ export function Tag({ label, variant = 'tech', selected = false, onClick, classN
   }
 
   return (
-    <span className={classes} style={{ fontSize: 'var(--text-chip)' }}>
+    <span className={className} style={tagStyle(variant, selected)}>
       {label}
     </span>
   );

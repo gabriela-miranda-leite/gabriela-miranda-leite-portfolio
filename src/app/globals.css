@@ -18,14 +18,15 @@
   --font-mono:  'JetBrains Mono', monospace;
 
   /* Typography — scale */
-  --text-hero:    88px;   /* Fraunces · hero name */
+  --text-hero:    116px;  /* Fraunces · hero name */
   --text-title:   52px;   /* Fraunces · post titles */
+  --text-stat:    44px;   /* Fraunces · stats numbers */
   --text-section: 30px;   /* Fraunces · section headings */
   --text-logo:    17px;   /* Fraunces · logo/wordmark */
 
   --text-lede:    19px;   /* Jakarta · post lede */
   --text-body:    16.5px; /* Jakarta · body copy */
-  --text-card:    15px;   /* Jakarta · card titles (600) */
+  --text-card:    16px;   /* Jakarta · card titles (600) */
   --text-sm:      14px;   /* Jakarta · secondary text */
   --text-eyebrow: 13px;   /* Jakarta · eyebrow labels */
   --text-meta:    11px;   /* Jakarta/Mono · nav, metadata */
@@ -34,14 +35,44 @@
   /* Typography — leading */
   --leading-tight:  0.93;
   --leading-heading: 1.08;
+  --leading-card:    1.4;
   --leading-body:    1.65;
   --leading-lede:    1.7;
   --leading-sm:      1.6;
+
+  /* Spacing */
+  --space-1:  3px;
+  --space-2:  4px;
+  --space-3:  6px;
+  --space-4:  7px;
+  --space-5:  8px;
+  --space-6:  10px;
+  --space-7:  12px;
+  --space-8:  13px;
+  --space-9:  15px;
+  --space-10: 16px;
+  --space-11: 18px;
+  --space-12: 20px;
+  --space-13: 24px;
+  --space-14: 28px;
+  --space-15: 36px;
+  --space-16: 40px;
+  --space-17: 44px;
+  --space-18: 80px;
+  --space-19: 88px;
+
+  /* Radius */
+  --radius-sm:   5px;
+  --radius-md:   7px;
+  --radius-lg:   10px;
+  --radius-xl:   14px;
+  --radius-pill: 100px;
 }
 
 /* Light mode */
 @media (prefers-color-scheme: light) {
   :root:not([data-theme="dark"]) {
+    --bg-nav: rgba(243,243,238,0.88);
     --bg:     #F3F3EE;
     --bg-s:   #E8E8E3;
     --bg-e:   #E0E0DB;
@@ -55,6 +86,7 @@
 }
 
 :root[data-theme="light"] {
+  --bg-nav: rgba(243,243,238,0.88);
   --bg:     #F3F3EE;
   --bg-s:   #E8E8E3;
   --bg-e:   #E0E0DB;
@@ -78,11 +110,141 @@
   --border:  #232320;
 }
 
+/* Expose font + typography tokens as :root custom properties (Tailwind v4
+   keeps @theme vars internal — browsers don't see them without this block) */
+:root {
+  --bg-nav: rgba(12,12,10,0.88);
+  --font-sans:  'Plus Jakarta Sans', sans-serif;
+  --font-serif: Fraunces, serif;
+  --font-mono:  'JetBrains Mono', monospace;
+
+  --text-hero:    116px;
+  --text-title:   52px;
+  --text-stat:    44px;
+  --text-section: 30px;
+  --text-logo:    17px;
+  --text-lede:    19px;
+  --text-body:    16.5px;
+  --text-card:    16px;
+  --text-sm:      14px;
+  --text-eyebrow: 13px;
+  --text-meta:    11px;
+  --text-chip:    10px;
+
+  --leading-tight:   0.93;
+  --leading-heading: 1.08;
+  --leading-card:    1.4;
+  --leading-body:    1.65;
+  --leading-lede:    1.7;
+  --leading-sm:      1.6;
+
+  /* Spacing */
+  --space-1:  3px;
+  --space-2:  4px;
+  --space-3:  6px;
+  --space-4:  7px;
+  --space-5:  8px;
+  --space-6:  10px;
+  --space-7:  12px;
+  --space-8:  13px;
+  --space-9:  15px;
+  --space-10: 16px;
+  --space-11: 18px;
+  --space-12: 20px;
+  --space-13: 24px;
+  --space-14: 28px;
+  --space-15: 36px;
+  --space-16: 40px;
+  --space-17: 44px;
+  --space-18: 80px;
+  --space-19: 88px;
+
+  /* Radius */
+  --radius-sm:   5px;
+  --radius-md:   7px;
+  --radius-lg:   10px;
+  --radius-xl:   14px;
+  --radius-pill: 100px;
+}
+
+/* ── Fluid scale-down: mobile ≤ 639px ──────────────────────────────────
+   Every component that uses these tokens automatically gets smaller values
+   on mobile — no per-component media queries needed.                     */
+@media (max-width: 639px) {
+  :root {
+    --space-14: 20px;    /* was 28px */
+    --space-15: 24px;    /* was 36px */
+    --space-16: 28px;    /* was 40px */
+    --space-17: 36px;    /* was 44px */
+    --space-18: 44px;    /* was 80px — biggest win for section padding */
+    --space-19: 52px;    /* was 88px */
+    --text-stat:    34px;  /* was 44px */
+    --text-section: 22px;  /* was 30px */
+    --text-lede:    17px;  /* was 19px */
+  }
+}
+
+/* ── Responsive utilities ─────────────────────────────────────────────
+   Use these classes in components instead of inline <style> blocks.    */
+
+/* Thin vertical divider between meta items — hidden when row wraps */
+.divider-inline {
+  display: inline-block;
+  width: 1px;
+  height: 16px;
+  background: var(--border);
+  flex-shrink: 0;
+  align-self: center;
+}
+@media (max-width: 639px) {
+  .divider-inline { display: none; }
+}
+
+/* Fluid auto-fill grids: use min() so tracks never exceed container width */
+.grid-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(300px, 100%), 1fr));
+  gap: var(--space-10);
+}
+.grid-projects {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(280px, 100%), 1fr));
+  gap: var(--space-10);
+}
+
+/* Post nav — stack to single column on mobile */
+@media (max-width: 639px) {
+  .post-nav { grid-template-columns: 1fr !important; }
+  /* Meta row: author block takes full row, date+time follow on next line */
+  .meta-author { flex: 1 0 100%; }
+}
+
+/* Post row list — hide index number on mobile */
+@media (max-width: 639px) {
+  .post-row { grid-template-columns: 1fr auto !important; }
+  .post-row-num { display: none !important; }
+}
+
+/* Project cards — horizontal layout on mobile */
+@media (max-width: 639px) {
+  .project-card {
+    flex-direction: row !important;
+    align-items: flex-start !important;
+  }
+}
+
+/* Base resets — ensure box model and margin are correct across browsers */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
 body {
+  margin: 0;
   background: var(--bg);
   color: var(--fg);
   font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
+  overflow-x: clip;
 }
 
 /* Accessible focus */

@@ -3,23 +3,34 @@
     "blog": "Blog",
     "projects": "Projects",
     "about": "About",
-    "theme": "theme"
+    "theme": "theme",
+    "ariaLabel": "main",
+    "skipToContent": "Skip to content",
+    "openMenu": "Open menu",
+    "closeMenu": "Close menu",
+    "mobileAriaLabel": "mobile menu"
+  },
+  "footer": {
+    "ariaLabel": "Footer",
+    "socialAriaLabel": "Social links",
+    "githubAriaLabel": "Gabi's GitHub (opens in new tab)",
+    "linkedinAriaLabel": "Gabi's LinkedIn (opens in new tab)"
   },
   "home": {
     "hero": {
-      "role": "Frontend & Mobile Dev",
+      "role": "Frontend & Mobile Developer",
       "greeting": "Hi, I'm",
       "name": "Gabi",
-      "bio": "Design systems, accessibility and UX. Payments and mobile in fintech.",
+      "bio": "I build interfaces and apps focused on design systems, accessibility and user experience. I work in the payments sector and write about what I learn in practice.",
       "cta": {
         "projects": "See projects",
-        "blog": "Blog"
+        "blog": "Read the blog"
       }
     },
     "stats": {
-      "years": "Years exp.",
-      "design_systems": "Design systems",
-      "platforms": "Platforms"
+      "years": "Years of experience",
+      "design_systems": "Design systems shipped",
+      "platforms": "Platforms — web & mobile"
     },
     "recent_posts": "Recent posts",
     "see_all": "See all →",
@@ -29,7 +40,16 @@
     "reading_time": "{minutes} min read",
     "prev": "← Previous",
     "next": "Next →",
-    "translation_pending": "Translation coming soon"
+    "translation_pending": "Translation coming soon",
+    "listing": {
+      "title": "Blog",
+      "description": "Writing about design systems, accessibility and frontend development.",
+      "meta_title": "Blog — Gabi Miranda",
+      "filter_label": "Filter by tag",
+      "all": "All",
+      "no_results": "No posts found for this tag.",
+      "read_more": "Read post"
+    }
   },
   "projects": {
     "repos": "Repositories"

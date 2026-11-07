@@ -10,7 +10,7 @@ describe('Chip', () => {
   it('renders as span when no onClick', () => {
     render(<Chip label="React" />);
     expect(screen.getByText('React')).toBeInTheDocument();
-    expect(screen.queryByRole('checkbox')).not.toBeInTheDocument();
+    expect(screen.queryByRole('button')).not.toBeInTheDocument();
   });
 
   it('renders as button with aria-pressed when interactive', () => {

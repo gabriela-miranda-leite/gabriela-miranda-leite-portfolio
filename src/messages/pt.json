@@ -3,23 +3,34 @@
     "blog": "Blog",
     "projects": "Projetos",
     "about": "Sobre",
-    "theme": "tema"
+    "theme": "tema",
+    "ariaLabel": "principal",
+    "skipToContent": "Ir para o conteúdo",
+    "openMenu": "Abrir menu",
+    "closeMenu": "Fechar menu",
+    "mobileAriaLabel": "menu mobile"
+  },
+  "footer": {
+    "ariaLabel": "Rodapé",
+    "socialAriaLabel": "Redes sociais",
+    "githubAriaLabel": "GitHub de Gabi (abre em nova aba)",
+    "linkedinAriaLabel": "LinkedIn de Gabi (abre em nova aba)"
   },
   "home": {
     "hero": {
-      "role": "Frontend & Mobile Dev",
+      "role": "Frontend & Mobile Developer",
       "greeting": "Olá, sou",
       "name": "Gabi",
-      "bio": "Design systems, acessibilidade e UX. Pagamentos e mobile no setor fintech.",
+      "bio": "Desenvolvo interfaces e apps com foco em design systems, acessibilidade e experiência do usuário. Trabalho no setor de pagamentos e aqui escrevo sobre o que aprendo na prática.",
       "cta": {
         "projects": "Ver projetos",
-        "blog": "Blog"
+        "blog": "Ler o blog"
       }
     },
     "stats": {
-      "years": "Anos de exp.",
-      "design_systems": "Design systems",
-      "platforms": "Plataformas"
+      "years": "Anos de experiência",
+      "design_systems": "Design systems entregues",
+      "platforms": "Plataformas — web & mobile"
     },
     "recent_posts": "Posts recentes",
     "see_all": "Ver todos →",
@@ -29,7 +40,16 @@
     "reading_time": "{minutes} min de leitura",
     "prev": "← Anterior",
     "next": "Próximo →",
-    "translation_pending": "Tradução em breve"
+    "translation_pending": "Tradução em breve",
+    "listing": {
+      "title": "Blog",
+      "description": "Escrita sobre design systems, acessibilidade e desenvolvimento frontend.",
+      "meta_title": "Blog — Gabi Miranda",
+      "filter_label": "Filtrar por tag",
+      "all": "Todos",
+      "no_results": "Nenhum post encontrado para esta tag.",
+      "read_more": "Ler post"
+    }
   },
   "projects": {
     "repos": "Repositórios"

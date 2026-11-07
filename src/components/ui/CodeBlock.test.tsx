@@ -8,7 +8,6 @@ jest.mock('shiki', () => ({
   codeToHtml: jest.fn().mockResolvedValue('<pre><code>const x = 1;</code></pre>'),
 }));
 
-// CodeBlock is async — render a sync wrapper that mirrors the structure for testing
 function CodeBlockStub({ lang = 'ts' }: { lang?: string }) {
   return (
     <figure aria-label={`Bloco de código em ${lang}`}>

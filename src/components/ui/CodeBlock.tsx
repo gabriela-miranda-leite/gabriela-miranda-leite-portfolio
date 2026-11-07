@@ -16,19 +16,32 @@ export async function CodeBlock({ code, lang = 'text', className = '' }: CodeBlo
   return (
     <figure
       aria-label={`Bloco de código em ${lang}`}
-      className={`relative rounded-lg overflow-hidden border border-[var(--border)] bg-[var(--bg-s)] ${className}`}
+      style={{
+        position: 'relative',
+        borderRadius: 'var(--radius-md)',
+        overflow: 'hidden',
+        border: '1px solid var(--border)',
+        background: 'var(--bg-s)',
+      }}
+      className={className}
     >
       <figcaption
-        className="px-4 py-2 font-mono uppercase tracking-wider border-b border-[var(--border)] text-[var(--fg-2)]"
-        style={{ fontSize: 'var(--text-meta)' }}
+        style={{
+          padding: 'var(--space-5) var(--space-10)',
+          fontFamily: 'var(--font-mono)',
+          fontSize: 'var(--text-meta)',
+          textTransform: 'uppercase',
+          letterSpacing: '0.06em',
+          borderBottom: '1px solid var(--border)',
+          color: 'var(--fg-2)',
+        }}
       >
         {lang}
       </figcaption>
       <div
-        className="p-4 overflow-x-auto"
+        style={{ padding: 'var(--space-10)', overflowX: 'auto', fontSize: 'var(--text-sm)' }}
         // biome-ignore lint: trusted Shiki output
         dangerouslySetInnerHTML={{ __html: html }}
-        style={{ fontSize: 'var(--text-sm)' }}
       />
     </figure>
   );
