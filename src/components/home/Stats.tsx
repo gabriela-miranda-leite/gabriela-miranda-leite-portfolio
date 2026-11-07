@@ -46,9 +46,10 @@ export function Stats() {
             <dd
               style={{
                 fontFamily: 'var(--font-serif)',
-                fontSize: 'clamp(2rem, 5vw, 3.5rem)',
-                lineHeight: 'var(--leading-tight)',
-                color: 'var(--accent)',
+                fontSize: '44px',
+                fontWeight: 700,
+                lineHeight: 1,
+                color: 'var(--fg)',
                 margin: 0,
               }}
             >

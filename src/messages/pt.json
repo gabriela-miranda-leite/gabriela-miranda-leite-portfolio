@@ -18,19 +18,19 @@
   },
   "home": {
     "hero": {
-      "role": "Frontend & Mobile Dev",
+      "role": "Frontend & Mobile Developer",
       "greeting": "Olá, sou",
       "name": "Gabi",
-      "bio": "Design systems, acessibilidade e UX. Pagamentos e mobile no setor fintech.",
+      "bio": "Desenvolvo interfaces e apps com foco em design systems, acessibilidade e experiência do usuário. Trabalho no setor de pagamentos e aqui escrevo sobre o que aprendo na prática.",
       "cta": {
         "projects": "Ver projetos",
-        "blog": "Blog"
+        "blog": "Ler o blog"
       }
     },
     "stats": {
-      "years": "Anos de exp.",
-      "design_systems": "Design systems",
-      "platforms": "Plataformas"
+      "years": "Anos de experiência",
+      "design_systems": "Design systems entregues",
+      "platforms": "Plataformas — web & mobile"
     },
     "recent_posts": "Posts recentes",
     "see_all": "Ver todos →",

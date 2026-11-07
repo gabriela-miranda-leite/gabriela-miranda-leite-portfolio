@@ -2,82 +2,112 @@ import { useTranslations } from 'next-intl';
 import { Link } from '@/i18n/navigation';
 import { Container } from '@/components/layout/Container';
 
-const btnBase =
-  'inline-flex items-center justify-center gap-2 cursor-pointer transition-opacity px-6 py-3 rounded-full text-sm font-semibold font-sans';
-
 export function Hero() {
   const t = useTranslations('home.hero');
 
   return (
     <section
       aria-labelledby="hero-heading"
-      style={{
-        paddingTop: 'clamp(3rem, 10vw, 8rem)',
-        paddingBottom: 'clamp(3rem, 8vw, 6rem)',
-      }}
+      style={{ paddingTop: 'clamp(3rem, 8vw, 5.75rem)', paddingBottom: 'clamp(3rem, 6vw, 5rem)' }}
     >
       <Container>
-        <p
+        {/* Eyebrow */}
+        <div
           style={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: '10px',
             fontFamily: 'var(--font-mono)',
-            fontSize: 'var(--text-eyebrow)',
+            fontSize: 'var(--text-meta)',
             color: 'var(--accent)',
+            letterSpacing: '0.10em',
             textTransform: 'uppercase',
-            letterSpacing: '0.12em',
-            marginBottom: '0.75rem',
+            marginBottom: '28px',
           }}
         >
+          <span
+            aria-hidden="true"
+            style={{ display: 'block', width: '28px', height: '1px', background: 'var(--accent)', flexShrink: 0 }}
+          />
           {t('role')}
-        </p>
+        </div>
 
+        {/* Heading — two lines */}
         <h1
           id="hero-heading"
           style={{
             fontFamily: 'var(--font-serif)',
-            fontSize: 'clamp(2.5rem, 10vw, var(--text-hero))',
-            lineHeight: 'var(--leading-tight)',
-            color: 'var(--fg)',
-            marginBottom: '1.5rem',
-            maxWidth: '14ch',
+            fontSize: 'clamp(3rem, 10vw, 116px)',
+            letterSpacing: '-0.025em',
+            lineHeight: 0.91,
+            margin: '0 0 28px',
           }}
         >
-          {t('greeting')}{' '}
-          <span style={{ color: 'var(--accent)' }}>{t('name')}</span>
+          <span
+            style={{
+              display: 'block',
+              fontStyle: 'italic',
+              fontWeight: 300,
+              color: 'var(--fg-2)',
+            }}
+          >
+            {t('greeting')}
+          </span>
+          <span
+            style={{
+              display: 'block',
+              fontWeight: 800,
+              color: 'var(--fg)',
+            }}
+          >
+            {t('name')}
+          </span>
         </h1>
 
+        {/* Bio */}
         <p
           style={{
             fontFamily: 'var(--font-sans)',
-            fontSize: 'var(--text-lede)',
-            lineHeight: 'var(--leading-lede)',
+            fontSize: '17px',
+            lineHeight: 1.7,
             color: 'var(--fg-2)',
-            maxWidth: '48ch',
-            marginBottom: '2.5rem',
+            maxWidth: '480px',
+            margin: '0 0 2rem',
           }}
         >
           {t('bio')}
         </p>
 
-        <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap' }}>
+        {/* CTAs */}
+        <div style={{ display: 'flex', gap: '12px', alignItems: 'center', flexWrap: 'wrap' }}>
           <Link
             href="/projects"
-            className={`${btnBase} hover:opacity-85 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--accent)]`}
             style={{
               background: 'var(--accent)',
               color: 'var(--bg)',
+              fontWeight: 600,
+              fontSize: '14px',
+              padding: '12px 24px',
+              borderRadius: '100px',
               textDecoration: 'none',
+              fontFamily: 'var(--font-sans)',
+              display: 'inline-block',
             }}
           >
             {t('cta.projects')}
           </Link>
           <Link
             href="/blog"
-            className={`${btnBase} hover:border-[var(--fg-2)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--accent)]`}
             style={{
-              background: 'transparent',
-              color: 'var(--fg)',
               border: '1px solid var(--border)',
+              color: 'var(--fg-2)',
+              fontWeight: 600,
+              fontSize: '14px',
+              padding: '11px 24px',
+              borderRadius: '100px',
               textDecoration: 'none',
+              fontFamily: 'var(--font-sans)',
+              display: 'inline-block',
             }}
           >
             {t('cta.blog')}
