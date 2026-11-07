@@ -3,7 +3,7 @@ import { join } from 'path';
 import type { GithubRepo } from '@/types/project';
 
 export async function getRepos(): Promise<GithubRepo[]> {
-  const username = process.env.GITHUB_USERNAME ?? 'gabrielaleite';
+  const username = process.env.GITHUB_USERNAME ?? 'gabriela-miranda-leite';
 
   const res = await fetch(
     `https://api.github.com/users/${username}/repos?sort=pushed&per_page=100`,
