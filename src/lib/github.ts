@@ -11,7 +11,7 @@ export async function getRepos(): Promise<GithubRepo[]> {
       headers: process.env.GITHUB_TOKEN
         ? { Authorization: `Bearer ${process.env.GITHUB_TOKEN}` }
         : {},
-      next: { revalidate: 3600 },
+      next: { revalidate: 604800 }, // 1 semana
     }
   );
 

@@ -4,7 +4,7 @@ import { Container } from '@/components/layout/Container';
 import { ProjectCard } from '@/components/projects/ProjectCard';
 import { getPinnedRepos, getRepos } from '@/lib/github';
 
-export const revalidate = 3600;
+export const revalidate = 604800; // 1 semana
 
 type PageProps = { params: Promise<{ locale: string }> };
 
