@@ -153,7 +153,7 @@ export function Nav() {
             margin: '0 auto',
           }}
         >
-          <nav aria-label={t('ariaLabel')}>
+          <nav aria-label={t('mobileAriaLabel')}>
             <ul style={{ listStyle: 'none', margin: 0, padding: '0.75rem 0', display: 'flex', flexDirection: 'column', gap: '2px' }}>
               {NAV_LINKS.map(({ href, key }) => {
                 const isActive = pathname === href || pathname.startsWith(href + '/');

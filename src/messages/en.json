@@ -7,7 +7,8 @@
     "ariaLabel": "main",
     "skipToContent": "Skip to content",
     "openMenu": "Open menu",
-    "closeMenu": "Close menu"
+    "closeMenu": "Close menu",
+    "mobileAriaLabel": "mobile menu"
   },
   "footer": {
     "ariaLabel": "Footer",

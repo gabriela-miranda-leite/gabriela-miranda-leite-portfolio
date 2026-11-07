@@ -1,4 +1,4 @@
-import { render } from '@testing-library/react';
+import { render, fireEvent } from '@testing-library/react';
 import { axe, toHaveNoViolations } from 'jest-axe';
 
 jest.mock('next-intl', () => ({
@@ -7,7 +7,6 @@ jest.mock('next-intl', () => ({
   useLocale: () => 'pt',
 }));
 
-// ThemeToggle uses localStorage and matchMedia
 Object.defineProperty(window, 'matchMedia', {
   writable: true,
   value: jest.fn().mockImplementation((query: string) => ({
@@ -18,44 +17,70 @@ Object.defineProperty(window, 'matchMedia', {
   })),
 });
 
+const mockReplace = jest.fn();
 jest.mock('@/i18n/navigation', () => ({
   Link: ({ href, children, ...props }: { href: string; children: React.ReactNode; [k: string]: unknown }) => (
     <a href={href} {...(props as object)}>{children}</a>
   ),
   usePathname: () => '/',
-  useRouter: () => ({ replace: jest.fn() }),
+  useRouter: () => ({ replace: mockReplace }),
 }));
 
-// LangSwitch also uses next-intl and @/i18n/navigation — both mocked above
 import { Nav } from '../Nav';
 
 expect.extend(toHaveNoViolations);
 
-describe('Nav', () => {
-  it('renders a nav with aria-label="principal"', () => {
+describe('Nav — renderização', () => {
+  it('renderiza nav com aria-label="principal"', () => {
     const { getAllByRole } = render(<Nav />);
     const navs = getAllByRole('navigation');
     expect(navs.some((n) => n.getAttribute('aria-label') === 'principal')).toBe(true);
   });
 
-  it('renders logo link pointing to /', () => {
+  it('renderiza link do logo apontando para /', () => {
     const { getByRole } = render(<Nav />);
-    const logo = getByRole('link', { name: /gabi miranda/i });
-    expect(logo).toHaveAttribute('href', '/');
+    expect(getByRole('link', { name: /gabi miranda/i })).toHaveAttribute('href', '/');
   });
 
-  it('no link has aria-current="page" on the home route', () => {
-    // usePathname returns '/' — none of /blog, /projects, /about match
+  it('nenhum link tem aria-current="page" na rota /', () => {
     const { getAllByRole } = render(<Nav />);
-    const links = getAllByRole('link');
-    links.forEach((l) => {
+    getAllByRole('link').forEach((l) => {
       expect(l).not.toHaveAttribute('aria-current', 'page');
     });
   });
+});
 
-  it('has no accessibility violations', async () => {
+// Mock returns the i18n key as-is: t('openMenu') === 'openMenu', t('closeMenu') === 'closeMenu'
+describe('Nav — menu mobile', () => {
+  it('botão hamburger tem aria-expanded=false inicialmente', () => {
+    const { getByRole } = render(<Nav />);
+    const btn = getByRole('button', { name: 'openMenu' });
+    expect(btn).toHaveAttribute('aria-expanded', 'false');
+  });
+
+  it('abre o menu ao clicar no hamburger', () => {
+    const { getByRole } = render(<Nav />);
+    fireEvent.click(getByRole('button', { name: 'openMenu' }));
+    expect(getByRole('button', { name: 'closeMenu' })).toHaveAttribute('aria-expanded', 'true');
+  });
+
+  it('fecha o menu ao clicar novamente', () => {
+    const { getByRole } = render(<Nav />);
+    fireEvent.click(getByRole('button', { name: 'openMenu' })); // abre
+    fireEvent.click(getByRole('button', { name: 'closeMenu' })); // fecha
+    expect(getByRole('button', { name: 'openMenu' })).toHaveAttribute('aria-expanded', 'false');
+  });
+});
+
+describe('Nav — acessibilidade', () => {
+  it('sem violações com menu fechado', async () => {
     const { container } = render(<Nav />);
-    const results = await axe(container);
-    expect(results).toHaveNoViolations();
+    expect(await axe(container)).toHaveNoViolations();
+  });
+
+  it('sem violações com menu aberto', async () => {
+    const { container, getByRole } = render(<Nav />);
+    fireEvent.click(getByRole('button', { name: 'openMenu' }));
+    expect(await axe(container)).toHaveNoViolations();
   });
 });
