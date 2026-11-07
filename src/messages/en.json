@@ -1,24 +1,40 @@
 {
-  "nav.blog": "Blog",
-  "nav.projects": "Projects",
-  "nav.about": "About",
-  "nav.theme": "theme",
-  "home.hero.role": "Frontend & Mobile Dev",
-  "home.hero.greeting": "Hi, I'm",
-  "home.hero.name": "Gabi",
-  "home.hero.bio": "Design systems, accessibility and UX. Payments and mobile in fintech.",
-  "home.hero.cta.projects": "See projects",
-  "home.hero.cta.blog": "Blog",
-  "home.stats.years": "Years exp.",
-  "home.stats.design_systems": "Design systems",
-  "home.stats.platforms": "Platforms",
-  "home.recent_posts": "Recent posts",
-  "home.see_all": "See all →",
-  "home.projects": "Projects",
-  "blog.reading_time": "{minutes} min read",
-  "blog.prev": "← Previous",
-  "blog.next": "Next →",
-  "blog.translation_pending": "Translation coming soon",
-  "projects.repos": "Repositories",
-  "lang.switch": "PT"
+  "nav": {
+    "blog": "Blog",
+    "projects": "Projects",
+    "about": "About",
+    "theme": "theme"
+  },
+  "home": {
+    "hero": {
+      "role": "Frontend & Mobile Dev",
+      "greeting": "Hi, I'm",
+      "name": "Gabi",
+      "bio": "Design systems, accessibility and UX. Payments and mobile in fintech.",
+      "cta": {
+        "projects": "See projects",
+        "blog": "Blog"
+      }
+    },
+    "stats": {
+      "years": "Years exp.",
+      "design_systems": "Design systems",
+      "platforms": "Platforms"
+    },
+    "recent_posts": "Recent posts",
+    "see_all": "See all →",
+    "projects": "Projects"
+  },
+  "blog": {
+    "reading_time": "{minutes} min read",
+    "prev": "← Previous",
+    "next": "Next →",
+    "translation_pending": "Translation coming soon"
+  },
+  "projects": {
+    "repos": "Repositories"
+  },
+  "lang": {
+    "switch": "PT"
+  }
 }
