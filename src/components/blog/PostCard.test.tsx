@@ -23,7 +23,7 @@ expect.extend(toHaveNoViolations);
 const mockPost: Post = {
   slug: 'test-post',
   title: 'Test Post Title',
-  excerpt: 'A short excerpt for the test post.',
+  description: 'A short excerpt for the test post.',
   date: '2024-01-15',
   tags: ['design-systems', 'accessibility'],
   readingTime: 5,

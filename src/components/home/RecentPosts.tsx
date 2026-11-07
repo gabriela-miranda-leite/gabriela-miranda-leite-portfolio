@@ -107,7 +107,7 @@ export function RecentPosts({ posts }: RecentPostsProps) {
                   margin: 0,
                 }}
               >
-                {post.excerpt}
+                {post.description}
               </p>
             </div>
             {post.tags[0] && (

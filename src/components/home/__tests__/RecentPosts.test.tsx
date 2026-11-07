@@ -21,8 +21,8 @@ import { RecentPosts } from '../RecentPosts';
 expect.extend(toHaveNoViolations);
 
 const POSTS: Post[] = [
-  { slug: 'post-1', title: 'Post 1', excerpt: 'Excerpt 1', date: '2026-10-01', tags: ['design'], locale: 'pt' },
-  { slug: 'post-2', title: 'Post 2', excerpt: 'Excerpt 2', date: '2026-09-01', tags: ['a11y'], locale: 'pt' },
+  { slug: 'post-1', title: 'Post 1', description: 'Excerpt 1', date: '2026-10-01', tags: ['design'], locale: 'pt' },
+  { slug: 'post-2', title: 'Post 2', description: 'Excerpt 2', date: '2026-09-01', tags: ['a11y'], locale: 'pt' },
 ];
 
 describe('RecentPosts', () => {

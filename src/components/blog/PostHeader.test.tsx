@@ -23,7 +23,7 @@ expect.extend(toHaveNoViolations);
 const post: Post = {
   slug: 'test-post',
   title: 'My Test Post',
-  excerpt: 'Short excerpt here.',
+  description: 'Short excerpt here.',
   date: '2024-06-01',
   tags: ['design-systems', 'react'],
   readingTime: 5,

@@ -1,12 +1,11 @@
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
-import { MDXRemote } from 'next-mdx-remote/rsc';
 import { Container } from '@/components/layout/Container';
 import { PostHeader } from '@/components/blog/PostHeader';
 import { Prose } from '@/components/blog/Prose';
 import { PostNav } from '@/components/blog/PostNav';
-import { getAllPosts, getPost } from '@/lib/posts';
+import { getAllPosts, getPostBySlug } from '@/lib/posts';
 import { blogPostingJsonLd } from '@/lib/seo';
 
 type PageProps = { params: Promise<{ locale: string; slug: string }> };
@@ -27,10 +26,11 @@ export async function generateStaticParams() {
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { locale, slug } = await params;
-  const post = getPost(slug, locale as 'pt' | 'en');
+  const result = await getPostBySlug(slug, locale as 'pt' | 'en');
 
-  if (!post) return {};
+  if (!result) return {};
 
+  const { post } = result;
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL ?? 'https://gabrielaleite.dev';
   const url =
     locale === 'pt' ? `${baseUrl}/blog/${slug}` : `${baseUrl}/en/blog/${slug}`;
@@ -38,11 +38,11 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 
   return {
     title: `${post.title} — Gabi Miranda`,
-    description: post.excerpt,
+    description: post.description,
     openGraph: {
       type: 'article',
       title: post.title,
-      description: post.excerpt,
+      description: post.description,
       url,
       images: [{ url: ogUrl, width: 1200, height: 630 }],
       publishedTime: post.date,
@@ -52,7 +52,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     twitter: {
       card: 'summary_large_image',
       title: post.title,
-      description: post.excerpt,
+      description: post.description,
       images: [ogUrl],
     },
     alternates: {
@@ -69,8 +69,10 @@ export default async function PostPage({ params }: PageProps) {
   const { locale, slug } = await params;
   setRequestLocale(locale);
 
-  const post = getPost(slug, locale as 'pt' | 'en');
-  if (!post) notFound();
+  const result = await getPostBySlug(slug, locale as 'pt' | 'en');
+  if (!result) notFound();
+
+  const { post, content } = result;
 
   const allPosts = getAllPosts(locale as 'pt' | 'en');
   const idx = allPosts.findIndex((p) => p.slug === slug);
@@ -79,11 +81,14 @@ export default async function PostPage({ params }: PageProps) {
 
   const jsonLd = blogPostingJsonLd({
     title: post.title,
-    excerpt: post.excerpt,
+    description: post.description,
     date: post.date,
     slug,
     locale,
   });
+
+  // getTranslations unused here but kept for future strings
+  await getTranslations('blog');
 
   return (
     <>
@@ -99,7 +104,7 @@ export default async function PostPage({ params }: PageProps) {
           <div style={{ maxWidth: '72ch' }}>
             <PostHeader post={post} />
             <Prose>
-              <MDXRemote source={post.content} />
+              {content}
             </Prose>
             <PostNav prev={prev} next={next} />
           </div>

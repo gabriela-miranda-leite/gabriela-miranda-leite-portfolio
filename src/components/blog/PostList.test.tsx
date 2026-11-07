@@ -21,7 +21,7 @@ const posts: Post[] = [
   {
     slug: 'post-a',
     title: 'Post A',
-    excerpt: 'Excerpt A',
+    description: 'Excerpt A',
     date: '2024-03-01',
     tags: ['design-systems'],
     locale: 'pt',
@@ -29,7 +29,7 @@ const posts: Post[] = [
   {
     slug: 'post-b',
     title: 'Post B',
-    excerpt: 'Excerpt B',
+    description: 'Excerpt B',
     date: '2024-02-01',
     tags: ['accessibility'],
     locale: 'pt',
@@ -37,7 +37,7 @@ const posts: Post[] = [
   {
     slug: 'post-c',
     title: 'Post C',
-    excerpt: 'Excerpt C',
+    description: 'Excerpt C',
     date: '2024-01-01',
     tags: ['design-systems', 'accessibility'],
     locale: 'pt',
