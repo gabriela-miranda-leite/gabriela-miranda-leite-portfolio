@@ -16,13 +16,12 @@ export function Prose({ children }: ProseProps) {
 
         .prose h2 {
           font-family: var(--font-serif);
-          font-style: italic;
           font-size: var(--text-section);
-          font-weight: 400;
+          font-weight: 600;
           line-height: var(--leading-heading);
           color: var(--fg);
-          margin: var(--space-18) 0 var(--space-7);
-          letter-spacing: -0.02em;
+          margin: var(--space-18) 0 var(--space-12);
+          letter-spacing: -0.01em;
         }
 
         .prose h3 {
@@ -36,6 +35,15 @@ export function Prose({ children }: ProseProps) {
 
         .prose p {
           margin: 0 0 var(--space-10);
+        }
+
+        .prose > p:first-child {
+          font-size: var(--text-lede);
+          line-height: var(--leading-lede);
+          color: var(--fg-2);
+          border-left: 2px solid var(--accent);
+          padding-left: var(--space-12);
+          margin-bottom: var(--space-14);
         }
 
         .prose a {

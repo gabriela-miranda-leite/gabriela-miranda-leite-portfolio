@@ -1,6 +1,6 @@
 import { useTranslations } from 'next-intl';
 import { Link } from '@/i18n/navigation';
-import { ArrowLeft } from '@phosphor-icons/react/dist/ssr';
+
 import type { Post } from '@/types/post';
 
 interface PostHeaderProps {
@@ -12,112 +12,132 @@ export function PostHeader({ post }: PostHeaderProps) {
 
   return (
     <header style={{ marginBottom: 'var(--space-16)' }}>
-      {/* Back link */}
-      <Link
-        href="/blog"
-        style={{
-          display: 'inline-flex',
-          alignItems: 'center',
-          gap: 'var(--space-3)',
-          fontFamily: 'var(--font-mono)',
-          fontSize: 'var(--text-meta)',
-          color: 'var(--fg-3)',
-          letterSpacing: '0.06em',
-          textTransform: 'uppercase',
-          textDecoration: 'none',
-          marginBottom: 'var(--space-16)',
-        }}
-      >
-        <ArrowLeft size={12} aria-hidden="true" />
-        Blog
-      </Link>
-
-      {/* Tags */}
-      {post.tags.length > 0 && (
-        <div
-          style={{
-            display: 'flex',
-            gap: 'var(--space-3)',
-            flexWrap: 'wrap',
-            marginBottom: 'var(--space-10)',
-          }}
-        >
-          {post.tags.map((tag) => (
-            <span
-              key={tag}
-              style={{
-                fontFamily: 'var(--font-mono)',
-                fontSize: 'var(--text-chip)',
-                color: 'var(--accent)',
-                background: 'var(--acc-a)',
-                padding: 'var(--space-1) var(--space-5)',
-                borderRadius: 'var(--radius-pill)',
-                textTransform: 'uppercase',
-                letterSpacing: '0.06em',
-              }}
-            >
-              {tag}
-            </span>
-          ))}
-        </div>
-      )}
-
-      {/* Title */}
-      <h1
-        style={{
-          fontFamily: 'var(--font-serif)',
-          fontStyle: 'italic',
-          fontSize: 'clamp(2rem, 6vw, var(--text-title))',
-          fontWeight: 400,
-          lineHeight: 'var(--leading-tight)',
-          color: 'var(--fg)',
-          margin: '0 0 var(--space-7)',
-          letterSpacing: '-0.02em',
-        }}
-      >
-        {post.title}
-      </h1>
-
-      {/* Excerpt / lede */}
-      {post.excerpt && (
-        <p
-          style={{
-            fontFamily: 'var(--font-sans)',
-            fontSize: 'var(--text-lede)',
-            lineHeight: 'var(--leading-lede)',
-            color: 'var(--fg-2)',
-            margin: '0 0 var(--space-10)',
-          }}
-        >
-          {post.excerpt}
-        </p>
-      )}
-
-      {/* Meta row */}
+      {/* Breadcrumb: Blog / tag */}
       <div
         style={{
           display: 'flex',
           alignItems: 'center',
-          gap: 'var(--space-7)',
+          gap: 'var(--space-5)',
           fontFamily: 'var(--font-mono)',
           fontSize: 'var(--text-meta)',
-          color: 'var(--fg-3)',
-          letterSpacing: '0.04em',
-          paddingBottom: 'var(--space-10)',
-          borderBottom: '1px solid var(--border)',
+          letterSpacing: '0.03em',
+          marginBottom: 'var(--space-14)',
         }}
       >
-        <time dateTime={post.date}>
+        <Link href="/blog" style={{ color: 'var(--fg-2)', textDecoration: 'none' }}>
+          Blog
+        </Link>
+        {post.tags[0] && (
+          <>
+            <span aria-hidden="true" style={{ color: 'var(--fg-3)' }}>/</span>
+            <span style={{ color: 'var(--fg-3)' }}>{post.tags[0]}</span>
+          </>
+        )}
+      </div>
+
+      {/* Tag chip */}
+      {post.tags.length > 0 && (
+        <div style={{ marginBottom: 'var(--space-12)' }}>
+          <span
+            style={{
+              fontFamily: 'var(--font-mono)',
+              fontSize: 'var(--text-chip)',
+              color: 'var(--accent)',
+              background: 'var(--acc-a)',
+              padding: 'var(--space-2) var(--space-6)',
+              borderRadius: 'var(--radius-pill)',
+              letterSpacing: '0.05em',
+            }}
+          >
+            {post.tags[0]}
+          </span>
+        </div>
+      )}
+
+      {/* Title — weight 700, sem italic (fiel ao design) */}
+      <h1
+        style={{
+          fontFamily: 'var(--font-serif)',
+          fontSize: 'clamp(2rem, 6vw, var(--text-title))',
+          fontWeight: 700,
+          lineHeight: 'var(--leading-heading)',
+          color: 'var(--fg)',
+          margin: '0 0 var(--space-13)',
+          letterSpacing: '-0.02em',
+          fontOpticalSizing: 'auto',
+          textWrap: 'balance',
+        } as React.CSSProperties}
+      >
+        {post.title}
+      </h1>
+
+      {/* Meta row: avatar + author + divider + date + divider + reading time */}
+      <div
+        style={{
+          display: 'flex',
+          alignItems: 'center',
+          gap: 'var(--space-12)',
+          paddingBottom: 'var(--space-14)',
+          borderBottom: '1px solid var(--border)',
+          flexWrap: 'wrap',
+        }}
+      >
+        {/* Author */}
+        <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-6)' }}>
+          <div
+            aria-hidden="true"
+            style={{
+              width: '36px',
+              height: '36px',
+              borderRadius: '50%',
+              background: 'var(--acc-a)',
+              border: '1px solid var(--border)',
+              flexShrink: 0,
+            }}
+          />
+          <span
+            style={{
+              fontSize: 'var(--text-sm)',
+              fontWeight: 500,
+              color: 'var(--fg)',
+              fontFamily: 'var(--font-sans)',
+            }}
+          >
+            Gabi Miranda
+          </span>
+        </div>
+
+        <span aria-hidden="true" style={{ width: '1px', height: '16px', background: 'var(--border)', flexShrink: 0 }} />
+
+        <time
+          dateTime={post.date}
+          style={{
+            fontFamily: 'var(--font-mono)',
+            fontSize: 'var(--text-meta)',
+            color: 'var(--fg-2)',
+            letterSpacing: '0.02em',
+          }}
+        >
           {new Date(post.date).toLocaleDateString(post.locale === 'pt' ? 'pt-BR' : 'en-US', {
-            year: 'numeric',
-            month: 'long',
             day: 'numeric',
+            month: 'short',
+            year: 'numeric',
           })}
         </time>
+
         {post.readingTime && (
           <>
-            <span aria-hidden="true">·</span>
-            <span>{t('reading_time', { minutes: post.readingTime })}</span>
+            <span aria-hidden="true" style={{ width: '1px', height: '16px', background: 'var(--border)', flexShrink: 0 }} />
+            <span
+              style={{
+                fontFamily: 'var(--font-mono)',
+                fontSize: 'var(--text-meta)',
+                color: 'var(--fg-2)',
+                letterSpacing: '0.02em',
+              }}
+            >
+              {t('reading_time', { minutes: post.readingTime })}
+            </span>
           </>
         )}
       </div>

@@ -15,10 +15,6 @@ jest.mock('@/i18n/navigation', () => ({
   ),
 }));
 
-jest.mock('@phosphor-icons/react/dist/ssr', () => ({
-  ArrowLeft: () => <svg aria-hidden="true" />,
-}));
-
 import { PostHeader } from './PostHeader';
 import type { Post } from '@/types/post';
 
@@ -40,15 +36,9 @@ describe('PostHeader', () => {
     expect(screen.getByRole('heading', { level: 1 })).toHaveTextContent('My Test Post');
   });
 
-  it('renders the excerpt', () => {
+  it('renders the first tag chip', () => {
     render(<PostHeader post={post} />);
-    expect(screen.getByText('Short excerpt here.')).toBeInTheDocument();
-  });
-
-  it('renders all tags', () => {
-    render(<PostHeader post={post} />);
-    expect(screen.getByText('design-systems')).toBeInTheDocument();
-    expect(screen.getByText('react')).toBeInTheDocument();
+    expect(screen.getAllByText('design-systems').length).toBeGreaterThanOrEqual(1);
   });
 
   it('links back to /blog', () => {

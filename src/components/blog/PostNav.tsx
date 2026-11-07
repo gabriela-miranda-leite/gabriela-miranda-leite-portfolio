@@ -30,8 +30,12 @@ export function PostNav({ prev, next }: PostNavProps) {
           style={{
             display: 'flex',
             flexDirection: 'column',
-            gap: 'var(--space-3)',
+            gap: 'var(--space-5)',
             textDecoration: 'none',
+            background: 'var(--bg-s)',
+            border: '1px solid var(--border)',
+            borderRadius: 'var(--radius-xl)',
+            padding: 'var(--space-12)',
           }}
         >
           <span
@@ -43,7 +47,7 @@ export function PostNav({ prev, next }: PostNavProps) {
               fontSize: 'var(--text-meta)',
               color: 'var(--fg-3)',
               textTransform: 'uppercase',
-              letterSpacing: '0.06em',
+              letterSpacing: '0.05em',
             }}
           >
             <ArrowLeft size={12} aria-hidden="true" />
@@ -51,11 +55,11 @@ export function PostNav({ prev, next }: PostNavProps) {
           </span>
           <span
             style={{
-              fontFamily: 'var(--font-serif)',
-              fontStyle: 'italic',
-              fontSize: 'var(--text-card)',
+              fontWeight: 600,
+              fontSize: 'var(--text-sm)',
               color: 'var(--fg)',
               lineHeight: 'var(--leading-card)',
+              fontFamily: 'var(--font-sans)',
             }}
           >
             {prev.title}
@@ -69,9 +73,13 @@ export function PostNav({ prev, next }: PostNavProps) {
           style={{
             display: 'flex',
             flexDirection: 'column',
-            gap: 'var(--space-3)',
+            gap: 'var(--space-5)',
             textDecoration: 'none',
             textAlign: prev ? 'right' : 'left',
+            background: 'var(--bg-s)',
+            border: '1px solid var(--border)',
+            borderRadius: 'var(--radius-xl)',
+            padding: 'var(--space-12)',
           }}
         >
           <span
@@ -84,7 +92,7 @@ export function PostNav({ prev, next }: PostNavProps) {
               fontSize: 'var(--text-meta)',
               color: 'var(--fg-3)',
               textTransform: 'uppercase',
-              letterSpacing: '0.06em',
+              letterSpacing: '0.05em',
             }}
           >
             {t('next')}
@@ -92,11 +100,11 @@ export function PostNav({ prev, next }: PostNavProps) {
           </span>
           <span
             style={{
-              fontFamily: 'var(--font-serif)',
-              fontStyle: 'italic',
-              fontSize: 'var(--text-card)',
+              fontWeight: 600,
+              fontSize: 'var(--text-sm)',
               color: 'var(--fg)',
               lineHeight: 'var(--leading-card)',
+              fontFamily: 'var(--font-sans)',
             }}
           >
             {next.title}
