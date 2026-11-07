@@ -3,7 +3,18 @@
     "blog": "Blog",
     "projects": "Projects",
     "about": "About",
-    "theme": "theme"
+    "theme": "theme",
+    "ariaLabel": "main",
+    "skipToContent": "Skip to content",
+    "openMenu": "Open menu",
+    "closeMenu": "Close menu",
+    "mobileAriaLabel": "mobile menu"
+  },
+  "footer": {
+    "ariaLabel": "Footer",
+    "socialAriaLabel": "Social links",
+    "githubAriaLabel": "Gabi's GitHub (opens in new tab)",
+    "linkedinAriaLabel": "Gabi's LinkedIn (opens in new tab)"
   },
   "home": {
     "hero": {

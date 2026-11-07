@@ -3,7 +3,18 @@
     "blog": "Blog",
     "projects": "Projetos",
     "about": "Sobre",
-    "theme": "tema"
+    "theme": "tema",
+    "ariaLabel": "principal",
+    "skipToContent": "Ir para o conteúdo",
+    "openMenu": "Abrir menu",
+    "closeMenu": "Fechar menu",
+    "mobileAriaLabel": "menu mobile"
+  },
+  "footer": {
+    "ariaLabel": "Rodapé",
+    "socialAriaLabel": "Redes sociais",
+    "githubAriaLabel": "GitHub de Gabi (abre em nova aba)",
+    "linkedinAriaLabel": "LinkedIn de Gabi (abre em nova aba)"
   },
   "home": {
     "hero": {

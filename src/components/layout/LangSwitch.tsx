@@ -7,26 +7,32 @@ export function LangSwitch() {
   const pathname = usePathname();
   const router = useRouter();
 
-  const toggle = () =>
-    router.replace(pathname, { locale: locale === 'pt' ? 'en' : 'pt' });
+  const next = locale === 'pt' ? 'en' : 'pt';
+  const toggle = () => router.replace(pathname, { locale: next });
 
   return (
     <button
       onClick={toggle}
-      aria-label={`Mudar para ${locale === 'pt' ? 'English' : 'Português'}`}
+      aria-label={`Mudar idioma para ${next === 'en' ? 'inglês' : 'português'}`}
+      aria-live="polite"
       style={{
-        fontFamily: 'var(--font-mono)',
-        fontSize: '11px',
-        color: 'var(--color-fg-2)',
-        background: 'none',
-        border: '1px solid var(--color-border)',
-        padding: '4px 10px',
+        background: 'var(--bg-s)',
+        border: '1px solid var(--border)',
+        color: 'var(--fg-2)',
+        padding: '7px 15px',
         borderRadius: '100px',
+        fontSize: '12px',
+        fontFamily: 'var(--font-mono)',
+        whiteSpace: 'nowrap',
         cursor: 'pointer',
-        letterSpacing: '0.05em',
+        display: 'flex',
+        alignItems: 'center',
+        gap: '5px',
       }}
     >
-      {locale === 'pt' ? 'EN' : 'PT'}
+      <span style={{ color: locale === 'pt' ? 'var(--accent)' : 'var(--fg-2)', fontWeight: locale === 'pt' ? 600 : 400 }}>PT</span>
+      <span aria-hidden="true" style={{ color: 'var(--fg-3)' }}>|</span>
+      <span style={{ color: locale === 'en' ? 'var(--accent)' : 'var(--fg-2)', fontWeight: locale === 'en' ? 600 : 400 }}>EN</span>
     </button>
   );
 }
