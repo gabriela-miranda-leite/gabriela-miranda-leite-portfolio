@@ -167,6 +167,70 @@
   --radius-pill: 100px;
 }
 
+/* ── Fluid scale-down: mobile ≤ 639px ──────────────────────────────────
+   Every component that uses these tokens automatically gets smaller values
+   on mobile — no per-component media queries needed.                     */
+@media (max-width: 639px) {
+  :root {
+    --space-14: 20px;    /* was 28px */
+    --space-15: 24px;    /* was 36px */
+    --space-16: 28px;    /* was 40px */
+    --space-17: 36px;    /* was 44px */
+    --space-18: 44px;    /* was 80px — biggest win for section padding */
+    --space-19: 52px;    /* was 88px */
+    --text-stat:    34px;  /* was 44px */
+    --text-section: 22px;  /* was 30px */
+    --text-lede:    17px;  /* was 19px */
+  }
+}
+
+/* ── Responsive utilities ─────────────────────────────────────────────
+   Use these classes in components instead of inline <style> blocks.    */
+
+/* Thin vertical divider between meta items — hidden when row wraps */
+.divider-inline {
+  display: inline-block;
+  width: 1px;
+  height: 16px;
+  background: var(--border);
+  flex-shrink: 0;
+  align-self: center;
+}
+@media (max-width: 639px) {
+  .divider-inline { display: none; }
+}
+
+/* Fluid auto-fill grids: use min() so tracks never exceed container width */
+.grid-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(300px, 100%), 1fr));
+  gap: var(--space-10);
+}
+.grid-projects {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(280px, 100%), 1fr));
+  gap: var(--space-10);
+}
+
+/* Post nav — stack to single column on mobile */
+@media (max-width: 639px) {
+  .post-nav { grid-template-columns: 1fr !important; }
+}
+
+/* Post row list — hide index number on mobile */
+@media (max-width: 639px) {
+  .post-row { grid-template-columns: 1fr auto !important; }
+  .post-row-num { display: none !important; }
+}
+
+/* Project cards — horizontal layout on mobile */
+@media (max-width: 639px) {
+  .project-card {
+    flex-direction: row !important;
+    align-items: flex-start !important;
+  }
+}
+
 body {
   background: var(--bg);
   color: var(--fg);
