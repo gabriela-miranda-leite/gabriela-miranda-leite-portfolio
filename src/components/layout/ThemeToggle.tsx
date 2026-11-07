@@ -1,6 +1,7 @@
 'use client';
 import { useEffect, useState } from 'react';
 import { useTranslations } from 'next-intl';
+import { CircleHalf } from '@phosphor-icons/react';
 
 type Theme = 'dark' | 'light';
 
@@ -44,7 +45,7 @@ export function ThemeToggle() {
         gap: '5px',
       }}
     >
-      <span aria-hidden="true">{theme === 'dark' ? '◐' : '○'}</span>
+      <CircleHalf size={13} aria-hidden="true" focusable="false" />
       {t('theme')}
     </button>
   );

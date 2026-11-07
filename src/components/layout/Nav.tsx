@@ -1,6 +1,7 @@
 'use client';
 import { useState } from 'react';
 import { useTranslations } from 'next-intl';
+import { List, X } from '@phosphor-icons/react';
 import { Link, usePathname } from '@/i18n/navigation';
 import { LangSwitch } from './LangSwitch';
 import { ThemeToggle } from './ThemeToggle';
@@ -130,13 +131,9 @@ export function Nav() {
           }}
         >
           {menuOpen ? (
-            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true" focusable="false">
-              <path d="M4 4l12 12M16 4L4 16" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
-            </svg>
+            <X size={20} aria-hidden="true" focusable="false" />
           ) : (
-            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true" focusable="false">
-              <path d="M3 5h14M3 10h14M3 15h14" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
-            </svg>
+            <List size={20} aria-hidden="true" focusable="false" />
           )}
         </button>
       </div>

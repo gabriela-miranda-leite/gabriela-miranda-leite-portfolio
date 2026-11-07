@@ -3,7 +3,9 @@ import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { Hero } from '@/components/home/Hero';
 import { Stats } from '@/components/home/Stats';
 import { RecentPosts } from '@/components/home/RecentPosts';
+import { FeaturedProjects } from '@/components/home/FeaturedProjects';
 import { getAllPosts } from '@/lib/posts';
+import { getRepos } from '@/lib/github';
 import { websiteJsonLd } from '@/lib/seo';
 
 type PageProps = { params: Promise<{ locale: string }> };
@@ -38,6 +40,7 @@ export default async function HomePage({ params }: PageProps) {
   setRequestLocale(locale);
 
   const posts = getAllPosts(locale as 'pt' | 'en').slice(0, 3);
+  const repos = (await getRepos()).slice(0, 3);
   const jsonLd = websiteJsonLd(locale);
 
   return (
@@ -49,6 +52,7 @@ export default async function HomePage({ params }: PageProps) {
       <Hero />
       <Stats />
       <RecentPosts posts={posts} />
+      <FeaturedProjects repos={repos} />
     </>
   );
 }
