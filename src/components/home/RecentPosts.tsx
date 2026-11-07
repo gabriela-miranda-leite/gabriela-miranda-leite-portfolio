@@ -88,9 +88,9 @@ export function RecentPosts({ posts }: RecentPostsProps) {
               <p
                 style={{
                   fontWeight: 600,
-                  fontSize: '16px',
+                  fontSize: 'var(--text-card)',
                   color: 'var(--fg)',
-                  lineHeight: 1.4,
+                  lineHeight: 'var(--leading-card)',
                   marginBottom: '7px',
                   margin: '0 0 7px',
                 }}

@@ -106,7 +106,7 @@ export function FeaturedProjects({ repos }: FeaturedProjectsProps) {
                 <p
                   style={{
                     fontWeight: 700,
-                    fontSize: '16px',
+                    fontSize: 'var(--text-card)',
                     color: 'var(--fg)',
                     marginBottom: '8px',
                     margin: '0 0 8px',

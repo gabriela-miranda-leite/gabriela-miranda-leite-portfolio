@@ -37,7 +37,7 @@ export function Hero() {
           id="hero-heading"
           style={{
             fontFamily: 'var(--font-serif)',
-            fontSize: 'clamp(3rem, 10vw, 116px)',
+            fontSize: 'clamp(3rem, 10vw, var(--text-hero))',
             letterSpacing: '-0.025em',
             lineHeight: 0.91,
             fontOpticalSizing: 'auto',
