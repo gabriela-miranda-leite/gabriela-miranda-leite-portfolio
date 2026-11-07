@@ -1,5 +1,6 @@
 import { useTranslations } from 'next-intl';
 import { Link } from '@/i18n/navigation';
+import { Container } from '@/components/layout/Container';
 import type { Post } from '@/types/post';
 
 interface RecentPostsProps {
@@ -15,10 +16,9 @@ export function RecentPosts({ posts }: RecentPostsProps) {
       style={{
         paddingTop: '4rem',
         paddingBottom: '4rem',
-        paddingLeft: '1rem',
-        paddingRight: '1rem',
       }}
     >
+      <Container>
       <div
         style={{
           display: 'flex',
@@ -106,6 +106,7 @@ export function RecentPosts({ posts }: RecentPostsProps) {
           ))}
         </ul>
       )}
+      </Container>
     </section>
   );
 }

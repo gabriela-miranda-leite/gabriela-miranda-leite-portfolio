@@ -1,4 +1,5 @@
 import { useTranslations } from 'next-intl';
+import { Container } from '@/components/layout/Container';
 
 const STAT_VALUES = [
   { key: 'years', value: '4+' },
@@ -17,10 +18,9 @@ export function Stats() {
         borderBottom: '1px solid var(--border)',
         paddingTop: '2rem',
         paddingBottom: '2rem',
-        paddingLeft: '1rem',
-        paddingRight: '1rem',
       }}
     >
+      <Container>
       <dl
         style={{
           display: 'grid',
@@ -57,6 +57,7 @@ export function Stats() {
           </div>
         ))}
       </dl>
+      </Container>
     </section>
   );
 }

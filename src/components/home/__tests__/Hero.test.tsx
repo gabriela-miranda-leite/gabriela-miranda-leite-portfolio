@@ -11,6 +11,10 @@ jest.mock('@/i18n/navigation', () => ({
   ),
 }));
 
+jest.mock('@/components/layout/Container', () => ({
+  Container: ({ children }: { children: React.ReactNode }) => <div>{children}</div>,
+}));
+
 import { Hero } from '../Hero';
 
 expect.extend(toHaveNoViolations);

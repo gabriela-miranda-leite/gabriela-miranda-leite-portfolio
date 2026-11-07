@@ -5,6 +5,10 @@ jest.mock('next-intl', () => ({
   useTranslations: () => (key: string) => key,
 }));
 
+jest.mock('@/components/layout/Container', () => ({
+  Container: ({ children }: { children: React.ReactNode }) => <div>{children}</div>,
+}));
+
 import { Stats } from '../Stats';
 
 expect.extend(toHaveNoViolations);
