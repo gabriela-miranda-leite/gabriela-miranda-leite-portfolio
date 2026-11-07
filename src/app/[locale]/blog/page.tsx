@@ -54,16 +54,17 @@ export default async function BlogPage({ params }: PageProps) {
     >
       <Container>
         {/* Page heading */}
-        <div style={{ marginBottom: 'var(--space-18)' }}>
+        <div style={{ marginBottom: 'var(--space-16)' }}>
           <h1
             style={{
               fontFamily: 'var(--font-serif)',
               fontStyle: 'italic',
-              fontSize: 'var(--text-title)',
+              fontSize: 'clamp(2.5rem, 7vw, var(--text-title))',
               fontWeight: 400,
               lineHeight: 'var(--leading-tight)',
               color: 'var(--fg)',
               margin: '0 0 var(--space-7)',
+              letterSpacing: '-0.02em',
             }}
           >
             {t('title')}
