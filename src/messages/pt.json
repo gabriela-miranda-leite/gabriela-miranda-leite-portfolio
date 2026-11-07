@@ -11,6 +11,7 @@
   },
   "footer": {
     "ariaLabel": "Rodapé",
+    "socialAriaLabel": "Redes sociais",
     "githubAriaLabel": "GitHub de Gabi (abre em nova aba)",
     "linkedinAriaLabel": "LinkedIn de Gabi (abre em nova aba)"
   },

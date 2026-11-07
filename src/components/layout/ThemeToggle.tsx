@@ -4,33 +4,18 @@ import { useTranslations } from 'next-intl';
 
 type Theme = 'dark' | 'light';
 
-function SunIcon() {
-  return (
-    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden="true" focusable="false">
-      <circle cx="12" cy="12" r="4" />
-      <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41" />
-    </svg>
-  );
-}
-
-function MoonIcon() {
-  return (
-    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden="true" focusable="false">
-      <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z" />
-    </svg>
-  );
-}
-
 export function ThemeToggle() {
   const t = useTranslations('nav');
   const [theme, setTheme] = useState<Theme>('dark');
 
   useEffect(() => {
-    const stored = localStorage.getItem('theme') as Theme | null;
-    const initial: Theme =
-      stored ?? (window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
-    setTheme(initial);
-    document.documentElement.setAttribute('data-theme', initial);
+    try {
+      const stored = localStorage.getItem('theme') as Theme | null;
+      const initial: Theme =
+        stored ?? (window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
+      setTheme(initial);
+      document.documentElement.setAttribute('data-theme', initial);
+    } catch {}
   }, []);
 
   const toggle = () => {
@@ -43,24 +28,24 @@ export function ThemeToggle() {
   return (
     <button
       onClick={toggle}
-      aria-label={`${t('theme')}: ${theme === 'dark' ? 'light' : 'dark'}`}
+      aria-label={`${t('theme')}: mudar para ${theme === 'dark' ? 'claro' : 'escuro'}`}
       style={{
-        fontFamily: 'var(--font-mono)',
-        fontSize: '11px',
-        color: 'var(--fg-2)',
-        background: 'none',
+        background: 'var(--bg-s)',
         border: '1px solid var(--border)',
-        padding: '4px 8px',
+        color: 'var(--fg-2)',
+        padding: '7px 15px',
         borderRadius: '100px',
+        fontSize: '12px',
+        fontFamily: 'var(--font-mono)',
+        whiteSpace: 'nowrap',
         cursor: 'pointer',
         display: 'flex',
         alignItems: 'center',
         gap: '5px',
-        letterSpacing: '0.03em',
       }}
     >
-      {theme === 'dark' ? <SunIcon /> : <MoonIcon />}
-      <span aria-hidden="true">{t('theme')}</span>
+      <span aria-hidden="true">{theme === 'dark' ? '◐' : '○'}</span>
+      {t('theme')}
     </button>
   );
 }
