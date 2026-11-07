@@ -2,6 +2,9 @@ import { NextIntlClientProvider } from 'next-intl';
 import { getMessages, setRequestLocale } from 'next-intl/server';
 import { notFound } from 'next/navigation';
 import { locales } from '@/i18n/navigation';
+import { SkipToContent } from '@/components/layout/SkipToContent';
+import { Nav } from '@/components/layout/Nav';
+import { Footer } from '@/components/layout/Footer';
 
 export default async function LocaleLayout({
   children,
@@ -20,7 +23,12 @@ export default async function LocaleLayout({
 
   return (
     <NextIntlClientProvider messages={messages}>
-      {children}
+      <SkipToContent />
+      <Nav />
+      <main id="main-content" style={{ minHeight: '60vh' }}>
+        {children}
+      </main>
+      <Footer />
     </NextIntlClientProvider>
   );
 }
