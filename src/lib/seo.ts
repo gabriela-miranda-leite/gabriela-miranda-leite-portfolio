@@ -1,3 +1,41 @@
+export function blogPostingJsonLd({
+  title,
+  excerpt,
+  date,
+  slug,
+  locale,
+}: {
+  title: string;
+  excerpt: string;
+  date: string;
+  slug: string;
+  locale: string;
+}) {
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL ?? 'https://gabrielaleite.dev';
+  const url =
+    locale === 'pt' ? `${baseUrl}/blog/${slug}` : `${baseUrl}/en/blog/${slug}`;
+
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'BlogPosting',
+    headline: title,
+    description: excerpt,
+    datePublished: date,
+    url,
+    inLanguage: locale === 'pt' ? 'pt-BR' : 'en',
+    author: {
+      '@type': 'Person',
+      name: 'Gabriela Miranda Leite',
+      url: baseUrl,
+    },
+    publisher: {
+      '@type': 'Person',
+      name: 'Gabriela Miranda Leite',
+      url: baseUrl,
+    },
+  };
+}
+
 export function websiteJsonLd(locale: string) {
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL ?? 'https://gabrielaleite.dev';
   const url = locale === 'pt' ? baseUrl : `${baseUrl}/en`;
