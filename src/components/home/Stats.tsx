@@ -16,7 +16,7 @@ export function Stats() {
       style={{
         borderTop: '1px solid var(--border)',
         borderBottom: '1px solid var(--border)',
-        padding: '36px 0',
+        padding: 'var(--space-15) 0',
       }}
     >
       <Container>
@@ -33,9 +33,9 @@ export function Stats() {
                 flex: 1,
                 display: 'flex',
                 flexDirection: 'column',
-                gap: '6px',
-                paddingLeft: i > 0 ? '40px' : undefined,
-                paddingRight: i < STAT_VALUES.length - 1 ? '40px' : undefined,
+                gap: 'var(--space-3)',
+                paddingLeft: i > 0 ? 'var(--space-16)' : undefined,
+                paddingRight: i < STAT_VALUES.length - 1 ? 'var(--space-16)' : undefined,
                 borderLeft: i > 0 ? '1px solid var(--border)' : undefined,
               }}
             >

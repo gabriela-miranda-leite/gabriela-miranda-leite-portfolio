@@ -39,6 +39,34 @@
   --leading-body:    1.65;
   --leading-lede:    1.7;
   --leading-sm:      1.6;
+
+  /* Spacing */
+  --space-1:  3px;
+  --space-2:  4px;
+  --space-3:  6px;
+  --space-4:  7px;
+  --space-5:  8px;
+  --space-6:  10px;
+  --space-7:  12px;
+  --space-8:  13px;
+  --space-9:  15px;
+  --space-10: 16px;
+  --space-11: 18px;
+  --space-12: 20px;
+  --space-13: 24px;
+  --space-14: 28px;
+  --space-15: 36px;
+  --space-16: 40px;
+  --space-17: 44px;
+  --space-18: 80px;
+  --space-19: 88px;
+
+  /* Radius */
+  --radius-sm:   5px;
+  --radius-md:   7px;
+  --radius-lg:   10px;
+  --radius-xl:   14px;
+  --radius-pill: 100px;
 }
 
 /* Light mode */
@@ -109,6 +137,34 @@
   --leading-body:    1.65;
   --leading-lede:    1.7;
   --leading-sm:      1.6;
+
+  /* Spacing */
+  --space-1:  3px;
+  --space-2:  4px;
+  --space-3:  6px;
+  --space-4:  7px;
+  --space-5:  8px;
+  --space-6:  10px;
+  --space-7:  12px;
+  --space-8:  13px;
+  --space-9:  15px;
+  --space-10: 16px;
+  --space-11: 18px;
+  --space-12: 20px;
+  --space-13: 24px;
+  --space-14: 28px;
+  --space-15: 36px;
+  --space-16: 40px;
+  --space-17: 44px;
+  --space-18: 80px;
+  --space-19: 88px;
+
+  /* Radius */
+  --radius-sm:   5px;
+  --radius-md:   7px;
+  --radius-lg:   10px;
+  --radius-xl:   14px;
+  --radius-pill: 100px;
 }
 
 body {

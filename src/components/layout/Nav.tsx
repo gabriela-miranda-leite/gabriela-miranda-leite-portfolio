@@ -16,15 +16,15 @@ const PILL: React.CSSProperties = {
   background: 'var(--bg-s)',
   border: '1px solid var(--border)',
   color: 'var(--fg-2)',
-  padding: '7px 15px',
-  borderRadius: '100px',
-  fontSize: '12px',
+  padding: 'var(--space-4) var(--space-9)',
+  borderRadius: 'var(--radius-pill)',
+  fontSize: 'var(--text-eyebrow)',
   fontFamily: 'var(--font-mono)',
   whiteSpace: 'nowrap',
   cursor: 'pointer',
   display: 'flex',
   alignItems: 'center',
-  gap: '5px',
+  gap: 'var(--space-3)',
 };
 
 export { PILL };
@@ -55,8 +55,8 @@ export function Nav() {
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'space-between',
-          padding: '18px 0',
-          gap: '24px',
+          padding: 'var(--space-11) 0',
+          gap: 'var(--space-13)',
         }}
       >
         {/* Logo */}
@@ -65,7 +65,7 @@ export function Nav() {
           aria-label="Gabi Miranda — início"
           style={{
             fontFamily: 'var(--font-serif)',
-            fontSize: '18px',
+            fontSize: 'var(--text-logo)',
             fontWeight: 500,
             fontStyle: 'italic',
             color: 'var(--fg)',
@@ -78,7 +78,7 @@ export function Nav() {
 
         {/* Nav links — desktop */}
         <nav aria-label={t('ariaLabel')} className="nav-desktop-links">
-          <div style={{ display: 'flex', gap: '4px' }}>
+          <div style={{ display: 'flex', gap: 'var(--space-2)' }}>
             {NAV_LINKS.map(({ href, key }) => {
               const isActive = pathname === href || pathname.startsWith(href + '/');
               return (
@@ -88,11 +88,11 @@ export function Nav() {
                   aria-current={isActive ? 'page' : undefined}
                   style={{
                     display: 'block',
-                    padding: '7px 13px',
+                    padding: 'var(--space-4) var(--space-8)',
                     color: isActive ? 'var(--fg)' : 'var(--fg-2)',
-                    fontSize: '14px',
+                    fontSize: 'var(--text-sm)',
                     fontWeight: isActive ? 600 : 500,
-                    borderRadius: '7px',
+                    borderRadius: 'var(--radius-md)',
                     textDecoration: 'none',
                     background: isActive ? 'var(--bg-s)' : 'transparent',
                   }}
@@ -107,7 +107,7 @@ export function Nav() {
         {/* Controls — desktop */}
         <div
           className="nav-desktop-controls"
-          style={{ display: 'none', alignItems: 'center', gap: '8px' }}
+          style={{ display: 'none', alignItems: 'center', gap: 'var(--space-5)' }}
         >
           <ThemeToggle />
           <LangSwitch />
@@ -125,7 +125,7 @@ export function Nav() {
             border: 'none',
             cursor: 'pointer',
             color: 'var(--fg)',
-            padding: '8px',
+            padding: 'var(--space-5)',
             display: 'flex',
             alignItems: 'center',
           }}
@@ -151,7 +151,7 @@ export function Nav() {
           }}
         >
           <nav aria-label={t('mobileAriaLabel')}>
-            <ul style={{ listStyle: 'none', margin: 0, padding: '0.75rem 0', display: 'flex', flexDirection: 'column', gap: '2px' }}>
+            <ul style={{ listStyle: 'none', margin: 0, padding: '0.75rem 0', display: 'flex', flexDirection: 'column', gap: 'var(--space-1)' }}>
               {NAV_LINKS.map(({ href, key }) => {
                 const isActive = pathname === href || pathname.startsWith(href + '/');
                 return (
@@ -162,12 +162,12 @@ export function Nav() {
                       onClick={() => setMenuOpen(false)}
                       style={{
                         display: 'block',
-                        padding: '7px 13px',
+                        padding: 'var(--space-4) var(--space-8)',
                         color: isActive ? 'var(--fg)' : 'var(--fg-2)',
-                        fontSize: '14px',
+                        fontSize: 'var(--text-sm)',
                         fontWeight: isActive ? 600 : 500,
                         textDecoration: 'none',
-                        borderRadius: '7px',
+                        borderRadius: 'var(--radius-md)',
                         background: isActive ? 'var(--bg-s)' : 'transparent',
                       }}
                     >
@@ -176,7 +176,7 @@ export function Nav() {
                   </li>
                 );
               })}
-              <li style={{ display: 'flex', gap: '8px', paddingTop: '0.75rem', paddingLeft: '13px' }}>
+              <li style={{ display: 'flex', gap: 'var(--space-5)', paddingTop: '0.75rem', paddingLeft: 'var(--space-8)' }}>
                 <ThemeToggle />
                 <LangSwitch />
               </li>

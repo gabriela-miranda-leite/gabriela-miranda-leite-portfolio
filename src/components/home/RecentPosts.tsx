@@ -13,7 +13,7 @@ export function RecentPosts({ posts }: RecentPostsProps) {
   return (
     <section
       aria-labelledby="recent-posts-heading"
-      style={{ paddingTop: '80px' }}
+      style={{ paddingTop: 'var(--space-18)' }}
     >
       <Container>
         <div
@@ -21,9 +21,9 @@ export function RecentPosts({ posts }: RecentPostsProps) {
             display: 'flex',
             alignItems: 'baseline',
             justifyContent: 'space-between',
-            gap: '16px',
+            gap: 'var(--space-10)',
             flexWrap: 'wrap',
-            marginBottom: '40px',
+            marginBottom: 'var(--space-16)',
           }}
         >
           <h2
@@ -64,8 +64,8 @@ export function RecentPosts({ posts }: RecentPostsProps) {
               display: 'grid',
               gridTemplateColumns: '40px 1fr auto',
               alignItems: 'start',
-              gap: '20px 24px',
-              padding: '24px 0',
+              gap: 'var(--space-12) var(--space-13)',
+              padding: 'var(--space-13) 0',
               borderTop: '1px solid var(--border)',
               textDecoration: 'none',
               color: 'inherit',
@@ -77,7 +77,7 @@ export function RecentPosts({ posts }: RecentPostsProps) {
                 fontFamily: 'var(--font-mono)',
                 fontSize: 'var(--text-meta)',
                 color: 'var(--fg-3)',
-                paddingTop: '4px',
+                paddingTop: 'var(--space-2)',
                 textAlign: 'right',
                 letterSpacing: '0.02em',
               }}
@@ -91,8 +91,8 @@ export function RecentPosts({ posts }: RecentPostsProps) {
                   fontSize: 'var(--text-card)',
                   color: 'var(--fg)',
                   lineHeight: 'var(--leading-card)',
-                  marginBottom: '7px',
-                  margin: '0 0 7px',
+                  marginBottom: 'var(--space-4)',
+                  margin: '0 0 var(--space-4)',
                 }}
               >
                 {post.title}
@@ -116,10 +116,10 @@ export function RecentPosts({ posts }: RecentPostsProps) {
                   letterSpacing: '0.04em',
                   background: 'var(--acc-a)',
                   color: 'var(--accent)',
-                  padding: '4px 10px',
-                  borderRadius: '100px',
+                  padding: 'var(--space-2) var(--space-6)',
+                  borderRadius: 'var(--radius-pill)',
                   whiteSpace: 'nowrap',
-                  marginTop: '3px',
+                  marginTop: 'var(--space-1)',
                 }}
               >
                 {post.tags[0]}

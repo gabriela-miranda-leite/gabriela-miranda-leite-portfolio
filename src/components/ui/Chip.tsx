@@ -7,15 +7,22 @@ interface ChipProps {
   className?: string;
 }
 
+const chipStyle = (selected: boolean): React.CSSProperties => ({
+  display: 'inline-flex',
+  alignItems: 'center',
+  padding: 'var(--space-2) var(--space-7)',
+  borderRadius: 'var(--radius-pill)',
+  fontFamily: 'var(--font-mono)',
+  fontSize: 'var(--text-chip)',
+  textTransform: 'uppercase',
+  letterSpacing: '0.08em',
+  background: selected ? 'var(--acc-a)' : 'transparent',
+  color: selected ? 'var(--accent)' : 'var(--fg-2)',
+  border: selected ? '1px solid var(--accent)' : '1px solid var(--border)',
+});
+
 export function Chip({ label, selected = false, onClick, className = '' }: ChipProps) {
   const interactive = Boolean(onClick);
-
-  const base =
-    'inline-flex items-center px-3 py-1 rounded-full font-mono uppercase tracking-widest transition-colors';
-
-  const style = selected
-    ? 'bg-[var(--acc-a)] text-[var(--accent)] border border-[var(--accent)]'
-    : 'bg-transparent text-[var(--fg-2)] border border-[var(--border)] hover:border-[var(--fg-2)]';
 
   if (interactive) {
     return (
@@ -23,8 +30,8 @@ export function Chip({ label, selected = false, onClick, className = '' }: ChipP
         type="button"
         aria-pressed={selected}
         onClick={onClick}
-        className={`${base} ${style} cursor-pointer focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--accent)] ${className}`}
-        style={{ fontSize: 'var(--text-chip)' }}
+        className={className}
+        style={{ ...chipStyle(selected), cursor: 'pointer' }}
       >
         {label}
       </button>
@@ -32,7 +39,7 @@ export function Chip({ label, selected = false, onClick, className = '' }: ChipP
   }
 
   return (
-    <span className={`${base} ${style} ${className}`} style={{ fontSize: 'var(--text-chip)' }}>
+    <span className={className} style={chipStyle(selected)}>
       {label}
     </span>
   );

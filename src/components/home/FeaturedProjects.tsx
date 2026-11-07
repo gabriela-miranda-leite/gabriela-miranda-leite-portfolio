@@ -16,7 +16,7 @@ export function FeaturedProjects({ repos }: FeaturedProjectsProps) {
   return (
     <section
       aria-labelledby="projects-heading"
-      style={{ paddingTop: '80px', paddingBottom: '80px' }}
+      style={{ paddingTop: 'var(--space-18)', paddingBottom: 'var(--space-18)' }}
     >
       <Container>
         <div
@@ -24,9 +24,9 @@ export function FeaturedProjects({ repos }: FeaturedProjectsProps) {
             display: 'flex',
             alignItems: 'baseline',
             justifyContent: 'space-between',
-            gap: '16px',
+            gap: 'var(--space-10)',
             flexWrap: 'wrap',
-            marginBottom: '40px',
+            marginBottom: 'var(--space-16)',
           }}
         >
           <h2
@@ -62,7 +62,7 @@ export function FeaturedProjects({ repos }: FeaturedProjectsProps) {
           style={{
             display: 'grid',
             gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))',
-            gap: '16px',
+            gap: 'var(--space-10)',
           }}
         >
           {repos.map((repo) => (
@@ -75,11 +75,11 @@ export function FeaturedProjects({ repos }: FeaturedProjectsProps) {
               style={{
                 background: 'var(--bg-s)',
                 border: '1px solid var(--border)',
-                borderRadius: '14px',
-                padding: '28px',
+                borderRadius: 'var(--radius-xl)',
+                padding: 'var(--space-14)',
                 display: 'flex',
                 flexDirection: 'column',
-                gap: '16px',
+                gap: 'var(--space-10)',
                 textDecoration: 'none',
                 color: 'inherit',
               }}
@@ -88,11 +88,11 @@ export function FeaturedProjects({ repos }: FeaturedProjectsProps) {
               <div
                 aria-hidden="true"
                 style={{
-                  width: '44px',
-                  height: '44px',
+                  width: 'var(--space-17)',
+                  height: 'var(--space-17)',
                   background: 'var(--bg-e)',
                   border: '1px solid var(--border)',
-                  borderRadius: '10px',
+                  borderRadius: 'var(--radius-lg)',
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
@@ -108,8 +108,8 @@ export function FeaturedProjects({ repos }: FeaturedProjectsProps) {
                     fontWeight: 700,
                     fontSize: 'var(--text-card)',
                     color: 'var(--fg)',
-                    marginBottom: '8px',
-                    margin: '0 0 8px',
+                    marginBottom: 'var(--space-5)',
+                    margin: '0 0 var(--space-5)',
                     fontFamily: 'var(--font-sans)',
                   }}
                 >
@@ -134,7 +134,7 @@ export function FeaturedProjects({ repos }: FeaturedProjectsProps) {
                 <div
                   style={{
                     display: 'flex',
-                    gap: '6px',
+                    gap: 'var(--space-3)',
                     flexWrap: 'wrap',
                     marginTop: 'auto',
                   }}
@@ -147,8 +147,8 @@ export function FeaturedProjects({ repos }: FeaturedProjectsProps) {
                         color: 'var(--fg-2)',
                         background: 'var(--bg)',
                         border: '1px solid var(--border)',
-                        padding: '3px 8px',
-                        borderRadius: '5px',
+                        padding: 'var(--space-1) var(--space-5)',
+                        borderRadius: 'var(--radius-sm)',
                       }}
                     >
                       {repo.language}
@@ -163,8 +163,8 @@ export function FeaturedProjects({ repos }: FeaturedProjectsProps) {
                         color: 'var(--fg-2)',
                         background: 'var(--bg)',
                         border: '1px solid var(--border)',
-                        padding: '3px 8px',
-                        borderRadius: '5px',
+                        padding: 'var(--space-1) var(--space-5)',
+                        borderRadius: 'var(--radius-sm)',
                       }}
                     >
                       {topic}

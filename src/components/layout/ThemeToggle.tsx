@@ -34,15 +34,15 @@ export function ThemeToggle() {
         background: 'var(--bg-s)',
         border: '1px solid var(--border)',
         color: 'var(--fg-2)',
-        padding: '7px 15px',
-        borderRadius: '100px',
-        fontSize: '12px',
+        padding: 'var(--space-4) var(--space-9)',
+        borderRadius: 'var(--radius-pill)',
+        fontSize: 'var(--text-eyebrow)',
         fontFamily: 'var(--font-mono)',
         whiteSpace: 'nowrap',
         cursor: 'pointer',
         display: 'flex',
         alignItems: 'center',
-        gap: '5px',
+        gap: 'var(--space-3)',
       }}
     >
       <CircleHalf size={13} aria-hidden="true" focusable="false" />

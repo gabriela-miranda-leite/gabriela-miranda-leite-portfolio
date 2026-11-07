@@ -16,13 +16,13 @@ export function Hero() {
           style={{
             display: 'flex',
             alignItems: 'center',
-            gap: '10px',
+            gap: 'var(--space-6)',
             fontFamily: 'var(--font-mono)',
             fontSize: 'var(--text-meta)',
             color: 'var(--accent)',
             letterSpacing: '0.10em',
             textTransform: 'uppercase',
-            marginBottom: '28px',
+            marginBottom: 'var(--space-14)',
           }}
         >
           <span
@@ -41,7 +41,7 @@ export function Hero() {
             letterSpacing: '-0.025em',
             lineHeight: 0.91,
             fontOpticalSizing: 'auto',
-            margin: '0 0 28px',
+            margin: `0 0 var(--space-14)`,
           }}
         >
           <span
@@ -80,7 +80,7 @@ export function Hero() {
         </p>
 
         {/* CTAs */}
-        <div style={{ display: 'flex', gap: '12px', alignItems: 'center', flexWrap: 'wrap' }}>
+        <div style={{ display: 'flex', gap: 'var(--space-7)', alignItems: 'center', flexWrap: 'wrap' }}>
           <Link
             href="/projects"
             style={{
@@ -88,8 +88,8 @@ export function Hero() {
               color: 'var(--bg)',
               fontWeight: 600,
               fontSize: 'var(--text-sm)',
-              padding: '12px 24px',
-              borderRadius: '100px',
+              padding: 'var(--space-7) var(--space-13)',
+              borderRadius: 'var(--radius-pill)',
               textDecoration: 'none',
               fontFamily: 'var(--font-sans)',
               display: 'inline-block',
@@ -104,8 +104,8 @@ export function Hero() {
               color: 'var(--fg-2)',
               fontWeight: 600,
               fontSize: 'var(--text-sm)',
-              padding: '11px 24px',
-              borderRadius: '100px',
+              padding: '11px var(--space-13)',
+              borderRadius: 'var(--radius-pill)',
               textDecoration: 'none',
               fontFamily: 'var(--font-sans)',
               display: 'inline-block',
