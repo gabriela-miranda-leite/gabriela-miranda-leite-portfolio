@@ -78,6 +78,32 @@
   --border:  #232320;
 }
 
+/* Expose font + typography tokens as :root custom properties (Tailwind v4
+   keeps @theme vars internal — browsers don't see them without this block) */
+:root {
+  --font-sans:  'Plus Jakarta Sans', sans-serif;
+  --font-serif: Fraunces, serif;
+  --font-mono:  'JetBrains Mono', monospace;
+
+  --text-hero:    88px;
+  --text-title:   52px;
+  --text-section: 30px;
+  --text-logo:    17px;
+  --text-lede:    19px;
+  --text-body:    16.5px;
+  --text-card:    15px;
+  --text-sm:      14px;
+  --text-eyebrow: 13px;
+  --text-meta:    11px;
+  --text-chip:    10px;
+
+  --leading-tight:   0.93;
+  --leading-heading: 1.08;
+  --leading-body:    1.65;
+  --leading-lede:    1.7;
+  --leading-sm:      1.6;
+}
+
 body {
   background: var(--bg);
   color: var(--fg);

@@ -7,6 +7,17 @@ jest.mock('next-intl', () => ({
   useLocale: () => 'pt',
 }));
 
+// ThemeToggle uses localStorage and matchMedia
+Object.defineProperty(window, 'matchMedia', {
+  writable: true,
+  value: jest.fn().mockImplementation((query: string) => ({
+    matches: false,
+    media: query,
+    addEventListener: jest.fn(),
+    removeEventListener: jest.fn(),
+  })),
+});
+
 jest.mock('@/i18n/navigation', () => ({
   Link: ({ href, children, ...props }: { href: string; children: React.ReactNode; [k: string]: unknown }) => (
     <a href={href} {...(props as object)}>{children}</a>

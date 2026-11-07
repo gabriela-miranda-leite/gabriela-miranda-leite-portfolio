@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { useTranslations } from 'next-intl';
 import { Link, usePathname } from '@/i18n/navigation';
 import { LangSwitch } from './LangSwitch';
+import { ThemeToggle } from './ThemeToggle';
 import { Container } from './Container';
 
 const NAV_LINKS = [
@@ -85,6 +86,9 @@ export function Nav() {
                 );
               })}
               <li className="nav-desktop-item" style={{ display: 'none' }}>
+                <ThemeToggle />
+              </li>
+              <li className="nav-desktop-item" style={{ display: 'none' }}>
                 <LangSwitch />
               </li>
             </ul>
@@ -166,7 +170,8 @@ export function Nav() {
                     </li>
                   );
                 })}
-                <li style={{ paddingTop: '0.5rem' }}>
+                <li style={{ paddingTop: '0.5rem', display: 'flex', gap: '0.5rem' }}>
+                  <ThemeToggle />
                   <LangSwitch />
                 </li>
               </ul>
