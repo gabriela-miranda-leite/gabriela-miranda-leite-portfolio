@@ -50,7 +50,7 @@ export default async function BlogPage({ params }: PageProps) {
   return (
     <main
       id="main-content"
-      style={{ paddingTop: 'var(--space-18)', paddingBottom: 'var(--space-18)' }}
+      style={{ paddingTop: 'clamp(2.5rem, 8vw, var(--space-18))', paddingBottom: 'clamp(2.5rem, 8vw, var(--space-18))' }}
     >
       <Container>
         {/* Page heading */}

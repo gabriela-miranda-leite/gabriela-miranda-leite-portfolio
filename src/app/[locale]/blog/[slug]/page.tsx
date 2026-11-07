@@ -93,7 +93,7 @@ export default async function PostPage({ params }: PageProps) {
       />
       <main
         id="main-content"
-        style={{ paddingTop: 'var(--space-18)', paddingBottom: 'var(--space-18)' }}
+        style={{ paddingTop: 'clamp(2.5rem, 8vw, var(--space-18))', paddingBottom: 'clamp(2.5rem, 8vw, var(--space-18))' }}
       >
         <Container>
           <div style={{ maxWidth: '72ch' }}>

@@ -56,10 +56,17 @@ export function RecentPosts({ posts }: RecentPostsProps) {
           </Link>
         </div>
 
+        <style>{`
+          @media (max-width: 639px) {
+            .post-row { grid-template-columns: 1fr auto !important; }
+            .post-row-num { display: none !important; }
+          }
+        `}</style>
         {posts.map((post, i) => (
           <Link
             key={post.slug}
             href={`/blog/${post.slug}`}
+            className="post-row"
             style={{
               display: 'grid',
               gridTemplateColumns: '40px 1fr auto',
@@ -73,6 +80,7 @@ export function RecentPosts({ posts }: RecentPostsProps) {
           >
             <span
               aria-hidden="true"
+              className="post-row-num"
               style={{
                 fontFamily: 'var(--font-mono)',
                 fontSize: 'var(--text-meta)',

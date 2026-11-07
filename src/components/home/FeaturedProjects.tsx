@@ -58,7 +58,16 @@ export function FeaturedProjects({ repos }: FeaturedProjectsProps) {
           </Link>
         </div>
 
+        <style>{`
+          @media (max-width: 639px) {
+            .project-grid { grid-template-columns: 1fr !important; }
+            .project-card { flex-direction: row !important; align-items: flex-start !important; }
+            .project-card-icon { flex-shrink: 0; }
+            .project-card-body { flex: 1; min-width: 0; }
+          }
+        `}</style>
         <div
+          className="project-grid"
           style={{
             display: 'grid',
             gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))',
@@ -72,6 +81,7 @@ export function FeaturedProjects({ repos }: FeaturedProjectsProps) {
               target="_blank"
               rel="noopener noreferrer"
               aria-label={`${repo.name} — abre no GitHub`}
+              className="project-card"
               style={{
                 background: 'var(--bg-s)',
                 border: '1px solid var(--border)',
@@ -87,6 +97,7 @@ export function FeaturedProjects({ repos }: FeaturedProjectsProps) {
               {/* repo icon */}
               <div
                 aria-hidden="true"
+                className="project-card-icon"
                 style={{
                   width: 'var(--space-17)',
                   height: 'var(--space-17)',
@@ -102,7 +113,7 @@ export function FeaturedProjects({ repos }: FeaturedProjectsProps) {
                 <Code size={20} color="var(--fg-2)" aria-hidden="true" />
               </div>
 
-              <div style={{ flex: 1 }}>
+              <div className="project-card-body" style={{ flex: 1 }}>
                 <p
                   style={{
                     fontWeight: 700,
