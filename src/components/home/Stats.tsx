@@ -60,6 +60,8 @@ export function Stats() {
                   color: 'var(--fg-2)',
                   letterSpacing: '0.05em',
                   textTransform: 'uppercase',
+                  overflowWrap: 'break-word',
+                  wordBreak: 'break-word',
                 }}
               >
                 {t(key)}
