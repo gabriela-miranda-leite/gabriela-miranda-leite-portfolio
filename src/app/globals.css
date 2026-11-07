@@ -215,6 +215,8 @@
 /* Post nav — stack to single column on mobile */
 @media (max-width: 639px) {
   .post-nav { grid-template-columns: 1fr !important; }
+  /* Meta row: author block takes full row, date+time follow on next line */
+  .meta-author { flex: 1 0 100%; }
 }
 
 /* Post row list — hide index number on mobile */
@@ -236,6 +238,7 @@ body {
   color: var(--fg);
   font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
+  overflow-x: clip; /* prevents horizontal scroll without breaking sticky nav */
 }
 
 /* Accessible focus */

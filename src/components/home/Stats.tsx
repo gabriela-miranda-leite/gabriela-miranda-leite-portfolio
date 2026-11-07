@@ -31,6 +31,7 @@ export function Stats() {
               key={key}
               style={{
                 flex: 1,
+                minWidth: 0,
                 display: 'flex',
                 flexDirection: 'column',
                 gap: 'var(--space-3)',

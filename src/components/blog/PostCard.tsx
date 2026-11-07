@@ -104,7 +104,7 @@ export function PostCard({ post }: PostCardProps) {
         {post.readingTime && (
           <>
             <span aria-hidden="true">·</span>
-            <span>{t('reading_time', { minutes: post.readingTime })}</span>
+            <span style={{ whiteSpace: 'nowrap' }}>{t('reading_time', { minutes: post.readingTime })}</span>
           </>
         )}
       </div>

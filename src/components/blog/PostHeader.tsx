@@ -83,7 +83,7 @@ export function PostHeader({ post }: PostHeaderProps) {
         }}
       >
         {/* Author */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-6)' }}>
+        <div className="meta-author" style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-6)' }}>
           <div
             aria-hidden="true"
             style={{
