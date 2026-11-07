@@ -1,12 +1,12 @@
 export function blogPostingJsonLd({
   title,
-  excerpt,
+  description,
   date,
   slug,
   locale,
 }: {
   title: string;
-  excerpt: string;
+  description: string;
   date: string;
   slug: string;
   locale: string;
@@ -19,7 +19,7 @@ export function blogPostingJsonLd({
     '@context': 'https://schema.org',
     '@type': 'BlogPosting',
     headline: title,
-    description: excerpt,
+    description,
     datePublished: date,
     url,
     inLanguage: locale === 'pt' ? 'pt-BR' : 'en',

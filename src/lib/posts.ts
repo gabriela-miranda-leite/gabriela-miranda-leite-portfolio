@@ -1,7 +1,9 @@
 import fs from 'fs';
 import path from 'path';
 import matter from 'gray-matter';
-import type { Post } from '@/types/post';
+import { compileMDX } from 'next-mdx-remote/rsc';
+import type { Post, PostFrontmatter } from '@/types/post';
+import { mdxComponents } from '@/lib/mdx-components';
 
 const POSTS_DIR = path.join(process.cwd(), 'src/content/posts');
 
@@ -17,25 +19,31 @@ export function getAllPosts(locale: 'pt' | 'en' = 'pt'): Post[] {
       const slug = file.replace(`.${locale}.mdx`, '');
       const raw = fs.readFileSync(path.join(POSTS_DIR, file), 'utf-8');
       const { data } = matter(raw);
-      return { slug, locale, ...data } as Post;
+      const fm = data as PostFrontmatter;
+      return { ...fm, slug, locale };
     })
     .sort((a, b) => (a.date > b.date ? -1 : 1));
 }
 
-export function getPost(slug: string, locale: 'pt' | 'en' = 'pt') {
+export async function getPostBySlug(
+  slug: string,
+  locale: 'pt' | 'en' = 'pt'
+): Promise<{ post: Post; content: React.ReactElement; isFallback: boolean } | null> {
   const filePath = path.join(POSTS_DIR, `${slug}.${locale}.mdx`);
   const fallbackPath = path.join(POSTS_DIR, `${slug}.pt.mdx`);
 
-  const usedPath = fs.existsSync(filePath) ? filePath : fallbackPath;
+  const isFallback = !fs.existsSync(filePath);
+  const usedPath = isFallback ? fallbackPath : filePath;
   if (!fs.existsSync(usedPath)) return null;
 
   const raw = fs.readFileSync(usedPath, 'utf-8');
-  const { data, content } = matter(raw);
-  return {
-    slug,
-    locale,
-    isFallback: !fs.existsSync(filePath),
-    content,
-    ...data,
-  } as Post & { content: string; isFallback: boolean };
+
+  const { content, frontmatter } = await compileMDX<PostFrontmatter>({
+    source: raw,
+    components: mdxComponents,
+    options: { parseFrontmatter: true },
+  });
+
+  const post: Post = { ...frontmatter, slug, locale };
+  return { post, content, isFallback };
 }

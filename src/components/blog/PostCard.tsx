@@ -64,8 +64,7 @@ export function PostCard({ post }: PostCardProps) {
         {post.title}
       </p>
 
-      {/* Excerpt */}
-      {post.excerpt && (
+      {post.description && (
         <p
           style={{
             fontFamily: 'var(--font-sans)',
@@ -75,7 +74,7 @@ export function PostCard({ post }: PostCardProps) {
             margin: 0,
           }}
         >
-          {post.excerpt}
+          {post.description}
         </p>
       )}
 
