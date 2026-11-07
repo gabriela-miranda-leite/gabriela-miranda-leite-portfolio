@@ -16,6 +16,11 @@ describe('Button', () => {
     expect(screen.getByRole('button', { name: 'Ghost' })).toBeInTheDocument();
   });
 
+  it('renders pill variant', () => {
+    render(<Button variant="pill">◐ tema</Button>);
+    expect(screen.getByRole('button', { name: '◐ tema' })).toBeInTheDocument();
+  });
+
   it('is disabled when disabled prop is set', () => {
     render(<Button disabled>Disabled</Button>);
     expect(screen.getByRole('button')).toBeDisabled();
@@ -29,6 +34,12 @@ describe('Button', () => {
 
   it('ghost: has no accessibility violations', async () => {
     const { container } = render(<Button variant="ghost">Ghost</Button>);
+    const results = await axe(container);
+    expect(results).toHaveNoViolations();
+  });
+
+  it('pill: has no accessibility violations', async () => {
+    const { container } = render(<Button variant="pill">◐ tema</Button>);
     const results = await axe(container);
     expect(results).toHaveNoViolations();
   });

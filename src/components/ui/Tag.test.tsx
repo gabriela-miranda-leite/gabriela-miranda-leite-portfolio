@@ -7,10 +7,15 @@ import { Tag } from './Tag';
 expect.extend(toHaveNoViolations);
 
 describe('Tag', () => {
-  it('renders as span when no onClick', () => {
+  it('renders tech variant (default) as span', () => {
     render(<Tag label="design" />);
     expect(screen.getByText('design')).toBeInTheDocument();
     expect(screen.queryByRole('button')).not.toBeInTheDocument();
+  });
+
+  it('renders pill variant as span', () => {
+    render(<Tag label="componentes" variant="pill" />);
+    expect(screen.getByText('componentes')).toBeInTheDocument();
   });
 
   it('renders as button with aria-pressed when interactive', () => {
@@ -31,14 +36,26 @@ describe('Tag', () => {
     expect(handler).toHaveBeenCalledTimes(1);
   });
 
-  it('static: has no accessibility violations', async () => {
-    const { container } = render(<Tag label="nextjs" />);
+  it('tech static: has no accessibility violations', async () => {
+    const { container } = render(<Tag label="nextjs" variant="tech" />);
     const results = await axe(container);
     expect(results).toHaveNoViolations();
   });
 
-  it('interactive: has no accessibility violations', async () => {
-    const { container } = render(<Tag label="nextjs" onClick={() => {}} />);
+  it('pill static: has no accessibility violations', async () => {
+    const { container } = render(<Tag label="nextjs" variant="pill" />);
+    const results = await axe(container);
+    expect(results).toHaveNoViolations();
+  });
+
+  it('tech interactive: has no accessibility violations', async () => {
+    const { container } = render(<Tag label="nextjs" variant="tech" onClick={() => {}} />);
+    const results = await axe(container);
+    expect(results).toHaveNoViolations();
+  });
+
+  it('pill interactive: has no accessibility violations', async () => {
+    const { container } = render(<Tag label="nextjs" variant="pill" onClick={() => {}} />);
     const results = await axe(container);
     expect(results).toHaveNoViolations();
   });
