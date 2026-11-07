@@ -28,15 +28,16 @@ export function Nav() {
       }}
     >
       <Container>
+        {/* 3-column grid: logo | links (center) | controls */}
         <div
           style={{
-            display: 'flex',
+            display: 'grid',
+            gridTemplateColumns: '1fr auto 1fr',
             alignItems: 'center',
-            justifyContent: 'space-between',
             height: '56px',
           }}
         >
-          {/* Logo */}
+          {/* Col 1 — Logo */}
           <Link
             href="/"
             aria-label="Gabi Miranda — início"
@@ -48,13 +49,14 @@ export function Nav() {
               color: 'var(--fg)',
               textDecoration: 'none',
               letterSpacing: '-0.01em',
+              justifySelf: 'start',
             }}
           >
             Gabi Miranda
           </Link>
 
-          {/* Desktop nav */}
-          <nav aria-label={t('ariaLabel')}>
+          {/* Col 2 — Nav links (desktop, centered) */}
+          <nav aria-label={t('ariaLabel')} className="nav-desktop-links">
             <ul
               style={{
                 display: 'flex',
@@ -68,7 +70,7 @@ export function Nav() {
               {NAV_LINKS.map(({ href, key }) => {
                 const isActive = pathname === href || pathname.startsWith(href + '/');
                 return (
-                  <li key={key} style={{ display: 'none' }} className="nav-desktop-item">
+                  <li key={key}>
                     <Link
                       href={href}
                       aria-current={isActive ? 'page' : undefined}
@@ -85,14 +87,15 @@ export function Nav() {
                   </li>
                 );
               })}
-              <li className="nav-desktop-item" style={{ display: 'none' }}>
-                <ThemeToggle />
-              </li>
-              <li className="nav-desktop-item" style={{ display: 'none' }}>
-                <LangSwitch />
-              </li>
             </ul>
           </nav>
+
+          {/* Col 3 — Controls (desktop) + mobile hamburger */}
+          <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', justifySelf: 'end' }}>
+            <div className="nav-desktop-controls" style={{ display: 'none', alignItems: 'center', gap: '0.75rem' }}>
+              <ThemeToggle />
+              <LangSwitch />
+            </div>
 
           {/* Mobile menu button */}
           <button
@@ -122,6 +125,7 @@ export function Nav() {
               </svg>
             )}
           </button>
+          </div>
         </div>
       </Container>
 
@@ -182,12 +186,14 @@ export function Nav() {
 
       <style>{`
         @media (min-width: 640px) {
-          .nav-desktop-item { display: list-item !important; }
+          .nav-desktop-links { display: block !important; }
+          .nav-desktop-controls { display: flex !important; }
           .nav-mobile-btn { display: none !important; }
           .nav-mobile-menu { display: none !important; }
         }
         @media (max-width: 639px) {
-          .nav-desktop-item { display: none !important; }
+          .nav-desktop-links { display: none !important; }
+          .nav-desktop-controls { display: none !important; }
         }
       `}</style>
     </header>
