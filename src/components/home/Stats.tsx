@@ -55,7 +55,7 @@ export function Stats() {
               <dt
                 style={{
                   fontFamily: 'var(--font-mono)',
-                  fontSize: '11px',
+                  fontSize: 'var(--text-meta)',
                   color: 'var(--fg-2)',
                   letterSpacing: '0.05em',
                   textTransform: 'uppercase',

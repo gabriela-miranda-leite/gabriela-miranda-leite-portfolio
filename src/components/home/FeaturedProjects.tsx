@@ -34,7 +34,7 @@ export function FeaturedProjects({ repos }: FeaturedProjectsProps) {
             style={{
               fontFamily: 'var(--font-serif)',
               fontStyle: 'italic',
-              fontSize: '30px',
+              fontSize: 'var(--text-section)',
               fontWeight: 400,
               color: 'var(--fg)',
               margin: 0,
@@ -46,7 +46,7 @@ export function FeaturedProjects({ repos }: FeaturedProjectsProps) {
             href="/projects"
             style={{
               fontFamily: 'var(--font-mono)',
-              fontSize: '11px',
+              fontSize: 'var(--text-meta)',
               color: 'var(--accent)',
               letterSpacing: '0.06em',
               textTransform: 'uppercase',
@@ -118,9 +118,9 @@ export function FeaturedProjects({ repos }: FeaturedProjectsProps) {
                 {repo.description && (
                   <p
                     style={{
-                      fontSize: '14px',
+                      fontSize: 'var(--text-sm)',
                       color: 'var(--fg-2)',
-                      lineHeight: 1.6,
+                      lineHeight: 'var(--leading-sm)',
                       margin: 0,
                       fontFamily: 'var(--font-sans)',
                     }}
@@ -143,7 +143,7 @@ export function FeaturedProjects({ repos }: FeaturedProjectsProps) {
                     <span
                       style={{
                         fontFamily: 'var(--font-mono)',
-                        fontSize: '10px',
+                        fontSize: 'var(--text-chip)',
                         color: 'var(--fg-2)',
                         background: 'var(--bg)',
                         border: '1px solid var(--border)',
@@ -159,7 +159,7 @@ export function FeaturedProjects({ repos }: FeaturedProjectsProps) {
                       key={topic}
                       style={{
                         fontFamily: 'var(--font-mono)',
-                        fontSize: '10px',
+                        fontSize: 'var(--text-chip)',
                         color: 'var(--fg-2)',
                         background: 'var(--bg)',
                         border: '1px solid var(--border)',

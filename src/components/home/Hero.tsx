@@ -69,8 +69,8 @@ export function Hero() {
         <p
           style={{
             fontFamily: 'var(--font-sans)',
-            fontSize: '17px',
-            lineHeight: 1.7,
+            fontSize: 'var(--text-logo)',
+            lineHeight: 'var(--leading-lede)',
             color: 'var(--fg-2)',
             maxWidth: '480px',
             margin: '0 0 2rem',
@@ -87,7 +87,7 @@ export function Hero() {
               background: 'var(--accent)',
               color: 'var(--bg)',
               fontWeight: 600,
-              fontSize: '14px',
+              fontSize: 'var(--text-sm)',
               padding: '12px 24px',
               borderRadius: '100px',
               textDecoration: 'none',
@@ -103,7 +103,7 @@ export function Hero() {
               border: '1px solid var(--border)',
               color: 'var(--fg-2)',
               fontWeight: 600,
-              fontSize: '14px',
+              fontSize: 'var(--text-sm)',
               padding: '11px 24px',
               borderRadius: '100px',
               textDecoration: 'none',

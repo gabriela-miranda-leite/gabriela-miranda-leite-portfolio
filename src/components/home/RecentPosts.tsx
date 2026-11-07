@@ -31,7 +31,7 @@ export function RecentPosts({ posts }: RecentPostsProps) {
             style={{
               fontFamily: 'var(--font-serif)',
               fontStyle: 'italic',
-              fontSize: '30px',
+              fontSize: 'var(--text-section)',
               fontWeight: 400,
               lineHeight: 'var(--leading-heading)',
               color: 'var(--fg)',
@@ -44,7 +44,7 @@ export function RecentPosts({ posts }: RecentPostsProps) {
             href="/blog"
             style={{
               fontFamily: 'var(--font-mono)',
-              fontSize: '11px',
+              fontSize: 'var(--text-meta)',
               color: 'var(--accent)',
               letterSpacing: '0.06em',
               textTransform: 'uppercase',
@@ -75,7 +75,7 @@ export function RecentPosts({ posts }: RecentPostsProps) {
               aria-hidden="true"
               style={{
                 fontFamily: 'var(--font-mono)',
-                fontSize: '11px',
+                fontSize: 'var(--text-meta)',
                 color: 'var(--fg-3)',
                 paddingTop: '4px',
                 textAlign: 'right',
@@ -99,9 +99,9 @@ export function RecentPosts({ posts }: RecentPostsProps) {
               </p>
               <p
                 style={{
-                  fontSize: '14px',
+                  fontSize: 'var(--text-sm)',
                   color: 'var(--fg-2)',
-                  lineHeight: 1.6,
+                  lineHeight: 'var(--leading-sm)',
                   margin: 0,
                 }}
               >
@@ -112,7 +112,7 @@ export function RecentPosts({ posts }: RecentPostsProps) {
               <span
                 style={{
                   fontFamily: 'var(--font-mono)',
-                  fontSize: '10px',
+                  fontSize: 'var(--text-chip)',
                   letterSpacing: '0.04em',
                   background: 'var(--acc-a)',
                   color: 'var(--accent)',
