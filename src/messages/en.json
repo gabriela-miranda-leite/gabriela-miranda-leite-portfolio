@@ -40,7 +40,16 @@
     "reading_time": "{minutes} min read",
     "prev": "← Previous",
     "next": "Next →",
-    "translation_pending": "Translation coming soon"
+    "translation_pending": "Translation coming soon",
+    "listing": {
+      "title": "Blog",
+      "description": "Writing about design systems, accessibility and frontend development.",
+      "meta_title": "Blog — Gabi Miranda",
+      "filter_label": "Filter by tag",
+      "all": "All",
+      "no_results": "No posts found for this tag.",
+      "read_more": "Read post"
+    }
   },
   "projects": {
     "repos": "Repositories"
