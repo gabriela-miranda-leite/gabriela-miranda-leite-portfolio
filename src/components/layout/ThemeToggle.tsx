@@ -55,10 +55,12 @@ export function ThemeToggle() {
         cursor: 'pointer',
         display: 'flex',
         alignItems: 'center',
-        gap: '4px',
+        gap: '5px',
+        letterSpacing: '0.03em',
       }}
     >
       {theme === 'dark' ? <SunIcon /> : <MoonIcon />}
+      <span aria-hidden="true">{t('theme')}</span>
     </button>
   );
 }

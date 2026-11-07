@@ -43,12 +43,14 @@ export function Nav() {
             style={{
               fontFamily: 'var(--font-serif)',
               fontSize: 'var(--text-logo)',
+              fontWeight: 700,
+              fontStyle: 'italic',
               color: 'var(--fg)',
               textDecoration: 'none',
               letterSpacing: '-0.01em',
             }}
           >
-            gabi<span style={{ color: 'var(--accent)' }}>.</span>
+            Gabi Miranda
           </Link>
 
           {/* Desktop nav */}
@@ -72,12 +74,10 @@ export function Nav() {
                       aria-current={isActive ? 'page' : undefined}
                       style={{
                         fontFamily: 'var(--font-sans)',
-                        fontSize: 'var(--text-meta)',
+                        fontSize: 'var(--text-sm)',
                         fontWeight: isActive ? 600 : 400,
                         color: isActive ? 'var(--fg)' : 'var(--fg-2)',
                         textDecoration: 'none',
-                        letterSpacing: '0.04em',
-                        textTransform: 'uppercase',
                       }}
                     >
                       {t(key)}
