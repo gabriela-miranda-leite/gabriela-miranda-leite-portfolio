@@ -18,14 +18,15 @@
   --font-mono:  'JetBrains Mono', monospace;
 
   /* Typography — scale */
-  --text-hero:    88px;   /* Fraunces · hero name */
+  --text-hero:    116px;  /* Fraunces · hero name */
   --text-title:   52px;   /* Fraunces · post titles */
+  --text-stat:    44px;   /* Fraunces · stats numbers */
   --text-section: 30px;   /* Fraunces · section headings */
   --text-logo:    17px;   /* Fraunces · logo/wordmark */
 
   --text-lede:    19px;   /* Jakarta · post lede */
   --text-body:    16.5px; /* Jakarta · body copy */
-  --text-card:    15px;   /* Jakarta · card titles (600) */
+  --text-card:    16px;   /* Jakarta · card titles (600) */
   --text-sm:      14px;   /* Jakarta · secondary text */
   --text-eyebrow: 13px;   /* Jakarta · eyebrow labels */
   --text-meta:    11px;   /* Jakarta/Mono · nav, metadata */
@@ -34,9 +35,38 @@
   /* Typography — leading */
   --leading-tight:  0.93;
   --leading-heading: 1.08;
+  --leading-card:    1.4;
   --leading-body:    1.65;
   --leading-lede:    1.7;
   --leading-sm:      1.6;
+
+  /* Spacing */
+  --space-1:  3px;
+  --space-2:  4px;
+  --space-3:  6px;
+  --space-4:  7px;
+  --space-5:  8px;
+  --space-6:  10px;
+  --space-7:  12px;
+  --space-8:  13px;
+  --space-9:  15px;
+  --space-10: 16px;
+  --space-11: 18px;
+  --space-12: 20px;
+  --space-13: 24px;
+  --space-14: 28px;
+  --space-15: 36px;
+  --space-16: 40px;
+  --space-17: 44px;
+  --space-18: 80px;
+  --space-19: 88px;
+
+  /* Radius */
+  --radius-sm:   5px;
+  --radius-md:   7px;
+  --radius-lg:   10px;
+  --radius-xl:   14px;
+  --radius-pill: 100px;
 }
 
 /* Light mode */
@@ -88,13 +118,14 @@
   --font-serif: Fraunces, serif;
   --font-mono:  'JetBrains Mono', monospace;
 
-  --text-hero:    88px;
+  --text-hero:    116px;
   --text-title:   52px;
+  --text-stat:    44px;
   --text-section: 30px;
   --text-logo:    17px;
   --text-lede:    19px;
   --text-body:    16.5px;
-  --text-card:    15px;
+  --text-card:    16px;
   --text-sm:      14px;
   --text-eyebrow: 13px;
   --text-meta:    11px;
@@ -102,9 +133,38 @@
 
   --leading-tight:   0.93;
   --leading-heading: 1.08;
+  --leading-card:    1.4;
   --leading-body:    1.65;
   --leading-lede:    1.7;
   --leading-sm:      1.6;
+
+  /* Spacing */
+  --space-1:  3px;
+  --space-2:  4px;
+  --space-3:  6px;
+  --space-4:  7px;
+  --space-5:  8px;
+  --space-6:  10px;
+  --space-7:  12px;
+  --space-8:  13px;
+  --space-9:  15px;
+  --space-10: 16px;
+  --space-11: 18px;
+  --space-12: 20px;
+  --space-13: 24px;
+  --space-14: 28px;
+  --space-15: 36px;
+  --space-16: 40px;
+  --space-17: 44px;
+  --space-18: 80px;
+  --space-19: 88px;
+
+  /* Radius */
+  --radius-sm:   5px;
+  --radius-md:   7px;
+  --radius-lg:   10px;
+  --radius-xl:   14px;
+  --radius-pill: 100px;
 }
 
 body {

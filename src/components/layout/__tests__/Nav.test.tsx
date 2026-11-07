@@ -30,19 +30,19 @@ import { Nav } from '../Nav';
 
 expect.extend(toHaveNoViolations);
 
-describe('Nav — renderização', () => {
-  it('renderiza nav com aria-label="principal"', () => {
+describe('Nav — rendering', () => {
+  it('renders nav with aria-label="principal"', () => {
     const { getAllByRole } = render(<Nav />);
     const navs = getAllByRole('navigation');
     expect(navs.some((n) => n.getAttribute('aria-label') === 'principal')).toBe(true);
   });
 
-  it('renderiza link do logo apontando para /', () => {
+  it('renders logo link pointing to /', () => {
     const { getByRole } = render(<Nav />);
     expect(getByRole('link', { name: /gabi miranda/i })).toHaveAttribute('href', '/');
   });
 
-  it('nenhum link tem aria-current="page" na rota /', () => {
+  it('no link has aria-current="page" on route /', () => {
     const { getAllByRole } = render(<Nav />);
     getAllByRole('link').forEach((l) => {
       expect(l).not.toHaveAttribute('aria-current', 'page');
@@ -51,34 +51,34 @@ describe('Nav — renderização', () => {
 });
 
 // Mock returns the i18n key as-is: t('openMenu') === 'openMenu', t('closeMenu') === 'closeMenu'
-describe('Nav — menu mobile', () => {
-  it('botão hamburger tem aria-expanded=false inicialmente', () => {
+describe('Nav — mobile menu', () => {
+  it('hamburger button has aria-expanded=false initially', () => {
     const { getByRole } = render(<Nav />);
     const btn = getByRole('button', { name: 'openMenu' });
     expect(btn).toHaveAttribute('aria-expanded', 'false');
   });
 
-  it('abre o menu ao clicar no hamburger', () => {
+  it('opens menu when hamburger is clicked', () => {
     const { getByRole } = render(<Nav />);
     fireEvent.click(getByRole('button', { name: 'openMenu' }));
     expect(getByRole('button', { name: 'closeMenu' })).toHaveAttribute('aria-expanded', 'true');
   });
 
-  it('fecha o menu ao clicar novamente', () => {
+  it('closes menu when clicked again', () => {
     const { getByRole } = render(<Nav />);
-    fireEvent.click(getByRole('button', { name: 'openMenu' })); // abre
-    fireEvent.click(getByRole('button', { name: 'closeMenu' })); // fecha
+    fireEvent.click(getByRole('button', { name: 'openMenu' }));
+    fireEvent.click(getByRole('button', { name: 'closeMenu' }));
     expect(getByRole('button', { name: 'openMenu' })).toHaveAttribute('aria-expanded', 'false');
   });
 });
 
-describe('Nav — acessibilidade', () => {
-  it('sem violações com menu fechado', async () => {
+describe('Nav — accessibility', () => {
+  it('has no violations with menu closed', async () => {
     const { container } = render(<Nav />);
     expect(await axe(container)).toHaveNoViolations();
   });
 
-  it('sem violações com menu aberto', async () => {
+  it('has no violations with menu open', async () => {
     const { container, getByRole } = render(<Nav />);
     fireEvent.click(getByRole('button', { name: 'openMenu' }));
     expect(await axe(container)).toHaveNoViolations();

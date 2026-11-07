@@ -8,8 +8,8 @@ export function Footer() {
       aria-label={t('ariaLabel')}
       style={{
         borderTop: '1px solid var(--border)',
-        marginTop: '88px',
-        padding: '40px 24px',
+        marginTop: 'var(--space-19)',
+        padding: 'var(--space-16) var(--space-13)',
       }}
     >
       <div
@@ -20,7 +20,7 @@ export function Footer() {
           alignItems: 'center',
           justifyContent: 'space-between',
           flexWrap: 'wrap',
-          gap: '16px',
+          gap: 'var(--space-10)',
         }}
       >
         <span
@@ -28,14 +28,14 @@ export function Footer() {
             fontFamily: 'var(--font-serif)',
             fontStyle: 'italic',
             color: 'var(--fg-2)',
-            fontSize: '15px',
+            fontSize: 'var(--text-logo)',
           }}
         >
           Gabi Miranda
         </span>
 
         <nav aria-label={t('socialAriaLabel')}>
-          <div style={{ display: 'flex', gap: '28px' }}>
+          <div style={{ display: 'flex', gap: 'var(--space-14)' }}>
             <a
               href="https://github.com/gabriela-miranda-leite"
               target="_blank"
@@ -43,7 +43,7 @@ export function Footer() {
               aria-label={t('githubAriaLabel')}
               style={{
                 fontFamily: 'var(--font-mono)',
-                fontSize: '11px',
+                fontSize: 'var(--text-meta)',
                 color: 'var(--fg-3)',
                 letterSpacing: '0.06em',
                 textTransform: 'uppercase',
@@ -59,7 +59,7 @@ export function Footer() {
               aria-label={t('linkedinAriaLabel')}
               style={{
                 fontFamily: 'var(--font-mono)',
-                fontSize: '11px',
+                fontSize: 'var(--text-meta)',
                 color: 'var(--fg-3)',
                 letterSpacing: '0.06em',
                 textTransform: 'uppercase',
