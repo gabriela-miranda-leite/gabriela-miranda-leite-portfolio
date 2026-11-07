@@ -52,7 +52,11 @@
     }
   },
   "projects": {
-    "repos": "Repositórios"
+    "repos": "Repositórios",
+    "title": "Projetos",
+    "description": "Repositórios open source, experimentos e projetos pessoais.",
+    "meta_title": "Projetos — Gabi Miranda",
+    "empty": "Nenhum projeto encontrado no momento."
   },
   "lang": {
     "switch": "EN"
