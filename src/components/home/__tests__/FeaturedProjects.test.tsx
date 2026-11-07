@@ -26,7 +26,7 @@ const REPOS: GithubRepo[] = [
 ];
 
 describe('FeaturedProjects', () => {
-  it('renderiza um link externo por repo', () => {
+  it('renders one external link per repo', () => {
     const { getAllByRole } = render(<FeaturedProjects repos={REPOS} />);
     const links = getAllByRole('link').filter((l) =>
       l.getAttribute('href')?.startsWith('https://github.com')
@@ -34,17 +34,17 @@ describe('FeaturedProjects', () => {
     expect(links).toHaveLength(2);
   });
 
-  it('exibe nome do repo', () => {
+  it('shows repo name', () => {
     const { getByText } = render(<FeaturedProjects repos={REPOS} />);
     expect(getByText('gymflow')).toBeInTheDocument();
   });
 
-  it('não renderiza nada com repos vazio', () => {
+  it('renders nothing when repos list is empty', () => {
     const { container } = render(<FeaturedProjects repos={[]} />);
     expect(container.firstChild).toBeNull();
   });
 
-  it('sem violações de acessibilidade', async () => {
+  it('has no accessibility violations', async () => {
     const { container } = render(<FeaturedProjects repos={REPOS} />);
     expect(await axe(container)).toHaveNoViolations();
   });

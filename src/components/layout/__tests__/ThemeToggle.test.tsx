@@ -19,32 +19,32 @@ import { ThemeToggle } from '../ThemeToggle';
 
 expect.extend(toHaveNoViolations);
 
-describe('ThemeToggle — renderização', () => {
-  it('renderiza um botão', () => {
+describe('ThemeToggle — rendering', () => {
+  it('renders a button', () => {
     const { getByRole } = render(<ThemeToggle />);
     expect(getByRole('button')).toBeInTheDocument();
   });
 
-  it('botão tem aria-label descritivo', () => {
+  it('button has a descriptive aria-label', () => {
     const { getByRole } = render(<ThemeToggle />);
     expect(getByRole('button')).toHaveAttribute('aria-label');
     expect(getByRole('button').getAttribute('aria-label')).not.toBe('');
   });
 });
 
-describe('ThemeToggle — ações', () => {
+describe('ThemeToggle — actions', () => {
   beforeEach(() => {
     document.documentElement.removeAttribute('data-theme');
     localStorage.clear();
   });
 
-  it('aplica data-theme="light" ao clicar (padrão dark)', () => {
+  it('sets data-theme="light" on click (default dark)', () => {
     const { getByRole } = render(<ThemeToggle />);
     fireEvent.click(getByRole('button'));
     expect(document.documentElement.getAttribute('data-theme')).toBe('light');
   });
 
-  it('volta para dark ao clicar duas vezes', () => {
+  it('returns to dark after clicking twice', () => {
     const { getByRole } = render(<ThemeToggle />);
     const btn = getByRole('button');
     fireEvent.click(btn);
@@ -52,15 +52,15 @@ describe('ThemeToggle — ações', () => {
     expect(document.documentElement.getAttribute('data-theme')).toBe('dark');
   });
 
-  it('persiste a preferência no localStorage', () => {
+  it('persists preference in localStorage', () => {
     const { getByRole } = render(<ThemeToggle />);
     fireEvent.click(getByRole('button'));
     expect(localStorage.getItem('theme')).toBe('light');
   });
 });
 
-describe('ThemeToggle — acessibilidade', () => {
-  it('sem violações de acessibilidade', async () => {
+describe('ThemeToggle — accessibility', () => {
+  it('has no accessibility violations', async () => {
     const { container } = render(<ThemeToggle />);
     expect(await axe(container)).toHaveNoViolations();
   });

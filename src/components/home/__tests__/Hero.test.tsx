@@ -20,19 +20,19 @@ import { Hero } from '../Hero';
 expect.extend(toHaveNoViolations);
 
 describe('Hero', () => {
-  it('renderiza heading com id="hero-heading"', () => {
+  it('renders heading with id="hero-heading"', () => {
     const { getByRole } = render(<Hero />);
     expect(getByRole('heading', { level: 1 })).toHaveAttribute('id', 'hero-heading');
   });
 
-  it('renderiza links CTA para /projects e /blog', () => {
+  it('renders CTA links to /projects and /blog', () => {
     const { getAllByRole } = render(<Hero />);
     const links = getAllByRole('link');
     expect(links.some((l) => l.getAttribute('href') === '/projects')).toBe(true);
     expect(links.some((l) => l.getAttribute('href') === '/blog')).toBe(true);
   });
 
-  it('sem violações de acessibilidade', async () => {
+  it('has no accessibility violations', async () => {
     const { container } = render(<Hero />);
     expect(await axe(container)).toHaveNoViolations();
   });

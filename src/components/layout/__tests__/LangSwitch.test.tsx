@@ -17,8 +17,8 @@ expect.extend(toHaveNoViolations);
 
 beforeEach(() => mockReplace.mockClear());
 
-describe('LangSwitch — renderização', () => {
-  it('renderiza um botão pill com PT e EN', () => {
+describe('LangSwitch — rendering', () => {
+  it('renders a pill button with PT and EN', () => {
     const { getByRole } = render(<LangSwitch />);
     const btn = getByRole('button');
     expect(btn).toBeInTheDocument();
@@ -26,7 +26,7 @@ describe('LangSwitch — renderização', () => {
     expect(btn.textContent).toContain('EN');
   });
 
-  it('locale ativa (PT) tem cor accent via style', () => {
+  it('active locale (PT) has accent color via style', () => {
     const { getByRole } = render(<LangSwitch />);
     const btn = getByRole('button');
     const ptSpan = Array.from(btn.querySelectorAll('span')).find(
@@ -37,8 +37,8 @@ describe('LangSwitch — renderização', () => {
   });
 });
 
-describe('LangSwitch — ações', () => {
-  it('chama router.replace para EN ao clicar (locale atual: PT)', () => {
+describe('LangSwitch — actions', () => {
+  it('calls router.replace with EN on click (current locale: PT)', () => {
     const { getByRole } = render(<LangSwitch />);
     fireEvent.click(getByRole('button'));
     expect(mockReplace).toHaveBeenCalledTimes(1);
@@ -46,18 +46,18 @@ describe('LangSwitch — ações', () => {
   });
 });
 
-describe('LangSwitch — acessibilidade', () => {
-  it('botão tem aria-label descritivo', () => {
+describe('LangSwitch — accessibility', () => {
+  it('button has a descriptive aria-label', () => {
     const { getByRole } = render(<LangSwitch />);
     expect(getByRole('button')).toHaveAttribute('aria-label');
   });
 
-  it('tem aria-live="polite"', () => {
+  it('has aria-live="polite"', () => {
     const { getByRole } = render(<LangSwitch />);
     expect(getByRole('button')).toHaveAttribute('aria-live', 'polite');
   });
 
-  it('sem violações de acessibilidade', async () => {
+  it('has no accessibility violations', async () => {
     const { container } = render(<LangSwitch />);
     expect(await axe(container)).toHaveNoViolations();
   });

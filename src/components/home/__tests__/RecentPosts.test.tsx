@@ -26,7 +26,7 @@ const POSTS: Post[] = [
 ];
 
 describe('RecentPosts', () => {
-  it('renderiza link para cada post', () => {
+  it('renders a link for each post', () => {
     const { getAllByRole } = render(<RecentPosts posts={POSTS} />);
     const postLinks = getAllByRole('link').filter((l) =>
       l.getAttribute('href')?.startsWith('/blog/')
@@ -34,24 +34,24 @@ describe('RecentPosts', () => {
     expect(postLinks).toHaveLength(2);
   });
 
-  it('exibe os índices 01 e 02', () => {
+  it('shows index numbers 01 and 02', () => {
     const { getByText } = render(<RecentPosts posts={POSTS} />);
     expect(getByText('01')).toBeInTheDocument();
     expect(getByText('02')).toBeInTheDocument();
   });
 
-  it('exibe chip com a primeira tag do post', () => {
+  it('shows tag chip with the first post tag', () => {
     const { getByText } = render(<RecentPosts posts={POSTS} />);
     expect(getByText('design')).toBeInTheDocument();
     expect(getByText('a11y')).toBeInTheDocument();
   });
 
-  it('renderiza sem posts sem erros', () => {
+  it('renders without errors when posts list is empty', () => {
     const { queryAllByRole } = render(<RecentPosts posts={[]} />);
     expect(queryAllByRole('link')).toHaveLength(1); // só o "ver todos"
   });
 
-  it('sem violações de acessibilidade', async () => {
+  it('has no accessibility violations', async () => {
     const { container } = render(<RecentPosts posts={POSTS} />);
     expect(await axe(container)).toHaveNoViolations();
   });
