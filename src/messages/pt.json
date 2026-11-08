@@ -19,10 +19,10 @@
   },
   "home": {
     "hero": {
-      "role": "Frontend & Mobile Developer",
+      "role": "Engenheira de Software",
       "greeting": "Olá, sou",
       "name": "Gabi",
-      "bio": "Desenvolvo interfaces e apps com foco em design systems, acessibilidade e experiência do usuário. Trabalho no setor de pagamentos e aqui escrevo sobre o que aprendo na prática.",
+      "bio": "5 anos em produtos digitais de alta escala — delivery, RH, e-commerce e banking. Trabalho com Kotlin (Android e KMP), React Native e TypeScript, com foco em qualidade, acessibilidade e código que dura.",
       "cta": {
         "projects": "Ver projetos",
         "blog": "Ler o blog"
@@ -30,8 +30,8 @@
     },
     "stats": {
       "years": "Anos de experiência",
-      "design_systems": "Design systems entregues",
-      "platforms": "Plataformas — web & mobile"
+      "dau": "DAU no banking",
+      "observability": "Ferramentas de observabilidade"
     },
     "recent_posts": "Posts recentes",
     "see_all": "Ver todos →",
@@ -66,14 +66,14 @@
   },
   "about": {
     "meta_title": "Sobre — Gabi Miranda",
-    "meta_description": "Conheça Gabi Miranda, Frontend & Mobile Developer especializada em design systems, acessibilidade e UX no setor de pagamentos.",
+    "meta_description": "Conheça Gabi Miranda, engenheira de software especializada em mobile (Kotlin, React Native) e frontend, com foco em qualidade, acessibilidade e produtos de alta escala.",
     "hero": {
       "eyebrow": "Sobre mim",
       "title_line1": "Construindo",
       "title_line2": "com propósito",
-      "bio": "Sou desenvolvedora frontend e mobile com 5+ anos de experiência no setor de pagamentos. Trabalho na interseção entre design e engenharia — criando interfaces que são ao mesmo tempo bonitas e acessíveis.",
-      "bio2": "Tenho paixão por design systems e pelo impacto que uma boa tipografia, hierarquia e espaçamento têm na experiência de quem usa o produto. Quando não estou codando, estou escrevendo sobre o que aprendo.",
-      "status": "Disponível para freela · São Paulo, BR",
+      "bio": "Comecei em frontend, fui pra mobile e acabei fazendo os dois ao mesmo tempo. Passei por uma plataforma de delivery, um design system consumido por múltiplos times e dois anos em banking na Stone — onde trabalhei com React Native, Kotlin Multiplatform e Compose Multiplatform numa codebase de mais de 500 módulos.",
+      "bio2": "Meu TCC foi sobre acessibilidade digital e esse cuidado ficou. Gosto de documentação que presta, testes que confiam em fakes em vez de mocks e componentes que funcionam pra todo mundo. Hoje estou explorando como IA pode entrar no fluxo de desenvolvimento sem virar atalho pra código ruim. Em paralelo, desenvolvendo projetos pessoais em Kotlin nativo pra fortalecer Android.",
+      "status": "Remoto · Brasil",
       "cta": {
         "projects": "Ver projetos",
         "cv": "Download CV",
@@ -82,39 +82,45 @@
     },
     "stack": {
       "title": "Stack",
-      "frontend": {
-        "label": "Frontend",
-        "items": ["React · Next.js", "TypeScript", "Tailwind CSS", "Design Systems"]
-      },
       "mobile": {
         "label": "Mobile",
-        "items": ["React Native", "Expo", "iOS · Android", "Acessibilidade"]
+        "items": ["React Native · Kotlin · KMP", "Compose Multiplatform · Swift", "Clean Architecture · MVVM", "Kodein · Ktorfit · Coroutines · Flow"]
+      },
+      "frontend": {
+        "label": "Frontend & Design System",
+        "items": ["React.js · Next.js · TypeScript", "HTML · CSS · JavaScript", "Storybook · Stencil.js · WCAG", "Componentes acessíveis · Lyricist"]
       },
       "tools": {
-        "label": "Ferramentas",
-        "items": ["Figma", "Storybook", "Vitest · Playwright", "Vercel · GitHub"]
+        "label": "Testes & Observabilidade",
+        "items": ["kotlin.test · Fakes · Turbine", "Robot pattern · Paparazzi · Maestro E2E", "Datadog · Amplitude · Firebase", "Gradle · Detekt · Ktlint · Git"]
       }
     },
     "experience": {
       "title": "Experiência",
       "items": [
         {
-          "year": "2022 — hoje",
-          "role": "Senior Frontend Engineer",
-          "company": "Empresa de pagamentos · São Paulo",
-          "description": "Lidero o design system interno usado por 4 squads. Arquitetei a migração de CRA para Next.js e reduzi o bundle em 40%."
+          "year": "set 2023 – atualmente",
+          "role": "Software Engineer II → III",
+          "company": "Stone · Remoto",
+          "description": "Stack principal em Kotlin Multiplatform e Compose Multiplatform num produto com mais de 500 mil acessos por dia, numa codebase de mais de 500 módulos — Clean Architecture + MVVM, Kodein, Ktorfit, Coroutines e Flow. React Native como camada plugável de integração com o app mobile. Monitoramento com Datadog, testes A/B com Amplitude e Firebase."
         },
         {
-          "year": "2020 — 2022",
-          "role": "Frontend Developer",
-          "company": "Startup de fintechs · Remoto",
-          "description": "Desenvolvi o app mobile em React Native do zero. Implementei suporte a acessibilidade (VoiceOver e TalkBack) em todos os fluxos críticos."
+          "year": "set 2022 – set 2023",
+          "role": "Software Engineer",
+          "company": "Gupy · Remoto",
+          "description": "Design system e rebranding para múltiplos times internos. Componentes com Stencil.js, acessibilidade WCAG e documentação no Storybook."
         },
         {
-          "year": "2019 — 2020",
-          "role": "Desenvolvedora Júnior",
-          "company": "Agência digital · São Paulo",
-          "description": "HTML, CSS e JavaScript vanilla. Primeiro contato com React e com a importância de código acessível e performático."
+          "year": "jun 2021 – set 2022",
+          "role": "Software Engineer",
+          "company": "pede.ai · Remoto",
+          "description": "Plataforma de delivery e marketplace. Stack em React.js, Next.js e React Native. Contribuições em produto, performance e integrações com parceiros."
+        },
+        {
+          "year": "2017 – 2024",
+          "role": "Engenharia de Computação",
+          "company": "Universidade Federal do Vale do São Francisco",
+          "description": "TCC sobre acessibilidade digital (WCAG) em interfaces web."
         }
       ]
     },

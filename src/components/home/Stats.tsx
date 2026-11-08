@@ -3,8 +3,8 @@ import { Container } from '@/components/layout/Container';
 
 const STAT_VALUES = [
   { key: 'years', value: '5+' },
-  { key: 'design_systems', value: '3' },
-  { key: 'platforms', value: '2' },
+  { key: 'dau', value: '500K+' },
+  { key: 'observability', value: '3' },
 ] as const;
 
 export function Stats() {

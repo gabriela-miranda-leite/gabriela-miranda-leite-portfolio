@@ -19,10 +19,10 @@
   },
   "home": {
     "hero": {
-      "role": "Frontend & Mobile Developer",
+      "role": "Software Engineer",
       "greeting": "Hi, I'm",
       "name": "Gabi",
-      "bio": "I build interfaces and apps focused on design systems, accessibility and user experience. I work in the payments sector and write about what I learn in practice.",
+      "bio": "5 years building high-scale digital products — delivery, HR, e-commerce and banking. I work with Kotlin (Android and KMP), React Native and TypeScript, with a focus on quality, accessibility and code that lasts.",
       "cta": {
         "projects": "See projects",
         "blog": "Read the blog"
@@ -30,8 +30,8 @@
     },
     "stats": {
       "years": "Years of experience",
-      "design_systems": "Design systems shipped",
-      "platforms": "Platforms — web & mobile"
+      "dau": "DAU in banking",
+      "observability": "Observability tools"
     },
     "recent_posts": "Recent posts",
     "see_all": "See all →",
@@ -66,14 +66,14 @@
   },
   "about": {
     "meta_title": "About — Gabi Miranda",
-    "meta_description": "Meet Gabi Miranda, a Frontend & Mobile Developer specializing in design systems, accessibility and UX in the payments industry.",
+    "meta_description": "Meet Gabi Miranda, a software engineer specializing in mobile (Kotlin, React Native) and frontend, with a focus on quality, accessibility and high-scale products.",
     "hero": {
       "eyebrow": "About me",
       "title_line1": "Building",
       "title_line2": "with purpose",
-      "bio": "I'm a frontend and mobile developer with 5+ years of experience in the payments industry. I work at the intersection of design and engineering — crafting interfaces that are both beautiful and accessible.",
-      "bio2": "I'm passionate about design systems and the impact that good typography, hierarchy and spacing have on the user experience. When I'm not coding, I'm writing about what I learn.",
-      "status": "Available for freelance · São Paulo, BR",
+      "bio": "I started in frontend, moved to mobile, and ended up doing both at the same time. I've worked on a delivery platform, a design system used by multiple teams, and two years in banking at Stone — with React Native, Kotlin Multiplatform and Compose Multiplatform in a codebase with over 500 modules.",
+      "bio2": "My thesis was about digital accessibility and that care never left. I like documentation that actually helps, tests that trust fakes over mocks and components that work for everyone. I'm currently exploring how AI can fit into the development workflow without becoming a shortcut to bad code. On the side, building personal projects in native Kotlin to sharpen my Android skills.",
+      "status": "Remote · Brazil",
       "cta": {
         "projects": "See projects",
         "cv": "Download CV",
@@ -82,39 +82,45 @@
     },
     "stack": {
       "title": "Stack",
-      "frontend": {
-        "label": "Frontend",
-        "items": ["React · Next.js", "TypeScript", "Tailwind CSS", "Design Systems"]
-      },
       "mobile": {
         "label": "Mobile",
-        "items": ["React Native", "Expo", "iOS · Android", "Accessibility"]
+        "items": ["React Native · Kotlin · KMP", "Compose Multiplatform · Swift", "Clean Architecture · MVVM", "Kodein · Ktorfit · Coroutines · Flow"]
+      },
+      "frontend": {
+        "label": "Frontend & Design System",
+        "items": ["React.js · Next.js · TypeScript", "HTML · CSS · JavaScript", "Storybook · Stencil.js · WCAG", "Accessible components · Lyricist"]
       },
       "tools": {
-        "label": "Tools",
-        "items": ["Figma", "Storybook", "Vitest · Playwright", "Vercel · GitHub"]
+        "label": "Testing & Observability",
+        "items": ["kotlin.test · Fakes · Turbine", "Robot pattern · Paparazzi · Maestro E2E", "Datadog · Amplitude · Firebase", "Gradle · Detekt · Ktlint · Git"]
       }
     },
     "experience": {
       "title": "Experience",
       "items": [
         {
-          "year": "2022 — now",
-          "role": "Senior Frontend Engineer",
-          "company": "Payments company · São Paulo",
-          "description": "Leading the internal design system used by 4 squads. Architected the migration from CRA to Next.js and reduced the bundle by 40%."
+          "year": "Sep 2023 – present",
+          "role": "Software Engineer II → III",
+          "company": "Stone · Remote",
+          "description": "Main stack in Kotlin Multiplatform and Compose Multiplatform on a product with over 500K daily active users, in a codebase with 500+ modules — Clean Architecture + MVVM, Kodein, Ktorfit, Coroutines and Flow. React Native as a pluggable integration layer for the mobile app. Monitoring with Datadog, A/B testing with Amplitude and Firebase."
         },
         {
-          "year": "2020 — 2022",
-          "role": "Frontend Developer",
-          "company": "Fintech startup · Remote",
-          "description": "Built the mobile app in React Native from scratch. Implemented accessibility support (VoiceOver and TalkBack) across all critical flows."
+          "year": "Sep 2022 – Sep 2023",
+          "role": "Software Engineer",
+          "company": "Gupy · Remote",
+          "description": "Design system and rebranding for multiple internal teams. Components with Stencil.js, WCAG accessibility and Storybook documentation."
         },
         {
-          "year": "2019 — 2020",
-          "role": "Junior Developer",
-          "company": "Digital agency · São Paulo",
-          "description": "HTML, CSS and vanilla JavaScript. First contact with React and the importance of accessible, performant code."
+          "year": "Jun 2021 – Sep 2022",
+          "role": "Software Engineer",
+          "company": "pede.ai · Remote",
+          "description": "Delivery and marketplace platform. Stack in React.js, Next.js and React Native. Contributions to product, performance and partner integrations."
+        },
+        {
+          "year": "2017 – 2024",
+          "role": "Computer Engineering",
+          "company": "Federal University of São Francisco Valley",
+          "description": "Thesis on digital accessibility (WCAG) in web interfaces."
         }
       ]
     },
