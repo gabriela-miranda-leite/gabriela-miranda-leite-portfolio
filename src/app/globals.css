@@ -265,3 +265,180 @@ body {
     transition-duration: revert !important;
   }
 }
+
+/* ── Page entrance animation ────────────────────────────────────────────── */
+
+@keyframes fade-up {
+  from { transform: translateY(14px); }
+  to   { transform: translateY(0); }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  #main-content {
+    animation: fade-up 0.45s ease both !important;
+  }
+}
+
+/* ── Interactive states ──────────────────────────────────────────────────── */
+
+/* Button */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-5);
+  cursor: pointer;
+  transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.15s ease,
+              border-color 0.15s ease, color 0.15s ease;
+}
+.btn-primary {
+  padding: var(--space-7) var(--space-13);
+  border-radius: var(--radius-pill);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  font-family: var(--font-sans);
+  background: var(--accent);
+  color: var(--bg);
+  border: none;
+}
+.btn-primary:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 20px color-mix(in srgb, var(--accent) 30%, transparent);
+  filter: brightness(1.08);
+}
+.btn-primary:active { transform: translateY(0); box-shadow: none; filter: none; }
+
+.btn-ghost {
+  padding: var(--space-7) var(--space-13);
+  border-radius: var(--radius-pill);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  font-family: var(--font-sans);
+  background: transparent;
+  color: var(--fg);
+  border: 1px solid var(--border);
+}
+.btn-ghost:hover { border-color: var(--fg-2); transform: translateY(-1px); }
+.btn-ghost:active { transform: translateY(0); }
+
+.btn-pill {
+  padding: var(--space-5) var(--space-10);
+  border-radius: var(--radius-pill);
+  font-size: var(--text-chip);
+  font-family: var(--font-mono);
+  background: var(--bg-s);
+  color: var(--fg-2);
+  border: 1px solid var(--border);
+}
+.btn-pill:hover { border-color: var(--fg-2); color: var(--fg); }
+
+/* Chip / Tag interactive */
+.chip-btn { transition: border-color 0.15s ease, color 0.15s ease, background 0.15s ease; }
+.chip-btn:not([aria-pressed="true"]):hover {
+  border-color: var(--accent) !important;
+  color: var(--accent) !important;
+  background: var(--acc-a) !important;
+}
+.tag-btn { transition: border-color 0.15s ease, color 0.15s ease, background 0.15s ease; }
+.tag-btn:not([aria-pressed="true"]):hover {
+  border-color: var(--accent) !important;
+  color: var(--accent) !important;
+  background: var(--acc-a) !important;
+}
+
+/* PostCard */
+.post-card {
+  transition: transform 0.18s ease, border-color 0.18s ease, box-shadow 0.18s ease;
+}
+.post-card:hover {
+  transform: translateY(-2px);
+  border-color: var(--fg-3) !important;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.14);
+}
+.post-card:hover .post-card-title { color: var(--accent) !important; }
+
+/* ProjectCard */
+.project-card {
+  transition: transform 0.18s ease, border-color 0.18s ease !important;
+}
+.project-card:hover {
+  transform: translateY(-2px);
+  border-color: var(--fg-3) !important;
+}
+.project-card:hover .project-card-arrow { color: var(--fg) !important; }
+
+/* Nav links */
+.nav-link { transition: color 0.12s ease, background 0.12s ease; }
+.nav-link:hover { color: var(--fg) !important; background: var(--bg-s) !important; }
+
+/* Hero CTAs (Link elements with inline styles — hover via !important) */
+.hero-cta-primary {
+  transition: transform 0.15s ease, box-shadow 0.15s ease, filter 0.15s ease;
+}
+.hero-cta-primary:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 20px color-mix(in srgb, var(--accent) 30%, transparent);
+  filter: brightness(1.08);
+}
+.hero-cta-primary:active { transform: translateY(0); box-shadow: none; filter: none; }
+
+.hero-cta-ghost {
+  transition: transform 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+}
+.hero-cta-ghost:hover {
+  transform: translateY(-1px);
+  border-color: var(--fg-2) !important;
+  color: var(--fg) !important;
+}
+.hero-cta-ghost:active { transform: translateY(0); }
+
+/* Nav pill buttons (ThemeToggle, LangSwitch) */
+.nav-pill-btn {
+  transition: border-color 0.12s ease, color 0.12s ease, background 0.12s ease;
+}
+.nav-pill-btn:hover {
+  border-color: var(--fg-2) !important;
+  color: var(--fg) !important;
+}
+
+/* "Ver todos →" / "See all →" accent links */
+.see-all-link {
+  transition: color 0.12s ease, gap 0.12s ease, letter-spacing 0.12s ease;
+  display: inline-flex;
+  align-items: center;
+}
+.see-all-link:hover {
+  letter-spacing: 0.1em !important;
+}
+
+/* Footer links */
+.footer-link { transition: color 0.12s ease; }
+.footer-link:hover { color: var(--fg-2) !important; }
+
+/* ShareBar pills */
+.share-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-5);
+  padding: var(--space-5) var(--space-11);
+  border-radius: var(--radius-pill);
+  border: 1px solid var(--border);
+  background: var(--bg-s);
+  color: var(--fg-2);
+  font-family: var(--font-mono);
+  font-size: var(--text-eyebrow);
+  cursor: pointer;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: border-color 0.15s ease, color 0.15s ease, background 0.15s ease, transform 0.15s ease;
+}
+.share-pill:hover {
+  border-color: var(--fg-2);
+  color: var(--fg);
+  transform: translateY(-1px);
+}
+.share-pill-copy-done {
+  border-color: var(--accent) !important;
+  background: var(--acc-a) !important;
+  color: var(--accent) !important;
+}

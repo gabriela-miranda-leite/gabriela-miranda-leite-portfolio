@@ -13,6 +13,7 @@ export function PostCard({ post }: PostCardProps) {
     <Link
       href={`/blog/${post.slug}`}
       aria-label={`${post.title} — ${t('listing.read_more')}`}
+      className="post-card"
       style={{
         display: 'flex',
         flexDirection: 'column',
@@ -50,6 +51,7 @@ export function PostCard({ post }: PostCardProps) {
 
       {/* Title */}
       <p
+        className="post-card-title"
         style={{
           fontFamily: 'var(--font-serif)',
           fontStyle: 'italic',
@@ -59,6 +61,7 @@ export function PostCard({ post }: PostCardProps) {
           color: 'var(--fg)',
           margin: 0,
           flex: 1,
+          transition: 'color 0.18s ease',
         }}
       >
         {post.title}

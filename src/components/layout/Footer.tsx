@@ -46,6 +46,7 @@ export function Footer() {
               rel="noopener noreferrer"
               aria-label={t('githubAriaLabel')}
               onClick={() => trackEvent({ screen: 'home', action: 'link-clicked', reference: 'GitHub footer' })}
+              className="footer-link"
               style={{
                 fontFamily: 'var(--font-mono)',
                 fontSize: 'var(--text-meta)',
@@ -63,6 +64,7 @@ export function Footer() {
               rel="noopener noreferrer"
               aria-label={t('linkedinAriaLabel')}
               onClick={() => trackEvent({ screen: 'home', action: 'link-clicked', reference: 'LinkedIn footer' })}
+              className="footer-link"
               style={{
                 fontFamily: 'var(--font-mono)',
                 fontSize: 'var(--text-meta)',
@@ -77,6 +79,19 @@ export function Footer() {
           </div>
         </nav>
       </div>
+
+      <p
+        style={{
+          maxWidth: '1080px',
+          margin: 'var(--space-10) auto 0',
+          fontFamily: 'var(--font-mono)',
+          fontSize: 'var(--text-meta)',
+          color: 'var(--fg-3)',
+          letterSpacing: '0.04em',
+        }}
+      >
+        {t('copyright', { year: new Date().getFullYear() })}
+      </p>
     </footer>
   );
 }

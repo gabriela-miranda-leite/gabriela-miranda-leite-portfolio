@@ -44,6 +44,7 @@ export function FeaturedProjects({ repos }: FeaturedProjectsProps) {
           </h2>
           <Link
             href="/projects"
+            className="see-all-link"
             style={{
               fontFamily: 'var(--font-mono)',
               fontSize: 'var(--text-meta)',

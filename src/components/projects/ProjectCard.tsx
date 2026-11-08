@@ -75,7 +75,8 @@ export function ProjectCard({ repo }: ProjectCardProps) {
             size={14}
             color="var(--fg-3)"
             aria-hidden="true"
-            style={{ flexShrink: 0 }}
+            className="project-card-arrow"
+            style={{ flexShrink: 0, transition: 'color 0.18s ease' }}
           />
         </div>
 
