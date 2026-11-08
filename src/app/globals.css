@@ -233,6 +233,69 @@
   }
 }
 
+/* ── Layout responsivo (breakpoint padrão: 640px) ─────────────────────
+   Mobile-first: o estilo base é o mobile; ≥ 640px expande.
+   Nunca coloque `display` inline em elementos controlados aqui — o inline
+   vence a classe e quebra o layout.                                      */
+
+/* Nav */
+.nav-desktop-links { display: none; }
+.nav-desktop-controls {
+  display: none;
+  align-items: center;
+  gap: var(--space-5);
+}
+.nav-mobile-btn {
+  display: flex;
+  align-items: center;
+}
+@media (min-width: 640px) {
+  .nav-desktop-links { display: block; }
+  .nav-desktop-controls { display: flex; }
+  .nav-mobile-btn,
+  .nav-mobile-menu { display: none; }
+}
+
+/* About — hero (arte só a partir de 640px) */
+.about-hero-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--space-18);
+  align-items: start;
+}
+.about-hero-art {
+  display: none;
+  flex-direction: column;
+  gap: var(--space-10);
+  padding-top: var(--space-5);
+}
+@media (min-width: 640px) {
+  .about-hero-grid {
+    grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+    gap: clamp(var(--space-13), 6vw, var(--space-18));
+  }
+  .about-hero-art { display: flex; }
+}
+
+/* About — experiência */
+.experience-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--space-7);
+}
+@media (min-width: 640px) {
+  .experience-row {
+    grid-template-columns: 160px minmax(0, 1fr);
+    gap: var(--space-13);
+  }
+}
+
+/* Blog */
+@media (max-width: 639px) {
+  .share-bar-label { display: none; }
+  .prose pre { font-size: var(--text-chip); }
+}
+
 /* Base resets — ensure box model and margin are correct across browsers */
 *, *::before, *::after {
   box-sizing: border-box;

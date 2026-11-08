@@ -8,12 +8,19 @@ declare global {
 
 type Screen = 'home' | 'blog' | 'projects' | 'about';
 
-type Action = 'page-viewed' | 'button-clicked' | 'link-clicked' | 'copy-clicked';
+type Action = 'page-viewed' | 'button-clicked';
 
 interface AnalyticsEvent {
   screen: Screen;
   action: Action;
   reference?: string;
+}
+
+export function screenFromPathname(pathname: string): Screen {
+  if (pathname.startsWith('/blog')) return 'blog';
+  if (pathname.startsWith('/projects')) return 'projects';
+  if (pathname.startsWith('/about')) return 'about';
+  return 'home';
 }
 
 // --- Core ---

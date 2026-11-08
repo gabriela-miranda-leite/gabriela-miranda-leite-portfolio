@@ -3,6 +3,7 @@
 import { useTranslations } from 'next-intl';
 import { Container } from '@/components/layout/Container';
 import { CONTACT_EMAIL } from '@/lib/constants';
+import { trackEvent } from '@/lib/analytics';
 
 export function ContactCTA() {
   const t = useTranslations('about.contact');
@@ -53,6 +54,7 @@ export function ContactCTA() {
           {/* CTA button */}
           <a
             href={`mailto:${CONTACT_EMAIL}`}
+            onClick={() => trackEvent({ screen: 'about', action: 'button-clicked', reference: 'Abriu o e-mail de contato' })}
             className="btn btn-primary"
             style={{ marginTop: '4px' }}
           >

@@ -1,4 +1,7 @@
+'use client';
+
 import { Code, Star, ArrowSquareOut } from '@phosphor-icons/react/dist/ssr';
+import { trackEvent } from '@/lib/analytics';
 import type { GithubRepo } from '@/types/project';
 
 interface ProjectCardProps {
@@ -11,6 +14,7 @@ export function ProjectCard({ repo }: ProjectCardProps) {
       href={repo.html_url}
       target="_blank"
       rel="noopener noreferrer"
+      onClick={() => trackEvent({ screen: 'projects', action: 'button-clicked', reference: `Abriu o projeto ${repo.name}` })}
       aria-label={`${repo.name} — abre no GitHub`}
       className="project-card"
       style={{

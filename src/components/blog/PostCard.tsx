@@ -1,5 +1,8 @@
+'use client';
+
 import { useTranslations } from 'next-intl';
 import { Link } from '@/i18n/navigation';
+import { trackEvent } from '@/lib/analytics';
 import type { Post } from '@/types/post';
 
 interface PostCardProps {
@@ -12,6 +15,7 @@ export function PostCard({ post }: PostCardProps) {
   return (
     <Link
       href={`/blog/${post.slug}`}
+      onClick={() => trackEvent({ screen: 'blog', action: 'button-clicked', reference: `Abriu o post ${post.slug}` })}
       aria-label={`${post.title} — ${t('listing.read_more')}`}
       className="post-card"
       style={{

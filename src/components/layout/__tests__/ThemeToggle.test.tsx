@@ -5,6 +5,16 @@ jest.mock('next-intl', () => ({
   useTranslations: () => (key: string) => key,
 }));
 
+jest.mock('@/i18n/navigation', () => ({
+  usePathname: () => '/blog',
+}));
+
+const mockTrackEvent = jest.fn();
+jest.mock('@/lib/analytics', () => ({
+  ...jest.requireActual('@/lib/analytics'),
+  trackEvent: (event: unknown) => mockTrackEvent(event),
+}));
+
 Object.defineProperty(window, 'matchMedia', {
   writable: true,
   value: jest.fn().mockImplementation((query: string) => ({
@@ -56,6 +66,19 @@ describe('ThemeToggle — actions', () => {
     const { getByRole } = render(<ThemeToggle />);
     fireEvent.click(getByRole('button'));
     expect(localStorage.getItem('theme')).toBe('light');
+  });
+});
+
+describe('ThemeToggle — analytics', () => {
+  it('tracks the theme change with the screen and what the user did', () => {
+    mockTrackEvent.mockClear();
+    const { getByRole } = render(<ThemeToggle />);
+    fireEvent.click(getByRole('button'));
+    expect(mockTrackEvent).toHaveBeenCalledWith({
+      screen: 'blog',
+      action: 'button-clicked',
+      reference: expect.stringContaining('Trocou o tema'),
+    });
   });
 });
 

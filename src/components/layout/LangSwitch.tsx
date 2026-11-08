@@ -2,6 +2,7 @@
 import { useLocale, useTranslations } from 'next-intl';
 import { usePathname, useRouter } from '@/i18n/navigation';
 import { useState } from 'react';
+import { screenFromPathname, trackEvent } from '@/lib/analytics';
 
 export function LangSwitch() {
   const locale = useLocale();
@@ -13,6 +14,7 @@ export function LangSwitch() {
   const next = locale === 'pt' ? 'en' : 'pt';
 
   const toggle = () => {
+    trackEvent({ screen: screenFromPathname(pathname), action: 'button-clicked', reference: `Trocou o idioma para ${next}` });
     setAnnouncement(t('announce'));
     router.replace(pathname, { locale: next });
   };

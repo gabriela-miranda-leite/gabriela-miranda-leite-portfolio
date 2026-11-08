@@ -113,20 +113,6 @@ export function ExperienceSection() {
           ))}
         </ol>
       </Container>
-
-      <style>{`
-        .experience-row {
-          display: grid;
-          grid-template-columns: 1fr;
-          gap: var(--space-7);
-        }
-        @media (min-width: 640px) {
-          .experience-row {
-            grid-template-columns: 160px 1fr;
-            gap: var(--space-13);
-          }
-        }
-      `}</style>
     </section>
   );
 }

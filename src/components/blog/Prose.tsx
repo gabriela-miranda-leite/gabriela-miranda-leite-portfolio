@@ -112,12 +112,6 @@ export function Prose({ children }: ProseProps) {
           border-top: 1px solid var(--border);
           margin: var(--space-18) 0;
         }
-
-        @media (max-width: 639px) {
-          .prose pre {
-            font-size: var(--text-chip);
-          }
-        }
       `}</style>
       <div className="prose">{children}</div>
     </>
