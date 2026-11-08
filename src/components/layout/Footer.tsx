@@ -57,7 +57,7 @@ export function Footer() {
               GitHub
             </a>
             <a
-              href="https://linkedin.com/in/gabriela-miranda-leite"
+              href="https://www.linkedin.com/in/gabriela-msl/"
               target="_blank"
               rel="noopener noreferrer"
               aria-label={t('linkedinAriaLabel')}
