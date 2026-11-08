@@ -43,10 +43,11 @@
     "reading_time": "{minutes} min de leitura",
     "prev": "Anterior",
     "next": "Próximo",
+    "rss_cta": "Gostou? <link>Assine o RSS</link> para não perder os próximos.",
     "translation_pending": "Tradução em breve",
     "listing": {
       "title": "Blog",
-      "description": "Escrita sobre design systems, acessibilidade e desenvolvimento frontend.",
+      "description": "Escrita sobre engenharia de software, mobile e o dia a dia de times de produto.",
       "meta_title": "Blog — Gabi Miranda",
       "filter_label": "Filtrar por tag",
       "all": "Todos",
