@@ -1,5 +1,8 @@
+import Image from 'next/image';
 import { useTranslations } from 'next-intl';
 import { Link } from '@/i18n/navigation';
+
+const GITHUB_USERNAME = process.env.GITHUB_USERNAME ?? 'gabriela-miranda-leite';
 
 import type { Post } from '@/types/post';
 
@@ -84,16 +87,13 @@ export function PostHeader({ post }: PostHeaderProps) {
       >
         {/* Author */}
         <div className="meta-author" style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-6)' }}>
-          <div
-            aria-hidden="true"
-            style={{
-              width: '36px',
-              height: '36px',
-              borderRadius: '50%',
-              background: 'var(--acc-a)',
-              border: '1px solid var(--border)',
-              flexShrink: 0,
-            }}
+          <Image
+            src={`https://avatars.githubusercontent.com/${GITHUB_USERNAME}`}
+            alt=""
+            role="presentation"
+            width={36}
+            height={36}
+            style={{ borderRadius: '50%', border: '1px solid var(--border)', flexShrink: 0 }}
           />
           <span
             style={{
