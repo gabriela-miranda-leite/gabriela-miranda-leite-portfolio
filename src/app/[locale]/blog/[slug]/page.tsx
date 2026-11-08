@@ -5,6 +5,7 @@ import { Container } from '@/components/layout/Container';
 import { PostHeader } from '@/components/blog/PostHeader';
 import { Prose } from '@/components/blog/Prose';
 import { PostNav } from '@/components/blog/PostNav';
+import { ShareBar } from '@/components/blog/ShareBar';
 import { getAllPosts, getPostBySlug } from '@/lib/posts';
 import { blogPostingJsonLd } from '@/lib/seo';
 
@@ -106,6 +107,7 @@ export default async function PostPage({ params }: PageProps) {
             <Prose>
               {content}
             </Prose>
+            <ShareBar title={post.title} />
             <PostNav prev={prev} next={next} />
           </div>
         </Container>

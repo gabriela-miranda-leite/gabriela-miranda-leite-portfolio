@@ -9,11 +9,13 @@ import { ThemeToggle } from './ThemeToggle';
 
 const GITHUB_USERNAME = process.env.NEXT_PUBLIC_GITHUB_USERNAME ?? 'gabriela-miranda-leite';
 
+const SHOW_ABOUT = process.env.NEXT_PUBLIC_SHOW_ABOUT === 'true';
+
 const NAV_LINKS = [
   { href: '/blog', key: 'blog' },
   { href: '/projects', key: 'projects' },
-  { href: '/about', key: 'about' },
-] as const;
+  ...(SHOW_ABOUT ? [{ href: '/about', key: 'about' } as const] : []),
+] as const satisfies ReadonlyArray<{ href: string; key: string }>;
 
 const PILL: React.CSSProperties = {
   background: 'var(--bg-s)',
