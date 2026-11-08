@@ -1,0 +1,83 @@
+---
+title: "Mobile Devs Do Observability Too: The Day Our Dashboards Saved the Day"
+description: "How I set up dashboards and alerts in Datadog for critical mobile applications — and what I learned about logs, noise, and alert calibration in practice."
+date: "2026-11-07"
+tags: ["observability", "mobile", "datadog", "logs", "alerts"]
+slug: "dev-mobile-observability"
+readingTime: 7
+---
+
+# Mobile Devs Do Observability Too: The Day Our Dashboards Saved the Day
+
+**Observability**: you hear the word and immediately think backend, server metrics, or DevOps teams, right? But the truth is that mobile and frontend developers need to be part of that conversation too. Each layer handles a different piece, but responsibility for the end user experience is shared.
+
+I learned the real importance of this in practice, working at a large company. My team was responsible for critical applications — like bank statements, income tax, reports, and payment processing —, meaning a large codebase surface to ensure everything was working perfectly.
+
+Before real observability, knowing something was wrong felt like guesswork. We relied on:
+
+- A drastic and unexplained drop in usage events;
+- The QA or release health team stumbling on a critical bug right at launch;
+- Or the luck (or shock) of us developers finding the error by chance.
+
+Another key point: the team already had APM dashboards and alerts focused on the backend, but they suffered from a classic problem: **too much noise**. They fired constantly for trivial reasons, and the result was the worst possible — the team lost confidence in the alerts.
+
+It became a classic boy-who-cried-wolf situation. At first, people would worry and go check; over time, it became background noise and nobody looked anymore.
+
+> *And that was my first lesson in this process: there's no point having alerts that don't alert to anything real.*
+
+And the mobile team? Zero visibility. At the time, we had no idea how much having dedicated dashboards and alerts would bring **peace of mind and control** to our daily work.
+
+It was during a PDI (personal development plan) that my team lead at the time raised this challenge. I saw it as the perfect opportunity to dive deep into the subject, especially because we were going through major backend changes that could directly impact mobile. And the detail that raised the stakes: we used **SDUI (Server-Driven UI)**, meaning a misaligned contract on the server had the power to cause everything from non-fatal errors to critical failures that would break the app end to end.
+
+With that scenario on the table, our first step was clear: get to work and build the first dashboards in Datadog.
+
+### Step 1: Building the Dashboards (and the Reality Check)
+
+AI was a huge ally in this learning process. Datadog itself has excellent AI resources and assistants, which made the planning and initial creation much easier. Another strategy that helped me a lot was exploring existing dashboards from other teams to find inspiration and draw *insights* on how our visualizations could be built.
+
+And what was my biggest lesson in this phase?
+
+**There's no point in building the most beautiful dashboard in the world if you don't first stop to structure good logs.**
+
+The log emitted by the application is our true goldmine. It's what carries the answers to production mysteries, bringing valuable information like:
+
+- `user_id` and user segmentation;
+- Which exact screen triggered the event;
+- The payload and the error returned by the API when the request falls into the `catch`;
+- The app version, operating system, and the filters the user was applying at the time of the error.
+
+Without rich, well-structured logs on the client side, the dashboard is blind.
+
+After adjusting the logs, it was just a matter of waiting for the release to go to production and monitoring the dashboard. Right away, the visualization was already showing the real number of errors and mapping the main bottlenecks. It was essential for understanding the app's normal behavior before moving on to alerts.
+
+![Datadog dashboard showing the main mobile app errors organized by frequency](/posts/dev-mobile-observability/dashboard.jpg)
+
+### Step 2: Creating the Alerts
+
+After structuring the logs, results came quickly. Since the dashboard had a card with the main errors, I started monitoring the panel closely — and that's how I found our first real problem.
+
+> I was super happy, because that proved the work was worthwhile and that monitoring was actually working. At that moment, the team stopped to reflect: *how had we not seen this before?*
+
+> The answer was simple: alerts full of noise, many products running, and big changes happening simultaneously. What we needed was focus. The idea was to stop staring at the dashboard all day and let the alerts notify us only when there was a real problem. But for that, I needed time to properly calibrate the thresholds.
+
+And so the alerts were created. End of story and we lived happily with everything monitored? **Not yet.**
+
+### Step 3: Calibrating the Alerts
+
+The mobile alerts were firing way too much. My god, as if what we already had on the backend wasn't enough.
+
+This phase taught me a lot — lessons from conversations with teammates, AI support, and research into articles about creating good alerts:
+
+- **1st lesson (Too sensitive):** The alerts were overly sensitive. I had left virtually no margin for error in a product that handles over half a million daily accesses. Any minimal fluctuation became chaos.
+- **2nd lesson (Focus on the right responsibility):** I was covering errors that were the backend's responsibility, catching failures that weren't even from our BFF (like `401` responses). I removed those alerts and filtered the rest to exclude expected responses.
+- **3rd lesson (The sub-monitor strategy):** During a daily standup discussing the issue, a developer suggested applying two *sub-monitors*: the main alert would only fire if both conditions were met. This eliminated false positives for good.
+
+### Bonus: The Journey Continues (From Mobile Dev to APM)
+
+*Spoiler:* I enjoyed observability so much that I went even further. I started studying APM and *traces* to understand exactly where the bottleneck was when any route on our BFF had issues.
+
+And of course, I became completely in love with analyzing logs!
+
+I took that momentum to push for an opportunity to refactor and improve the backend alerts for the team — with full buy-in and support from the backend developers, so that everyone could finally have peace.
+
+The result? Not long ago, I heard in a *daily standup* that the alerts channel **is finally quiet**. There's no price tag on knowing that monitoring now works for us, not against us.
