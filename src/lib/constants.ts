@@ -1,5 +1,5 @@
 export const SITE_URL =
-  process.env.NEXT_PUBLIC_BASE_URL ?? 'https://gabrielaleite.dev';
+  process.env.NEXT_PUBLIC_BASE_URL ?? 'https://www.gabrielamiranda.dev.br';
 
 export const GITHUB_USERNAME =
   process.env.NEXT_PUBLIC_GITHUB_USERNAME ?? 'gabriela-miranda-leite';
