@@ -42,6 +42,7 @@ export function RecentPosts({ posts }: RecentPostsProps) {
           </h2>
           <Link
             href="/blog"
+            className="see-all-link"
             style={{
               fontFamily: 'var(--font-mono)',
               fontSize: 'var(--text-meta)',

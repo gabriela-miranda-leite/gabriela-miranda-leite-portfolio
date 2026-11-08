@@ -87,6 +87,7 @@ export function Hero() {
           <Link
             href="/projects"
             onClick={() => trackEvent({ screen: 'home', action: 'button-clicked', reference: 'Ver projetos' })}
+            className="hero-cta-primary"
             style={{
               background: 'var(--accent)',
               color: 'var(--bg)',
@@ -103,6 +104,7 @@ export function Hero() {
           </Link>
           <Link
             href="/blog"
+            className="hero-cta-ghost"
             style={{
               border: '1px solid var(--border)',
               color: 'var(--fg-2)',

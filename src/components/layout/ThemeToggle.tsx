@@ -30,6 +30,7 @@ export function ThemeToggle() {
     <button
       onClick={toggle}
       aria-label={`${t('theme')}: mudar para ${theme === 'dark' ? 'claro' : 'escuro'}`}
+      className="nav-pill-btn"
       style={{
         background: 'var(--bg-s)',
         border: '1px solid var(--border)',

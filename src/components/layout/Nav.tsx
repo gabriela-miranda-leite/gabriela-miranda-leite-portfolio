@@ -112,6 +112,7 @@ export function Nav({ showAbout = false }: NavProps) {
                   key={key}
                   href={href}
                   aria-current={isActive ? 'page' : undefined}
+                  className={isActive ? undefined : 'nav-link'}
                   style={{
                     display: 'block',
                     padding: 'var(--space-4) var(--space-8)',
@@ -186,6 +187,7 @@ export function Nav({ showAbout = false }: NavProps) {
                       href={href}
                       aria-current={isActive ? 'page' : undefined}
                       onClick={() => setMenuOpen(false)}
+                      className={isActive ? undefined : 'nav-link'}
                       style={{
                         display: 'block',
                         padding: 'var(--space-4) var(--space-8)',

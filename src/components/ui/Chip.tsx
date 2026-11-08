@@ -30,7 +30,7 @@ export function Chip({ label, selected = false, onClick, className = '' }: ChipP
         type="button"
         aria-pressed={selected}
         onClick={onClick}
-        className={className}
+        className={`chip-btn${className ? ` ${className}` : ''}`}
         style={{ ...chipStyle(selected), cursor: 'pointer' }}
       >
         {label}

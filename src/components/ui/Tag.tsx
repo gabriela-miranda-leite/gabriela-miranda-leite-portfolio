@@ -32,7 +32,7 @@ export function Tag({ label, variant = 'tech', selected = false, onClick, classN
         type="button"
         aria-pressed={selected}
         onClick={onClick}
-        className={className}
+        className={`tag-btn${className ? ` ${className}` : ''}`}
         style={{ ...tagStyle(variant, selected), cursor: 'pointer' }}
       >
         {label}

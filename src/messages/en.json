@@ -14,7 +14,8 @@
     "ariaLabel": "Footer",
     "socialAriaLabel": "Social links",
     "githubAriaLabel": "Gabi's GitHub (opens in new tab)",
-    "linkedinAriaLabel": "Gabi's LinkedIn (opens in new tab)"
+    "linkedinAriaLabel": "Gabi's LinkedIn (opens in new tab)",
+    "copyright": "© {year} Gabriela Miranda Leite. All rights reserved."
   },
   "home": {
     "hero": {

@@ -41,6 +41,7 @@ export function LangSwitch() {
       <button
         onClick={toggle}
         aria-label={t('ariaLabel')}
+        className="nav-pill-btn"
         style={{
           background: 'var(--bg-s)',
           border: '1px solid var(--border)',
