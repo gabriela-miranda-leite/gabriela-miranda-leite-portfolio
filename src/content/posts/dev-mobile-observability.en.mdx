@@ -1,6 +1,6 @@
 ---
 title: "Mobile devs do observability too: the day our dashboards saved the day"
-description: "How I built Datadog dashboards and alerts for critical mobile apps — and what I learned about noise and alert calibration."
+description: "How I built Datadog dashboards and alerts for critical mobile apps and what I learned about noise and alert calibration."
 date: "2026-11-07"
 tags: ["observability", "mobile", "datadog", "logs", "alerts"]
 slug: "dev-mobile-observability"
@@ -12,7 +12,7 @@ readingTime: 7
 
 **Observability**: you hear the word and immediately think backend, server metrics, or DevOps teams, right? But the truth is that mobile and frontend developers need to be part of that conversation too. Each layer handles a different piece, but responsibility for the end user experience is shared.
 
-I learned the real importance of this in practice, working at a large company. My team was responsible for critical applications — like bank statements, income tax, reports, and payment processing —, meaning a large codebase surface to ensure everything was working perfectly.
+I learned the real importance of this in practice, working at a large company. My team was responsible for critical applications (like bank statements, income tax, reports, and payment processing), meaning a large codebase surface to ensure everything was working perfectly.
 
 Before real observability, knowing something was wrong felt like guesswork. We relied on:
 
@@ -20,7 +20,7 @@ Before real observability, knowing something was wrong felt like guesswork. We r
 - The QA or release health team stumbling on a critical bug right at launch;
 - Or the luck (or shock) of us developers finding the error by chance.
 
-Another key point: the team already had APM dashboards and alerts focused on the backend, but they suffered from a classic problem: **too much noise**. They fired constantly for trivial reasons, and the result was the worst possible — the team lost confidence in the alerts.
+Another key point: the team already had APM dashboards and alerts focused on the backend, but they suffered from a classic problem: **too much noise**. They fired constantly for trivial reasons, and the result was the worst possible: the team lost confidence in the alerts.
 
 It became a classic boy-who-cried-wolf situation. At first, people would worry and go check; over time, it became background noise and nobody looked anymore.
 
@@ -55,7 +55,7 @@ After adjusting the logs, it was just a matter of waiting for the release to go 
 
 ### Step 2: Creating the Alerts
 
-After structuring the logs, results came quickly. Since the dashboard had a card with the main errors, I started monitoring the panel closely — and that's how I found our first real problem.
+After structuring the logs, results came quickly. Since the dashboard had a card with the main errors, I started monitoring the panel closely, and that's how I found our first real problem.
 
 > I was super happy, because that proved the work was worthwhile and that monitoring was actually working. At that moment, the team stopped to reflect: *how had we not seen this before?*
 
@@ -67,7 +67,7 @@ And so the alerts were created. End of story and we lived happily with everythin
 
 The mobile alerts were firing way too much. My god, as if what we already had on the backend wasn't enough.
 
-This phase taught me a lot — lessons from conversations with teammates, AI support, and research into articles about creating good alerts:
+This phase taught me a lot, with lessons from conversations with teammates, AI support, and research into articles about creating good alerts:
 
 - **1st lesson (Too sensitive):** The alerts were overly sensitive. I had left virtually no margin for error in a product that handles over half a million daily accesses. Any minimal fluctuation became chaos.
 - **2nd lesson (Focus on the right responsibility):** I was covering errors that were the backend's responsibility, catching failures that weren't even from our BFF (like `401` responses). I removed those alerts and filtered the rest to exclude expected responses.
@@ -79,6 +79,6 @@ This phase taught me a lot — lessons from conversations with teammates, AI sup
 
 And of course, I became completely in love with analyzing logs!
 
-I took that momentum to push for an opportunity to refactor and improve the backend alerts for the team — with full buy-in and support from the backend developers, so that everyone could finally have peace.
+I took that momentum to push for an opportunity to refactor and improve the backend alerts for the team (with full buy-in and support from the backend developers), so that everyone could finally have peace.
 
 The result? Not long ago, I heard in a *daily standup* that the alerts channel **is finally quiet**. There's no price tag on knowing that monitoring now works for us, not against us.
