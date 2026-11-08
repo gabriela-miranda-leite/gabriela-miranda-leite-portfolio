@@ -8,7 +8,7 @@ import { PostNav } from '@/components/blog/PostNav';
 import { ShareBar } from '@/components/blog/ShareBar';
 import { RssCta } from '@/components/blog/RssCta';
 import { getAllPosts, getPostBySlug } from '@/lib/posts';
-import { blogPostingJsonLd } from '@/lib/seo';
+import { blogPostingJsonLd, postShareImageUrl } from '@/lib/seo';
 import { SITE_URL as baseUrl } from '@/lib/constants';
 
 type PageProps = { params: Promise<{ locale: string; slug: string }> };
@@ -37,7 +37,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 
   const url =
     locale === 'pt' ? `${baseUrl}/blog/${slug}` : `${baseUrl}/en/blog/${slug}`;
-  const ogUrl = `${baseUrl}/og?title=${encodeURIComponent(post.title)}&subtitle=${encodeURIComponent(post.description)}`;
+  const ogUrl = postShareImageUrl(post);
 
   return {
     title: `${post.title} — Gabi Miranda`,
