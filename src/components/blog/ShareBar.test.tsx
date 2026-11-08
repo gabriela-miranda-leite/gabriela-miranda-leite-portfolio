@@ -2,8 +2,19 @@ import React from 'react';
 import { render, screen, fireEvent, waitFor, act } from '@testing-library/react';
 import { axe, toHaveNoViolations } from 'jest-axe';
 
+import ptMessages from '@/messages/pt.json';
+
 jest.mock('@/i18n/navigation', () => ({
   usePathname: () => '/blog/test-post',
+}));
+
+jest.mock('next-intl', () => ({
+  useTranslations: (namespace: string) => (key: string) => {
+    const scope = namespace
+      .split('.')
+      .reduce<unknown>((acc, part) => (acc as Record<string, unknown>)[part], ptMessages);
+    return (scope as Record<string, string>)[key];
+  },
 }));
 
 import { ShareBar } from './ShareBar';
@@ -18,6 +29,7 @@ Object.defineProperty(navigator, 'clipboard', {
 
 beforeEach(() => {
   mockWriteText.mockClear();
+  Object.defineProperty(navigator, 'share', { value: undefined, configurable: true });
 });
 
 describe('ShareBar', () => {
@@ -76,6 +88,47 @@ describe('ShareBar', () => {
       screen.getByRole('link', { name: /^compartilhar no x/i }),
     ];
     links.forEach((link) => expect(link).toHaveAttribute('target', '_blank'));
+  });
+
+  describe('with the Web Share API available', () => {
+    const mockShare = jest.fn().mockResolvedValue(undefined);
+
+    beforeEach(() => {
+      mockShare.mockClear();
+      Object.defineProperty(navigator, 'share', { value: mockShare, configurable: true });
+    });
+
+    it('replaces the per-network links with a single native share button', async () => {
+      render(<ShareBar title="Meu Post" />);
+      expect(await screen.findByRole('button', { name: /escolher um app/i })).toBeInTheDocument();
+      expect(screen.queryByRole('link', { name: /linkedin/i })).not.toBeInTheDocument();
+      expect(screen.queryByRole('link', { name: /whatsapp/i })).not.toBeInTheDocument();
+      expect(screen.getByRole('button', { name: /copiar link do post/i })).toBeInTheDocument();
+    });
+
+    it('calls navigator.share with the title and full URL', async () => {
+      render(<ShareBar title="Meu Post" />);
+      const btn = await screen.findByRole('button', { name: /escolher um app/i });
+      await act(async () => { fireEvent.click(btn); });
+      expect(mockShare).toHaveBeenCalledWith({
+        title: 'Meu Post',
+        url: expect.stringContaining('/blog/test-post'),
+      });
+    });
+
+    it('ignores the rejection when the share sheet is dismissed', async () => {
+      mockShare.mockRejectedValueOnce(new DOMException('cancelled', 'AbortError'));
+      render(<ShareBar title="Meu Post" />);
+      const btn = await screen.findByRole('button', { name: /escolher um app/i });
+      await act(async () => { fireEvent.click(btn); });
+      expect(mockShare).toHaveBeenCalledTimes(1);
+    });
+
+    it('has no accessibility violations', async () => {
+      const { container } = render(<ShareBar title="Meu Post" />);
+      await screen.findByRole('button', { name: /escolher um app/i });
+      expect(await axe(container)).toHaveNoViolations();
+    }, 15000);
   });
 
   it('has no accessibility violations', async () => {

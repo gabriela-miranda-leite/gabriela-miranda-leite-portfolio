@@ -45,6 +45,18 @@
     "next": "Next",
     "rss_cta": "Enjoyed this? <link>Subscribe via RSS</link> so you don't miss the next ones.",
     "translation_pending": "Translation coming soon",
+    "share": {
+      "label": "Share",
+      "native": "Pick an app",
+      "native_aria": "Pick an app to share this post",
+      "linkedin_aria": "Share on LinkedIn (opens in a new tab)",
+      "whatsapp_aria": "Share on WhatsApp (opens in a new tab)",
+      "x_aria": "Share on X (opens in a new tab)",
+      "copy": "Copy link",
+      "copy_aria": "Copy post link",
+      "copied": "Copied!",
+      "copied_aria": "Link copied!"
+    },
     "listing": {
       "title": "Blog",
       "description": "Writing about software engineering, mobile and the day-to-day of product teams.",
