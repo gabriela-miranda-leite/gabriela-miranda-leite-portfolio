@@ -8,7 +8,7 @@ declare global {
 
 type Screen = 'home' | 'blog' | 'projects' | 'about';
 
-type Action = 'page-viewed' | 'button-clicked';
+type Action = 'page_viewed' | 'button_clicked';
 
 interface AnalyticsEvent {
   screen: Screen;

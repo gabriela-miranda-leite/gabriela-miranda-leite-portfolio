@@ -14,7 +14,7 @@ export function ProjectCard({ repo }: ProjectCardProps) {
       href={repo.html_url}
       target="_blank"
       rel="noopener noreferrer"
-      onClick={() => trackEvent({ screen: 'projects', action: 'button-clicked', reference: `Abriu o projeto ${repo.name}` })}
+      onClick={() => trackEvent({ screen: 'projects', action: 'button_clicked', reference: `Abriu o projeto ${repo.name}` })}
       aria-label={`${repo.name} — abre no GitHub`}
       className="project-card"
       style={{

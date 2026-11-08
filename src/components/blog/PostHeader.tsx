@@ -32,7 +32,7 @@ export function PostHeader({ post }: PostHeaderProps) {
       >
         <Link
           href="/blog"
-          onClick={() => trackEvent({ screen: 'blog', action: 'button-clicked', reference: 'Voltou para o blog pelo breadcrumb' })}
+          onClick={() => trackEvent({ screen: 'blog', action: 'button_clicked', reference: 'Voltou para o blog pelo breadcrumb' })}
           style={{ color: 'var(--fg-2)', textDecoration: 'none' }}
         >
           Blog

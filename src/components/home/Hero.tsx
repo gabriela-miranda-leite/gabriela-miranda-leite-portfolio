@@ -101,14 +101,14 @@ export function Hero() {
         >
           <Link
             href="/projects"
-            onClick={() => trackEvent({ screen: 'home', action: 'button-clicked', reference: 'Abriu projetos' })}
+            onClick={() => trackEvent({ screen: 'home', action: 'button_clicked', reference: 'Abriu projetos' })}
             className="btn btn-primary"
           >
             {t('cta.projects')}
           </Link>
           <Link
             href="/blog"
-            onClick={() => trackEvent({ screen: 'home', action: 'button-clicked', reference: 'Abriu o blog' })}
+            onClick={() => trackEvent({ screen: 'home', action: 'button_clicked', reference: 'Abriu o blog' })}
             className="btn btn-ghost"
           >
             {t('cta.blog')}
@@ -116,7 +116,7 @@ export function Hero() {
           <a
             href={t('cta.cv_href')}
             download
-            onClick={() => trackEvent({ screen: 'home', action: 'button-clicked', reference: 'Baixou o CV' })}
+            onClick={() => trackEvent({ screen: 'home', action: 'button_clicked', reference: 'Baixou o CV' })}
             style={{
               display: 'inline-flex',
               alignItems: 'center',

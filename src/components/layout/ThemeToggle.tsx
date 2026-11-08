@@ -24,7 +24,7 @@ export function ThemeToggle() {
 
   const toggle = () => {
     const next: Theme = theme === 'dark' ? 'light' : 'dark';
-    trackEvent({ screen: screenFromPathname(pathname), action: 'button-clicked', reference: `Trocou o tema para ${next}` });
+    trackEvent({ screen: screenFromPathname(pathname), action: 'button_clicked', reference: `Trocou o tema para ${next}` });
     setTheme(next);
     document.documentElement.setAttribute('data-theme', next);
     try { localStorage.setItem('theme', next); } catch {}

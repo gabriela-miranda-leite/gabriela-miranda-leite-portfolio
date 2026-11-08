@@ -69,7 +69,7 @@ export function AboutHero() {
             <div style={{ display: 'flex', gap: 'var(--space-7)', alignItems: 'center', flexWrap: 'wrap', paddingTop: '4px' }}>
               <Link
                 href="/projects"
-                onClick={() => trackEvent({ screen: 'about', action: 'button-clicked', reference: 'Abriu projetos' })}
+                onClick={() => trackEvent({ screen: 'about', action: 'button_clicked', reference: 'Abriu projetos' })}
                 className="btn btn-primary"
               >
                 {t('cta.projects')}
@@ -77,7 +77,7 @@ export function AboutHero() {
               <a
                 href={t('cta.cv_href')}
                 download
-                onClick={() => trackEvent({ screen: 'about', action: 'button-clicked', reference: 'Baixou o CV' })}
+                onClick={() => trackEvent({ screen: 'about', action: 'button_clicked', reference: 'Baixou o CV' })}
                 className="btn btn-ghost"
               >
                 {t('cta.cv')}

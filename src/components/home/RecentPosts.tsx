@@ -45,7 +45,7 @@ export function RecentPosts({ posts }: RecentPostsProps) {
           </h2>
           <Link
             href="/blog"
-            onClick={() => trackEvent({ screen: 'home', action: 'button-clicked', reference: 'Abriu todos os posts' })}
+            onClick={() => trackEvent({ screen: 'home', action: 'button_clicked', reference: 'Abriu todos os posts' })}
             className="see-all-link"
             style={{
               fontFamily: 'var(--font-mono)',
@@ -65,7 +65,7 @@ export function RecentPosts({ posts }: RecentPostsProps) {
           <Link
             key={post.slug}
             href={`/blog/${post.slug}`}
-            onClick={() => trackEvent({ screen: 'home', action: 'button-clicked', reference: `Abriu o post ${post.slug}` })}
+            onClick={() => trackEvent({ screen: 'home', action: 'button_clicked', reference: `Abriu o post ${post.slug}` })}
             className="post-row"
             style={{
               display: 'grid',

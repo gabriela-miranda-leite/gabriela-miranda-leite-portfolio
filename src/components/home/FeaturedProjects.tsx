@@ -47,7 +47,7 @@ export function FeaturedProjects({ repos }: FeaturedProjectsProps) {
           </h2>
           <Link
             href="/projects"
-            onClick={() => trackEvent({ screen: 'home', action: 'button-clicked', reference: 'Abriu todos os projetos' })}
+            onClick={() => trackEvent({ screen: 'home', action: 'button_clicked', reference: 'Abriu todos os projetos' })}
             className="see-all-link"
             style={{
               fontFamily: 'var(--font-mono)',
@@ -70,7 +70,7 @@ export function FeaturedProjects({ repos }: FeaturedProjectsProps) {
               href={repo.html_url}
               target="_blank"
               rel="noopener noreferrer"
-              onClick={() => trackEvent({ screen: 'home', action: 'button-clicked', reference: `Abriu o projeto ${repo.name}` })}
+              onClick={() => trackEvent({ screen: 'home', action: 'button_clicked', reference: `Abriu o projeto ${repo.name}` })}
               aria-label={`${repo.name} — abre no GitHub`}
               className="project-card"
               style={{
