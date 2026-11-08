@@ -22,7 +22,7 @@
       "role": "Software Engineer",
       "greeting": "Hi, I'm",
       "name": "Gabi",
-      "bio": "5 years building high-scale digital products — delivery, HR, e-commerce and banking. I work with Kotlin (Android and KMP), React Native and TypeScript, with a focus on quality, accessibility and code that lasts.",
+      "bio": "5 years building high-scale digital products. At Stone since 2023, working on a banking product with 500K+ daily active users. Kotlin Multiplatform, Compose, React Native and TypeScript.",
       "cta": {
         "projects": "See projects",
         "blog": "Read the blog"
