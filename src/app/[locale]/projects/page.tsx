@@ -5,7 +5,7 @@ import { ProjectCard } from '@/components/projects/ProjectCard';
 import { getRepos } from '@/lib/github';
 import { SITE_URL as baseUrl } from '@/lib/constants';
 
-export const revalidate = 604800; // 1 semana
+export const revalidate = 3600;
 
 type PageProps = { params: Promise<{ locale: string }> };
 

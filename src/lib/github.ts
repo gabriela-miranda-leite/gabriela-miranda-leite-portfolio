@@ -4,7 +4,7 @@ export async function getRepos(): Promise<GithubRepo[]> {
   const username = process.env.GITHUB_USERNAME ?? 'gabriela-miranda-leite';
 
   const res = await fetch(
-    `https://api.github.com/users/${username}/repos?sort=pushed&per_page=100`,
+    `https://api.github.com/users/${username}/repos?sort=pushed&per_page=100&type=owner`,
     {
       headers: process.env.GITHUB_TOKEN
         ? { Authorization: `Bearer ${process.env.GITHUB_TOKEN}` }
