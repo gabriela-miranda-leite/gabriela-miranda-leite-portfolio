@@ -35,10 +35,22 @@ describe('ProjectCard', () => {
     expect(screen.getByText('TypeScript')).toBeInTheDocument();
   });
 
-  it('renders topics (up to 2)', () => {
+  it('renders topics', () => {
     render(<ProjectCard repo={mockRepo} />);
     expect(screen.getByText('react')).toBeInTheDocument();
     expect(screen.getByText('nextjs')).toBeInTheDocument();
+  });
+
+  it('renders all topics, without repeating the language', () => {
+    const many: GithubRepo = {
+      ...mockRepo,
+      topics: ['react', 'nextjs', 'jest', 'typescript', 'storybook'],
+    };
+    render(<ProjectCard repo={many} />);
+    ['react', 'nextjs', 'jest', 'storybook'].forEach((t) =>
+      expect(screen.getByText(t)).toBeInTheDocument()
+    );
+    expect(screen.getAllByText(/^typescript$/i)).toHaveLength(1);
   });
 
   it('renders star count', () => {
