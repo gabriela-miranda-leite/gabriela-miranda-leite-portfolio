@@ -1,10 +1,13 @@
 'use client';
+import Image from 'next/image';
 import { useState } from 'react';
 import { useTranslations } from 'next-intl';
 import { List, X } from '@phosphor-icons/react';
 import { Link, usePathname } from '@/i18n/navigation';
 import { LangSwitch } from './LangSwitch';
 import { ThemeToggle } from './ThemeToggle';
+
+const GITHUB_USERNAME = process.env.NEXT_PUBLIC_GITHUB_USERNAME ?? 'gabriela-miranda-leite';
 
 const NAV_LINKS = [
   { href: '/blog', key: 'blog' },
@@ -64,16 +67,32 @@ export function Nav() {
           href="/"
           aria-label="Gabi Miranda — início"
           style={{
-            fontFamily: 'var(--font-serif)',
-            fontSize: 'var(--text-logo)',
-            fontWeight: 500,
-            fontStyle: 'italic',
-            color: 'var(--fg)',
+            display: 'flex',
+            alignItems: 'center',
+            gap: 'var(--space-6)',
             textDecoration: 'none',
-            whiteSpace: 'nowrap',
           }}
         >
-          Gabi Miranda
+          <Image
+            src={`https://avatars.githubusercontent.com/${GITHUB_USERNAME}`}
+            alt=""
+            role="presentation"
+            width={32}
+            height={32}
+            style={{ borderRadius: '50%', border: '1px solid var(--border)', flexShrink: 0 }}
+          />
+          <span
+            style={{
+              fontFamily: 'var(--font-serif)',
+              fontSize: 'var(--text-logo)',
+              fontWeight: 500,
+              fontStyle: 'italic',
+              color: 'var(--fg)',
+              whiteSpace: 'nowrap',
+            }}
+          >
+            Gabi Miranda
+          </span>
         </Link>
 
         {/* Nav links — desktop */}
