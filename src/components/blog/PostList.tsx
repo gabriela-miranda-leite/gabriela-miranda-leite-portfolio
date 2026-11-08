@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { useTranslations } from 'next-intl';
 import { PostCard } from './PostCard';
 import { TagFilter } from './TagFilter';
+import { SearchBar } from './SearchBar';
 import type { Post } from '@/types/post';
 
 interface PostListProps {
@@ -13,16 +14,32 @@ interface PostListProps {
 export function PostList({ posts, allTags }: PostListProps) {
   const t = useTranslations('blog.listing');
   const [activeTag, setActiveTag] = useState<string | null>(null);
+  const [query, setQuery] = useState('');
 
-  const filtered = activeTag ? posts.filter((p) => p.tags.includes(activeTag)) : posts;
+  const q = query.trim().toLowerCase();
+
+  const filtered = posts.filter((p) => {
+    const matchTag = !activeTag || p.tags.includes(activeTag);
+    const matchSearch =
+      !q ||
+      p.title.toLowerCase().includes(q) ||
+      p.description.toLowerCase().includes(q) ||
+      p.tags.some((tag) => tag.toLowerCase().includes(q));
+    return matchTag && matchSearch;
+  });
 
   return (
     <div>
-      {allTags.length > 0 && (
-        <div style={{ marginBottom: 'var(--space-16)' }}>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-10)', marginBottom: 'var(--space-16)' }}>
+        <SearchBar value={query} onChange={setQuery} />
+        {allTags.length > 0 && (
           <TagFilter tags={allTags} selected={activeTag} onChange={setActiveTag} />
-        </div>
-      )}
+        )}
+      </div>
+
+      <div aria-live="polite" aria-atomic="true" className="sr-only">
+        {q || activeTag ? t('results_count', { count: filtered.length }) : ''}
+      </div>
 
       {filtered.length === 0 ? (
         <p
