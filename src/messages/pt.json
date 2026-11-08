@@ -62,5 +62,62 @@
     "switch": "EN",
     "ariaLabel": "Mudar idioma para inglês",
     "announce": "Idioma alterado para inglês"
+  },
+  "about": {
+    "meta_title": "Sobre — Gabi Miranda",
+    "meta_description": "Conheça Gabi Miranda, Frontend & Mobile Developer especializada em design systems, acessibilidade e UX no setor de pagamentos.",
+    "hero": {
+      "eyebrow": "Frontend & Mobile Developer",
+      "title_line1": "Olá, sou",
+      "title_line2": "Gabi Miranda",
+      "bio": "Desenvolvo interfaces e apps com foco em design systems, acessibilidade e experiência do usuário. Trabalho no setor de pagamentos e aqui escrevo sobre o que aprendo na prática.",
+      "cta": {
+        "projects": "Ver projetos",
+        "cv": "Download CV",
+        "cv_href": "#"
+      }
+    },
+    "stack": {
+      "title": "Stack",
+      "frontend": {
+        "label": "Frontend",
+        "items": ["React", "Next.js", "TypeScript", "Tailwind CSS", "Storybook"]
+      },
+      "mobile": {
+        "label": "Mobile",
+        "items": ["React Native", "Expo", "iOS", "Android"]
+      },
+      "tools": {
+        "label": "Ferramentas",
+        "items": ["Figma", "Git", "Vercel", "Jest", "GitHub Actions"]
+      }
+    },
+    "experience": {
+      "title": "Experiência",
+      "items": [
+        {
+          "year": "2023–hoje",
+          "role": "Frontend & Mobile Engineer",
+          "company": "Fintech de Pagamentos",
+          "description": "Liderança técnica do design system interno. Desenvolvimento de features em React Native e Next.js com foco em acessibilidade e performance."
+        },
+        {
+          "year": "2021–2023",
+          "role": "Frontend Developer",
+          "company": "Agência Digital",
+          "description": "Construção de interfaces responsivas com React e TypeScript. Implementação de testes automatizados e integração contínua."
+        },
+        {
+          "year": "2020–2021",
+          "role": "Desenvolvedora Júnior",
+          "company": "Startup SaaS",
+          "description": "Primeiros passos em React e design de componentes. Contribuição em features de dashboard e onboarding."
+        }
+      ]
+    },
+    "contact": {
+      "title": "Vamos conversar?",
+      "button": "Manda um e-mail"
+    }
   }
 }

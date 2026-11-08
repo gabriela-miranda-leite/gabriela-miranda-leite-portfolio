@@ -1,4 +1,4 @@
-import { SITE_URL } from './constants';
+import { SITE_URL, CONTACT_EMAIL, SOCIAL_LINKS } from './constants';
 
 export function blogPostingJsonLd({
   title,
@@ -34,6 +34,24 @@ export function blogPostingJsonLd({
       name: 'Gabriela Miranda Leite',
       url: SITE_URL,
     },
+  };
+}
+
+export function profilePageJsonLd({ locale, url }: { locale: string; url: string }) {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'ProfilePage',
+    url,
+    name: locale === 'pt' ? 'Sobre — Gabi Miranda' : 'About — Gabi Miranda',
+    mainEntity: {
+      '@type': 'Person',
+      name: 'Gabriela Miranda Leite',
+      jobTitle: 'Frontend & Mobile Developer',
+      email: CONTACT_EMAIL,
+      url: SITE_URL,
+      sameAs: [SOCIAL_LINKS.github, SOCIAL_LINKS.linkedin],
+    },
+    inLanguage: locale === 'pt' ? 'pt-BR' : 'en',
   };
 }
 

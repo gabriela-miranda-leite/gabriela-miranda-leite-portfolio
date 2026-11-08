@@ -62,5 +62,62 @@
     "switch": "PT",
     "ariaLabel": "Change language to Portuguese",
     "announce": "Language changed to Portuguese"
+  },
+  "about": {
+    "meta_title": "About — Gabi Miranda",
+    "meta_description": "Meet Gabi Miranda, a Frontend & Mobile Developer specializing in design systems, accessibility and UX in the payments industry.",
+    "hero": {
+      "eyebrow": "Frontend & Mobile Developer",
+      "title_line1": "Hi, I'm",
+      "title_line2": "Gabi Miranda",
+      "bio": "I build interfaces and apps focused on design systems, accessibility and user experience. I work in the payments sector and write about what I learn in practice.",
+      "cta": {
+        "projects": "See projects",
+        "cv": "Download CV",
+        "cv_href": "#"
+      }
+    },
+    "stack": {
+      "title": "Stack",
+      "frontend": {
+        "label": "Frontend",
+        "items": ["React", "Next.js", "TypeScript", "Tailwind CSS", "Storybook"]
+      },
+      "mobile": {
+        "label": "Mobile",
+        "items": ["React Native", "Expo", "iOS", "Android"]
+      },
+      "tools": {
+        "label": "Tools",
+        "items": ["Figma", "Git", "Vercel", "Jest", "GitHub Actions"]
+      }
+    },
+    "experience": {
+      "title": "Experience",
+      "items": [
+        {
+          "year": "2023–now",
+          "role": "Frontend & Mobile Engineer",
+          "company": "Payments Fintech",
+          "description": "Technical lead of the internal design system. Feature development in React Native and Next.js with a focus on accessibility and performance."
+        },
+        {
+          "year": "2021–2023",
+          "role": "Frontend Developer",
+          "company": "Digital Agency",
+          "description": "Built responsive interfaces with React and TypeScript. Implemented automated tests and continuous integration."
+        },
+        {
+          "year": "2020–2021",
+          "role": "Junior Developer",
+          "company": "SaaS Startup",
+          "description": "First steps in React and component design. Contributed to dashboard and onboarding features."
+        }
+      ]
+    },
+    "contact": {
+      "title": "Let's talk?",
+      "button": "Send an email"
+    }
   }
 }
