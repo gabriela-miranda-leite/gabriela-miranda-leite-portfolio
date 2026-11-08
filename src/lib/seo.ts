@@ -75,3 +75,13 @@ export function websiteJsonLd(locale: string) {
     inLanguage: locale === 'pt' ? 'pt-BR' : 'en',
   };
 }
+
+/** Absolute URL for a post's share image: its own cover when set, else the generated /og card. */
+export function postShareImageUrl(post: {
+  title: string;
+  description: string;
+  image?: string;
+}): string {
+  if (post.image) return `${SITE_URL}${post.image}`;
+  return `${SITE_URL}/og?title=${encodeURIComponent(post.title)}&subtitle=${encodeURIComponent(post.description)}`;
+}
