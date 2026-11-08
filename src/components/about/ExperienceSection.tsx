@@ -16,12 +16,14 @@ export function ExperienceSection() {
 
   return (
     <section
+      className="section-enter"
       aria-labelledby="experience-heading"
       style={{
         paddingTop: 'clamp(2rem, 5vw, var(--space-18))',
         paddingBottom: 'clamp(2rem, 5vw, var(--space-18))',
         borderTop: '1px solid var(--border)',
-      }}
+        '--enter-delay': '0.25s',
+      } as React.CSSProperties}
     >
       <Container>
         <h2

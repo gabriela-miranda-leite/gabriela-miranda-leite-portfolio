@@ -13,7 +13,7 @@ import { vercelAdapter } from '@flags-sdk/vercel';
 export const portfolioShowAbout = flag<boolean>({
   key: 'portfolio_show_about',
   description: 'Exibe o link "Sobre" na navegação',
-  defaultValue: false,
+  defaultValue: true,
   options: [
     { value: false, label: 'Oculto' },
     { value: true, label: 'Visível' },

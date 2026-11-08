@@ -9,12 +9,14 @@ export function ContactCTA() {
 
   return (
     <section
+      className="section-enter"
       aria-labelledby="contact-heading"
       style={{
         paddingTop: 'clamp(2rem, 5vw, 72px)',
         paddingBottom: 'clamp(2.5rem, 8vw, 96px)',
         borderTop: '1px solid var(--border)',
-      }}
+        '--enter-delay': '0.35s',
+      } as React.CSSProperties}
     >
       <Container>
         <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center', gap: '24px' }}>
@@ -51,18 +53,8 @@ export function ContactCTA() {
           {/* CTA button */}
           <a
             href={`mailto:${CONTACT_EMAIL}`}
-            style={{
-              display: 'inline-block',
-              background: 'var(--accent)',
-              color: 'var(--bg)',
-              fontWeight: 600,
-              fontSize: '15px',
-              padding: '14px 32px',
-              borderRadius: 'var(--radius-pill)',
-              textDecoration: 'none',
-              fontFamily: 'var(--font-sans)',
-              marginTop: '4px',
-            }}
+            className="btn btn-primary"
+            style={{ marginTop: '4px' }}
           >
             {t('button')}
           </a>
