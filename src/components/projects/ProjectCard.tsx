@@ -9,6 +9,9 @@ interface ProjectCardProps {
 }
 
 export function ProjectCard({ repo }: ProjectCardProps) {
+  // Show every topic, skipping the ones that repeat the language chip (case-insensitive)
+  const topics = repo.topics.filter((t) => t.toLowerCase() !== repo.language?.toLowerCase());
+
   return (
     <a
       href={repo.html_url}
@@ -126,7 +129,7 @@ export function ProjectCard({ repo }: ProjectCardProps) {
               {repo.language}
             </span>
           )}
-          {repo.topics.slice(0, 2).map((topic) => (
+          {topics.map((topic) => (
             <span
               key={topic}
               style={{
