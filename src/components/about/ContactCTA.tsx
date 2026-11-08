@@ -54,7 +54,7 @@ export function ContactCTA() {
           {/* CTA button */}
           <a
             href={`mailto:${CONTACT_EMAIL}`}
-            onClick={() => trackEvent({ screen: 'about', action: 'button-clicked', reference: 'Abriu o e-mail de contato' })}
+            onClick={() => trackEvent({ screen: 'about', action: 'button_clicked', reference: 'Abriu o e-mail de contato' })}
             className="btn btn-primary"
             style={{ marginTop: '4px' }}
           >

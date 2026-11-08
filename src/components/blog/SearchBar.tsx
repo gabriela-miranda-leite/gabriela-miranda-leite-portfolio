@@ -56,7 +56,7 @@ export function SearchBar({ value, onChange }: SearchBarProps) {
           type="button"
           aria-label={t('search_clear')}
           onClick={() => {
-            trackEvent({ screen: 'blog', action: 'button-clicked', reference: 'Limpou a busca' });
+            trackEvent({ screen: 'blog', action: 'button_clicked', reference: 'Limpou a busca' });
             onChange('');
           }}
           style={{

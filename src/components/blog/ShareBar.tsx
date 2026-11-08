@@ -21,7 +21,7 @@ export function ShareBar({ title }: ShareBarProps) {
 
   async function handleCopy() {
     await navigator.clipboard.writeText(url);
-    trackEvent({ screen: 'blog', action: 'button-clicked', reference: 'Copiou o link do post' });
+    trackEvent({ screen: 'blog', action: 'button_clicked', reference: 'Copiou o link do post' });
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
   }
@@ -58,7 +58,7 @@ export function ShareBar({ title }: ShareBarProps) {
         target="_blank"
         rel="noopener noreferrer"
         aria-label="Compartilhar no LinkedIn (abre em nova aba)"
-        onClick={() => trackEvent({ screen: 'blog', action: 'button-clicked', reference: 'Compartilhou no LinkedIn' })}
+        onClick={() => trackEvent({ screen: 'blog', action: 'button_clicked', reference: 'Compartilhou no LinkedIn' })}
         className="share-pill"
       >
         <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false">
@@ -73,7 +73,7 @@ export function ShareBar({ title }: ShareBarProps) {
         target="_blank"
         rel="noopener noreferrer"
         aria-label="Compartilhar no WhatsApp (abre em nova aba)"
-        onClick={() => trackEvent({ screen: 'blog', action: 'button-clicked', reference: 'Compartilhou no WhatsApp' })}
+        onClick={() => trackEvent({ screen: 'blog', action: 'button_clicked', reference: 'Compartilhou no WhatsApp' })}
         className="share-pill"
       >
         <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false">
@@ -88,7 +88,7 @@ export function ShareBar({ title }: ShareBarProps) {
         target="_blank"
         rel="noopener noreferrer"
         aria-label="Compartilhar no X (abre em nova aba)"
-        onClick={() => trackEvent({ screen: 'blog', action: 'button-clicked', reference: 'Compartilhou no X' })}
+        onClick={() => trackEvent({ screen: 'blog', action: 'button_clicked', reference: 'Compartilhou no X' })}
         className="share-pill"
       >
         <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false">

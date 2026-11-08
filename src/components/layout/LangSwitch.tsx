@@ -14,7 +14,7 @@ export function LangSwitch() {
   const next = locale === 'pt' ? 'en' : 'pt';
 
   const toggle = () => {
-    trackEvent({ screen: screenFromPathname(pathname), action: 'button-clicked', reference: `Trocou o idioma para ${next}` });
+    trackEvent({ screen: screenFromPathname(pathname), action: 'button_clicked', reference: `Trocou o idioma para ${next}` });
     setAnnouncement(t('announce'));
     router.replace(pathname, { locale: next });
   };

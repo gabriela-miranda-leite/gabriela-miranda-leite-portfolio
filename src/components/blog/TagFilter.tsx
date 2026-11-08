@@ -26,7 +26,7 @@ export function TagFilter({ tags, selected, onChange }: TagFilterProps) {
         label={t('all')}
         selected={selected === null}
         onClick={() => {
-          trackEvent({ screen: 'blog', action: 'button-clicked', reference: 'Filtrou por todos' });
+          trackEvent({ screen: 'blog', action: 'button_clicked', reference: 'Filtrou por todos' });
           onChange(null);
         }}
       />
@@ -36,7 +36,7 @@ export function TagFilter({ tags, selected, onChange }: TagFilterProps) {
           label={tag}
           selected={selected === tag}
           onClick={() => {
-            trackEvent({ screen: 'blog', action: 'button-clicked', reference: `Filtrou pela tag ${tag}` });
+            trackEvent({ screen: 'blog', action: 'button_clicked', reference: `Filtrou pela tag ${tag}` });
             onChange(selected === tag ? null : tag);
           }}
         />

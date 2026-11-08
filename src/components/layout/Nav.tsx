@@ -75,7 +75,7 @@ export function Nav({ showAbout = false }: NavProps) {
         <Link
           href="/"
           aria-label="Gabi Miranda — início"
-          onClick={() => trackEvent({ screen, action: 'button-clicked', reference: 'Voltou para a home pelo logo' })}
+          onClick={() => trackEvent({ screen, action: 'button_clicked', reference: 'Voltou para a home pelo logo' })}
           style={{
             display: 'flex',
             alignItems: 'center',
@@ -115,7 +115,7 @@ export function Nav({ showAbout = false }: NavProps) {
                   key={key}
                   href={href}
                   aria-current={isActive ? 'page' : undefined}
-                  onClick={() => trackEvent({ screen, action: 'button-clicked', reference: `Abriu ${key} pelo menu` })}
+                  onClick={() => trackEvent({ screen, action: 'button_clicked', reference: `Abriu ${key} pelo menu` })}
                   className={isActive ? undefined : 'nav-link'}
                   style={{
                     display: 'block',
@@ -147,7 +147,7 @@ export function Nav({ showAbout = false }: NavProps) {
           aria-expanded={menuOpen}
           aria-controls="mobile-menu"
           onClick={() => {
-            trackEvent({ screen, action: 'button-clicked', reference: menuOpen ? 'Fechou o menu' : 'Abriu o menu' });
+            trackEvent({ screen, action: 'button_clicked', reference: menuOpen ? 'Fechou o menu' : 'Abriu o menu' });
             setMenuOpen((v) => !v);
           }}
           className="nav-mobile-btn"
@@ -189,7 +189,7 @@ export function Nav({ showAbout = false }: NavProps) {
                       href={href}
                       aria-current={isActive ? 'page' : undefined}
                       onClick={() => {
-                        trackEvent({ screen, action: 'button-clicked', reference: `Abriu ${key} pelo menu mobile` });
+                        trackEvent({ screen, action: 'button_clicked', reference: `Abriu ${key} pelo menu mobile` });
                         setMenuOpen(false);
                       }}
                       className={isActive ? undefined : 'nav-link'}

@@ -76,7 +76,7 @@ describe('ThemeToggle — analytics', () => {
     fireEvent.click(getByRole('button'));
     expect(mockTrackEvent).toHaveBeenCalledWith({
       screen: 'blog',
-      action: 'button-clicked',
+      action: 'button_clicked',
       reference: expect.stringContaining('Trocou o tema'),
     });
   });

@@ -15,7 +15,7 @@ export function PostCard({ post }: PostCardProps) {
   return (
     <Link
       href={`/blog/${post.slug}`}
-      onClick={() => trackEvent({ screen: 'blog', action: 'button-clicked', reference: `Abriu o post ${post.slug}` })}
+      onClick={() => trackEvent({ screen: 'blog', action: 'button_clicked', reference: `Abriu o post ${post.slug}` })}
       aria-label={`${post.title} — ${t('listing.read_more')}`}
       className="post-card"
       style={{
