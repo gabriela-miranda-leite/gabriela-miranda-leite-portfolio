@@ -1,4 +1,7 @@
+'use client';
+
 import { useTranslations } from 'next-intl';
+import { trackEvent } from '@/lib/analytics';
 
 export function Footer() {
   const t = useTranslations('footer');
@@ -41,6 +44,7 @@ export function Footer() {
               target="_blank"
               rel="noopener noreferrer"
               aria-label={t('githubAriaLabel')}
+              onClick={() => trackEvent({ screen: 'home', action: 'link-clicked', reference: 'GitHub footer' })}
               style={{
                 fontFamily: 'var(--font-mono)',
                 fontSize: 'var(--text-meta)',
@@ -57,6 +61,7 @@ export function Footer() {
               target="_blank"
               rel="noopener noreferrer"
               aria-label={t('linkedinAriaLabel')}
+              onClick={() => trackEvent({ screen: 'home', action: 'link-clicked', reference: 'LinkedIn footer' })}
               style={{
                 fontFamily: 'var(--font-mono)',
                 fontSize: 'var(--text-meta)',
