@@ -45,6 +45,18 @@
     "next": "Próximo",
     "rss_cta": "Gostou? <link>Assine o RSS</link> para não perder os próximos.",
     "translation_pending": "Tradução em breve",
+    "share": {
+      "label": "Compartilhar",
+      "native": "Escolher app",
+      "native_aria": "Escolher um app para compartilhar este post",
+      "linkedin_aria": "Compartilhar no LinkedIn (abre em nova aba)",
+      "whatsapp_aria": "Compartilhar no WhatsApp (abre em nova aba)",
+      "x_aria": "Compartilhar no X (abre em nova aba)",
+      "copy": "Copiar link",
+      "copy_aria": "Copiar link do post",
+      "copied": "Copiado!",
+      "copied_aria": "Link copiado!"
+    },
     "listing": {
       "title": "Blog",
       "description": "Escrita sobre engenharia de software, mobile e o dia a dia de times de produto.",
