@@ -9,13 +9,12 @@ import { ThemeToggle } from './ThemeToggle';
 
 const GITHUB_USERNAME = process.env.NEXT_PUBLIC_GITHUB_USERNAME ?? 'gabriela-miranda-leite';
 
-const SHOW_ABOUT = process.env.NEXT_PUBLIC_SHOW_ABOUT === 'true';
-
-const NAV_LINKS = [
+const BASE_NAV_LINKS = [
   { href: '/blog', key: 'blog' },
   { href: '/projects', key: 'projects' },
-  ...(SHOW_ABOUT ? [{ href: '/about', key: 'about' } as const] : []),
 ] as const satisfies ReadonlyArray<{ href: string; key: string }>;
+
+const ABOUT_LINK = { href: '/about', key: 'about' } as const;
 
 const PILL: React.CSSProperties = {
   background: 'var(--bg-s)',
@@ -34,10 +33,16 @@ const PILL: React.CSSProperties = {
 
 export { PILL };
 
-export function Nav() {
+interface NavProps {
+  showAbout?: boolean;
+}
+
+export function Nav({ showAbout = false }: NavProps) {
   const t = useTranslations('nav');
   const pathname = usePathname();
   const [menuOpen, setMenuOpen] = useState(false);
+
+  const NAV_LINKS = showAbout ? [...BASE_NAV_LINKS, ABOUT_LINK] : BASE_NAV_LINKS;
 
   return (
     <header
