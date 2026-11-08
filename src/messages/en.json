@@ -84,18 +84,15 @@
     },
     "stack": {
       "title": "Stack",
-      "mobile": {
-        "label": "Mobile",
-        "items": ["React Native · Kotlin · KMP", "Compose Multiplatform · Swift", "Clean Architecture · MVVM", "Kodein · Ktorfit · Coroutines · Flow"]
-      },
-      "frontend": {
-        "label": "Frontend & Design System",
-        "items": ["React.js · Next.js · TypeScript", "HTML · CSS · JavaScript", "Storybook · Stencil.js · WCAG", "Accessible components · Lyricist"]
-      },
-      "tools": {
-        "label": "Testing & Observability",
-        "items": ["kotlin.test · Fakes · Turbine", "Robot pattern · Paparazzi · Maestro E2E", "Datadog · Amplitude · Firebase", "Gradle · Detekt · Ktlint · Git"]
-      }
+      "groups": [
+        { "label": "Mobile", "items": ["Kotlin", "Kotlin Multiplatform", "Compose Multiplatform", "React Native", "Swift", "Android"] },
+        { "label": "Architecture", "items": ["Clean Architecture", "MVVM", "Kodein", "Ktorfit", "kotlinx.serialization", "Coroutines", "Flow"] },
+        { "label": "Frontend", "items": ["TypeScript", "React.js", "Next.js", "JavaScript", "HTML", "CSS"] },
+        { "label": "Design System & A11y", "items": ["Storybook", "WCAG", "Stencil.js", "Accessible components"] },
+        { "label": "Testing", "items": ["kotlin.test", "Maestro E2E", "Fakes", "Turbine", "Robot pattern", "Paparazzi", "Jest"] },
+        { "label": "Observability", "items": ["Datadog", "Amplitude", "Firebase"] },
+        { "label": "Build & Quality", "items": ["Gradle", "Detekt", "Ktlint", "Kover", "Git", "GitFlow"] }
+      ]
     },
     "experience": {
       "title": "Experience",

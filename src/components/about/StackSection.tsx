@@ -3,26 +3,14 @@
 import { useTranslations } from 'next-intl';
 import { Container } from '@/components/layout/Container';
 
+interface StackGroup {
+  label: string;
+  items: string[];
+}
+
 export function StackSection() {
   const t = useTranslations('about.stack');
-
-  const columns = [
-    {
-      key: 'frontend',
-      label: t('frontend.label'),
-      items: t.raw('frontend.items') as string[],
-    },
-    {
-      key: 'mobile',
-      label: t('mobile.label'),
-      items: t.raw('mobile.items') as string[],
-    },
-    {
-      key: 'tools',
-      label: t('tools.label'),
-      items: t.raw('tools.items') as string[],
-    },
-  ];
+  const groups = t.raw('groups') as StackGroup[];
 
   return (
     <section
@@ -52,17 +40,9 @@ export function StackSection() {
           {t('title')}
         </h2>
 
-        <div className="stack-grid">
-          {columns.map(({ key, label, items }) => (
-            <div
-              key={key}
-              style={{
-                background: 'var(--bg-s)',
-                border: '1px solid var(--border)',
-                borderRadius: '12px',
-                padding: 'var(--space-15)',
-              }}
-            >
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-15)' }}>
+          {groups.map(({ label, items }, i) => (
+            <div key={label}>
               <div
                 style={{
                   fontFamily: 'var(--font-mono)',
@@ -70,52 +50,53 @@ export function StackSection() {
                   color: 'var(--accent)',
                   letterSpacing: '0.10em',
                   textTransform: 'uppercase',
-                  marginBottom: 'var(--space-13)',
+                  marginBottom: 'var(--space-9)',
                 }}
               >
                 {label}
               </div>
-              <ul
+              <div
                 style={{
-                  listStyle: 'none',
-                  margin: 0,
-                  padding: 0,
                   display: 'flex',
-                  flexDirection: 'column',
-                  gap: 'var(--space-9)',
+                  flexWrap: 'wrap',
+                  gap: 'var(--space-6)',
                 }}
               >
                 {items.map((item) => (
-                  <li
+                  <span
                     key={item}
                     style={{
+                      display: 'inline-flex',
+                      alignItems: 'center',
+                      padding: '5px 12px',
+                      borderRadius: '999px',
+                      border: '1px solid var(--border)',
+                      background: 'var(--bg-s)',
                       fontFamily: 'var(--font-sans)',
-                      fontSize: 'var(--text-body)',
-                      color: 'var(--fg)',
-                      lineHeight: 'var(--leading-card)',
+                      fontSize: 'var(--text-sm)',
+                      fontWeight: 500,
+                      color: 'var(--fg-2)',
+                      whiteSpace: 'nowrap',
                     }}
                   >
                     {item}
-                  </li>
+                  </span>
                 ))}
-              </ul>
+              </div>
+              {i < groups.length - 1 && (
+                <div
+                  aria-hidden="true"
+                  style={{
+                    height: '1px',
+                    background: 'var(--border)',
+                    marginTop: 'var(--space-15)',
+                  }}
+                />
+              )}
             </div>
           ))}
         </div>
       </Container>
-
-      <style>{`
-        .stack-grid {
-          display: grid;
-          grid-template-columns: 1fr;
-          gap: var(--space-13);
-        }
-        @media (min-width: 640px) {
-          .stack-grid {
-            grid-template-columns: repeat(3, 1fr);
-          }
-        }
-      `}</style>
     </section>
   );
 }
