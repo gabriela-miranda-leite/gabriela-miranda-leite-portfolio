@@ -86,7 +86,7 @@ export function Hero() {
         <div style={{ display: 'flex', gap: 'var(--space-7)', alignItems: 'center', flexWrap: 'wrap' }}>
           <Link
             href="/projects"
-            onClick={() => trackEvent('cta_click', { label: 'ver_projetos' })}
+            onClick={() => trackEvent({ screen: 'home', action: 'button-clicked', reference: 'Ver projetos' })}
             style={{
               background: 'var(--accent)',
               color: 'var(--bg)',

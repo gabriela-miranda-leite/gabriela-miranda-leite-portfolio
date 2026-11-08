@@ -36,7 +36,7 @@ export function ShareBar({ title }: ShareBarProps) {
 
   async function handleCopy() {
     await navigator.clipboard.writeText(url);
-    trackEvent('share', { method: 'copy' });
+    trackEvent({ screen: 'blog', action: 'copy-clicked', reference: 'Copiar link do post' });
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
   }
@@ -73,7 +73,7 @@ export function ShareBar({ title }: ShareBarProps) {
         target="_blank"
         rel="noopener noreferrer"
         aria-label="Compartilhar no LinkedIn (abre em nova aba)"
-        onClick={() => trackEvent('share', { method: 'linkedin' })}
+        onClick={() => trackEvent({ screen: 'blog', action: 'button-clicked', reference: 'Compartilhar LinkedIn' })}
         style={PILL}
       >
         <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false">
@@ -88,7 +88,7 @@ export function ShareBar({ title }: ShareBarProps) {
         target="_blank"
         rel="noopener noreferrer"
         aria-label="Compartilhar no WhatsApp (abre em nova aba)"
-        onClick={() => trackEvent('share', { method: 'whatsapp' })}
+        onClick={() => trackEvent({ screen: 'blog', action: 'button-clicked', reference: 'Compartilhar WhatsApp' })}
         style={PILL}
       >
         <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false">
@@ -103,7 +103,7 @@ export function ShareBar({ title }: ShareBarProps) {
         target="_blank"
         rel="noopener noreferrer"
         aria-label="Compartilhar no X (abre em nova aba)"
-        onClick={() => trackEvent('share', { method: 'x' })}
+        onClick={() => trackEvent({ screen: 'blog', action: 'button-clicked', reference: 'Compartilhar X' })}
         style={PILL}
       >
         <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false">
