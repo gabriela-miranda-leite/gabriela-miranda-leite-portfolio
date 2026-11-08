@@ -5,83 +5,76 @@ interface AboutArtProps {
 export function AboutArt({ className }: AboutArtProps) {
   return (
     <svg
-      viewBox="0 0 400 400"
+      width="340"
+      height="380"
+      viewBox="0 0 340 380"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
       aria-hidden="true"
       role="presentation"
       className={className}
-      style={{ width: '100%', maxWidth: '400px', height: 'auto' }}
+      style={{ display: 'block' }}
     >
-      {/* Dot grid */}
-      {Array.from({ length: 8 }, (_, row) =>
-        Array.from({ length: 8 }, (_, col) => (
-          <circle
-            key={`dot-${row}-${col}`}
-            cx={40 + col * 46}
-            cy={40 + row * 46}
-            r={1.5}
-            style={{ fill: 'var(--border)' }}
-          />
-        ))
-      )}
+      {/* Background */}
+      <rect width="340" height="380" style={{ fill: 'var(--bg-e)' }} />
+
+      {/* Line grid */}
+      <defs>
+        <pattern id="about-grid" width="34" height="34" patternUnits="userSpaceOnUse">
+          <path d="M 34 0 L 0 0 0 34" fill="none" style={{ stroke: 'var(--border)' }} strokeWidth="0.5" />
+        </pattern>
+      </defs>
+      <rect width="340" height="380" fill="url(#about-grid)" />
 
       {/* Concentric rings */}
-      <circle cx="200" cy="200" r="140" style={{ stroke: 'var(--border)', strokeWidth: 1 }} />
-      <circle cx="200" cy="200" r="110" style={{ stroke: 'var(--border)', strokeWidth: 1 }} />
-      <circle cx="200" cy="200" r="80" style={{ stroke: 'var(--fg-2)', strokeWidth: 0.5, opacity: 0.4 }} />
-      <circle cx="200" cy="200" r="50" style={{ stroke: 'var(--accent)', strokeWidth: 1.5, opacity: 0.6 }} />
-      <circle cx="200" cy="200" r="22" style={{ fill: 'var(--accent)', opacity: 0.12 }} />
-      <circle cx="200" cy="200" r="6" style={{ fill: 'var(--accent)', opacity: 0.8 }} />
+      <circle cx="170" cy="185" r="148" style={{ stroke: 'var(--accent)' }} strokeWidth="0.5" strokeOpacity="0.07" />
+      <circle cx="170" cy="185" r="118" style={{ stroke: 'var(--accent)' }} strokeWidth="0.5" strokeOpacity="0.1" />
+      <circle cx="170" cy="185" r="88"  style={{ stroke: 'var(--accent)' }} strokeWidth="0.5" strokeOpacity="0.14" />
+      <circle cx="170" cy="185" r="56"  style={{ stroke: 'var(--accent)' }} strokeWidth="0.5" strokeOpacity="0.2" />
 
-      {/* Arc highlights */}
-      <path
-        d="M 200 60 A 140 140 0 0 1 340 200"
-        style={{ stroke: 'var(--accent)', strokeWidth: 2, opacity: 0.5 }}
-        strokeLinecap="round"
-      />
-      <path
-        d="M 200 90 A 110 110 0 0 1 310 200"
-        style={{ stroke: 'var(--fg-2)', strokeWidth: 1, opacity: 0.3 }}
-        strokeLinecap="round"
-      />
+      {/* Offset dashed circle */}
+      <circle cx="220" cy="130" r="64" style={{ stroke: 'var(--accent)' }} strokeWidth="1" strokeOpacity="0.12" strokeDasharray="4 6" />
 
-      {/* Code brackets — left */}
-      <path
-        d="M 68 160 L 52 180 L 68 200"
-        style={{ stroke: 'var(--accent)', strokeWidth: 2, opacity: 0.9 }}
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-      {/* Code brackets — right */}
-      <path
-        d="M 332 160 L 348 180 L 332 200"
-        style={{ stroke: 'var(--accent)', strokeWidth: 2, opacity: 0.9 }}
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
+      {/* Inner filled accent circle */}
+      <circle cx="170" cy="185" r="22" style={{ fill: 'var(--acc-a)', stroke: 'var(--accent)' }} strokeWidth="1" strokeOpacity="0.35" />
 
-      {/* Small accent squares at corners */}
-      <rect x="34" y="34" width="6" height="6" style={{ fill: 'var(--accent)', opacity: 0.4 }} />
-      <rect x="360" y="34" width="6" height="6" style={{ fill: 'var(--accent)', opacity: 0.4 }} />
-      <rect x="34" y="360" width="6" height="6" style={{ fill: 'var(--accent)', opacity: 0.4 }} />
-      <rect x="360" y="360" width="6" height="6" style={{ fill: 'var(--accent)', opacity: 0.4 }} />
+      {/* Code brackets — left [ */}
+      <path d="M 72 108 L 52 108 L 52 262 L 72 262" style={{ stroke: 'var(--accent)' }} strokeWidth="1.5" strokeOpacity="0.45" strokeLinecap="round" strokeLinejoin="round" />
+      {/* Code brackets — right ] */}
+      <path d="M 268 108 L 288 108 L 288 262 L 268 262" style={{ stroke: 'var(--accent)' }} strokeWidth="1.5" strokeOpacity="0.45" strokeLinecap="round" strokeLinejoin="round" />
 
-      {/* Horizontal tick marks on outer ring */}
-      {[0, 60, 120, 180, 240, 300].map((deg) => {
-        const rad = (deg * Math.PI) / 180;
-        const x1 = 200 + 136 * Math.cos(rad);
-        const y1 = 200 + 136 * Math.sin(rad);
-        const x2 = 200 + 144 * Math.cos(rad);
-        const y2 = 200 + 144 * Math.sin(rad);
-        return (
-          <line
-            key={`tick-${deg}`}
-            x1={x1} y1={y1} x2={x2} y2={y2}
-            style={{ stroke: 'var(--accent)', strokeWidth: 1.5, opacity: 0.5 }}
-          />
-        );
-      })}
+      {/* Code text */}
+      <text x="88" y="150" fontFamily="'JetBrains Mono',monospace" fontSize="11" style={{ fill: 'var(--accent)' }} fillOpacity="0.4">const gabi = {'{'}</text>
+      <text x="96" y="168" fontFamily="'JetBrains Mono',monospace" fontSize="10" style={{ fill: 'var(--fg-2)' }} fillOpacity="0.55">{'  '}role: &apos;dev&apos;,</text>
+      <text x="96" y="184" fontFamily="'JetBrains Mono',monospace" fontSize="10" style={{ fill: 'var(--fg-2)' }} fillOpacity="0.55">{'  '}focus: &apos;ui&apos;,</text>
+      <text x="96" y="200" fontFamily="'JetBrains Mono',monospace" fontSize="10" style={{ fill: 'var(--fg-2)' }} fillOpacity="0.55">{'  '}loves: a11y,</text>
+      <text x="88" y="218" fontFamily="'JetBrains Mono',monospace" fontSize="11" style={{ fill: 'var(--accent)' }} fillOpacity="0.4">{'}'}</text>
+
+      {/* Diagonal corner lines */}
+      <line x1="20"  y1="50"  x2="85"  y2="108" style={{ stroke: 'var(--accent)' }} strokeWidth="0.5" strokeOpacity="0.12" />
+      <line x1="320" y1="50"  x2="255" y2="108" style={{ stroke: 'var(--accent)' }} strokeWidth="0.5" strokeOpacity="0.12" />
+      <line x1="20"  y1="330" x2="85"  y2="262" style={{ stroke: 'var(--accent)' }} strokeWidth="0.5" strokeOpacity="0.12" />
+      <line x1="320" y1="330" x2="255" y2="262" style={{ stroke: 'var(--accent)' }} strokeWidth="0.5" strokeOpacity="0.12" />
+
+      {/* Accent dot cluster — top right */}
+      <circle cx="296" cy="54" r="3"   style={{ fill: 'var(--accent)' }} fillOpacity="0.55" />
+      <circle cx="308" cy="54" r="2"   style={{ fill: 'var(--accent)' }} fillOpacity="0.35" />
+      <circle cx="302" cy="45" r="1.5" style={{ fill: 'var(--accent)' }} fillOpacity="0.25" />
+
+      {/* Accent dot cluster — bottom left */}
+      <circle cx="44" cy="326" r="2.5" style={{ fill: 'var(--accent)' }} fillOpacity="0.45" />
+      <circle cx="54" cy="334" r="1.5" style={{ fill: 'var(--accent)' }} fillOpacity="0.3" />
+
+      {/* Small hollow squares */}
+      <rect x="44"  y="56"  width="18" height="18" style={{ stroke: 'var(--fg-3)' }} strokeWidth="1" rx="3" />
+      <rect x="278" y="298" width="14" height="14" style={{ stroke: 'var(--fg-3)' }} strokeWidth="1" rx="2" />
+
+      {/* Corner L-tags — bottom */}
+      <path d="M 18 358 L 18 374 L 34 374"  style={{ stroke: 'var(--accent)' }} strokeWidth="1" strokeOpacity="0.4" strokeLinecap="round" />
+      <path d="M 322 358 L 322 374 L 306 374" style={{ stroke: 'var(--accent)' }} strokeWidth="1" strokeOpacity="0.4" strokeLinecap="round" />
+
+      {/* Accent bar — bottom */}
+      <rect x="0" y="377" width="340" height="3" style={{ fill: 'var(--accent)' }} />
     </svg>
   );
 }

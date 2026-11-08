@@ -60,10 +60,11 @@ export function ExperienceSection() {
                 <div
                   style={{
                     fontFamily: 'var(--font-mono)',
-                    fontSize: 'var(--text-sm)',
-                    color: 'var(--accent)',
-                    letterSpacing: '0.04em',
+                    fontSize: 'var(--text-eyebrow)',
+                    color: 'var(--fg-2)',
+                    letterSpacing: '0.05em',
                     flexShrink: 0,
+                    paddingTop: '4px',
                   }}
                 >
                   {item.year}
