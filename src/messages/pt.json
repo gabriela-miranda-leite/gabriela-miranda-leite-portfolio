@@ -22,10 +22,12 @@
       "role": "Engenheira de Software",
       "greeting": "Olá, sou",
       "name": "Gabi",
-      "bio": "5 anos em produtos digitais de alta escala — delivery, RH, e-commerce e banking. Trabalho com Kotlin (Android e KMP), React Native e TypeScript, com foco em qualidade, acessibilidade e código que dura.",
+      "bio": "5 anos construindo produtos digitais de alta escala. Na Stone desde 2023, em produto de banking com 500K+ acessos diários. Kotlin Multiplatform, Compose, React Native e TypeScript.",
       "cta": {
         "projects": "Ver projetos",
-        "blog": "Ler o blog"
+        "blog": "Ler o blog",
+        "cv_label": "curriculo.pdf",
+        "cv_href": "/resume/Currículo - Gabriela Miranda - PT.pdf"
       }
     },
     "stats": {
@@ -77,7 +79,7 @@
       "cta": {
         "projects": "Ver projetos",
         "cv": "Download CV",
-        "cv_href": "#"
+        "cv_href": "/resume/Currículo - Gabriela Miranda - PT.pdf"
       }
     },
     "stack": {

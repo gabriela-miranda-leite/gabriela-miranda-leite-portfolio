@@ -112,6 +112,22 @@ export function Hero() {
           >
             {t('cta.blog')}
           </Link>
+          <a
+            href={t('cta.cv_href')}
+            download
+            style={{
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: 'var(--space-4)',
+              fontFamily: 'var(--font-mono)',
+              fontSize: 'var(--text-meta)',
+              color: 'var(--accent)',
+              textDecoration: 'none',
+              letterSpacing: '0.05em',
+            }}
+          >
+            {t('cta.cv_label')} ↓
+          </a>
         </div>
       </Container>
     </section>

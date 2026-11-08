@@ -69,7 +69,7 @@ export function AboutHero() {
               <Link href="/projects" className="btn btn-primary">
                 {t('cta.projects')}
               </Link>
-              <a href={t('cta.cv_href')} className="btn btn-ghost">
+              <a href={t('cta.cv_href')} download className="btn btn-ghost">
                 {t('cta.cv')}
               </a>
             </div>
