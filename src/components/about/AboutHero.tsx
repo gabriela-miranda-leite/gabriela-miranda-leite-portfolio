@@ -11,8 +11,9 @@ export function AboutHero() {
 
   return (
     <section
+      className="section-enter"
       aria-labelledby="about-heading"
-      style={{ paddingTop: 'clamp(2.5rem, 8vw, 5rem)', paddingBottom: 'clamp(2.5rem, 6vw, 4.5rem)' }}
+      style={{ paddingTop: 'clamp(2.5rem, 8vw, 5rem)', paddingBottom: 'clamp(2.5rem, 6vw, 4.5rem)', '--enter-delay': '0.05s' } as React.CSSProperties}
     >
       <Container>
         <div className="about-hero-grid">
@@ -65,36 +66,10 @@ export function AboutHero() {
 
             {/* CTAs */}
             <div style={{ display: 'flex', gap: 'var(--space-7)', alignItems: 'center', flexWrap: 'wrap', paddingTop: '4px' }}>
-              <Link
-                href="/projects"
-                style={{
-                  background: 'var(--accent)',
-                  color: 'var(--bg)',
-                  fontWeight: 600,
-                  fontSize: 'var(--text-sm)',
-                  padding: '12px 24px',
-                  borderRadius: 'var(--radius-pill)',
-                  textDecoration: 'none',
-                  fontFamily: 'var(--font-sans)',
-                  display: 'inline-block',
-                }}
-              >
+              <Link href="/projects" className="btn btn-primary">
                 {t('cta.projects')}
               </Link>
-              <a
-                href={t('cta.cv_href')}
-                style={{
-                  border: '1px solid var(--border)',
-                  color: 'var(--fg-2)',
-                  fontWeight: 500,
-                  fontSize: 'var(--text-sm)',
-                  padding: '11px 24px',
-                  borderRadius: 'var(--radius-pill)',
-                  textDecoration: 'none',
-                  fontFamily: 'var(--font-sans)',
-                  display: 'inline-block',
-                }}
-              >
+              <a href={t('cta.cv_href')} className="btn btn-ghost">
                 {t('cta.cv')}
               </a>
             </div>

@@ -16,6 +16,7 @@ export function Hero() {
       <Container>
         {/* Eyebrow */}
         <div
+          className="section-enter"
           style={{
             display: 'flex',
             alignItems: 'center',
@@ -26,7 +27,8 @@ export function Hero() {
             letterSpacing: '0.10em',
             textTransform: 'uppercase',
             marginBottom: 'var(--space-14)',
-          }}
+            '--enter-delay': '0s',
+          } as React.CSSProperties}
         >
           <span
             aria-hidden="true"
@@ -38,6 +40,7 @@ export function Hero() {
         {/* Heading — two lines */}
         <h1
           id="hero-heading"
+          className="section-enter"
           style={{
             fontFamily: 'var(--font-serif)',
             fontSize: 'clamp(3rem, 10vw, var(--text-hero))',
@@ -45,7 +48,8 @@ export function Hero() {
             lineHeight: 0.91,
             fontOpticalSizing: 'auto',
             margin: `0 0 var(--space-14)`,
-          }}
+            '--enter-delay': '0.1s',
+          } as React.CSSProperties}
         >
           <span
             style={{
@@ -70,6 +74,7 @@ export function Hero() {
 
         {/* Bio */}
         <p
+          className="section-enter"
           style={{
             fontFamily: 'var(--font-sans)',
             fontSize: 'var(--text-logo)',
@@ -77,45 +82,33 @@ export function Hero() {
             color: 'var(--fg-2)',
             maxWidth: '480px',
             margin: '0 0 2rem',
-          }}
+            '--enter-delay': '0.2s',
+          } as React.CSSProperties}
         >
           {t('bio')}
         </p>
 
         {/* CTAs */}
-        <div style={{ display: 'flex', gap: 'var(--space-7)', alignItems: 'center', flexWrap: 'wrap' }}>
+        <div
+          className="section-enter"
+          style={{
+            display: 'flex',
+            gap: 'var(--space-7)',
+            alignItems: 'center',
+            flexWrap: 'wrap',
+            '--enter-delay': '0.3s',
+          } as React.CSSProperties}
+        >
           <Link
             href="/projects"
             onClick={() => trackEvent({ screen: 'home', action: 'button-clicked', reference: 'Ver projetos' })}
-            className="hero-cta-primary"
-            style={{
-              background: 'var(--accent)',
-              color: 'var(--bg)',
-              fontWeight: 600,
-              fontSize: 'var(--text-sm)',
-              padding: 'var(--space-7) var(--space-13)',
-              borderRadius: 'var(--radius-pill)',
-              textDecoration: 'none',
-              fontFamily: 'var(--font-sans)',
-              display: 'inline-block',
-            }}
+            className="btn btn-primary"
           >
             {t('cta.projects')}
           </Link>
           <Link
             href="/blog"
-            className="hero-cta-ghost"
-            style={{
-              border: '1px solid var(--border)',
-              color: 'var(--fg-2)',
-              fontWeight: 600,
-              fontSize: 'var(--text-sm)',
-              padding: '11px var(--space-13)',
-              borderRadius: 'var(--radius-pill)',
-              textDecoration: 'none',
-              fontFamily: 'var(--font-sans)',
-              display: 'inline-block',
-            }}
+            className="btn btn-ghost"
           >
             {t('cta.blog')}
           </Link>

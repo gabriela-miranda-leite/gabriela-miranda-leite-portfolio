@@ -26,12 +26,14 @@ export function StackSection() {
 
   return (
     <section
+      className="section-enter"
       aria-labelledby="stack-heading"
       style={{
         paddingTop: 'clamp(2rem, 5vw, var(--space-18))',
         paddingBottom: 'clamp(2rem, 5vw, var(--space-18))',
         borderTop: '1px solid var(--border)',
-      }}
+        '--enter-delay': '0.15s',
+      } as React.CSSProperties}
     >
       <Container>
         <h2
