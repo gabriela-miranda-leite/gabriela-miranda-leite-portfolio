@@ -6,6 +6,7 @@ import { PostHeader } from '@/components/blog/PostHeader';
 import { Prose } from '@/components/blog/Prose';
 import { PostNav } from '@/components/blog/PostNav';
 import { ShareBar } from '@/components/blog/ShareBar';
+import { RssCta } from '@/components/blog/RssCta';
 import { getAllPosts, getPostBySlug } from '@/lib/posts';
 import { blogPostingJsonLd } from '@/lib/seo';
 import { SITE_URL as baseUrl } from '@/lib/constants';
@@ -109,6 +110,7 @@ export default async function PostPage({ params }: PageProps) {
               {content}
             </Prose>
             <ShareBar title={post.title} />
+            <RssCta />
             <PostNav prev={prev} next={next} />
           </div>
         </Container>

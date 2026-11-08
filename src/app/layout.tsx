@@ -5,6 +5,14 @@ import './globals.css';
 export const metadata: Metadata = {
   title: 'Gabi Miranda',
   description: 'Frontend & Mobile Developer — Design systems, acessibilidade e UX.',
+  alternates: {
+    types: {
+      'application/rss+xml': [
+        { url: '/feed.xml', title: 'Gabi Miranda — Blog (PT)' },
+        { url: '/en/feed.xml', title: 'Gabi Miranda — Blog (EN)' },
+      ],
+    },
+  },
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
