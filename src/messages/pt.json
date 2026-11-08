@@ -79,9 +79,11 @@
     "empty": "Nenhum projeto encontrado no momento."
   },
   "lang": {
-    "switch": "EN",
-    "ariaLabel": "Mudar idioma para inglês",
-    "announce": "Idioma alterado para inglês"
+    "groupLabel": "Idioma",
+    "namePt": "Português (PT)",
+    "nameEn": "English (EN)",
+    "announcePt": "Idioma alterado para português",
+    "announceEn": "Language changed to English"
   },
   "about": {
     "meta_title": "Sobre — Gabi Miranda",

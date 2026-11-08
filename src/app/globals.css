@@ -522,6 +522,22 @@ body {
   color: var(--fg) !important;
 }
 
+/* LangSwitch — two language links inside one pill; each has a comfortable hit area */
+.lang-switch-option {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: var(--space-17);
+  min-height: var(--space-14);
+  padding: 0 var(--space-5);
+  border-radius: var(--radius-pill);
+  transition: color 0.12s ease, background 0.12s ease;
+}
+.lang-switch-option:not([aria-current]):hover {
+  color: var(--fg) !important;
+  background: var(--bg-e);
+}
+
 /* "Ver todos →" / "See all →" accent links */
 .see-all-link {
   transition: color 0.12s ease, gap 0.12s ease, letter-spacing 0.12s ease;

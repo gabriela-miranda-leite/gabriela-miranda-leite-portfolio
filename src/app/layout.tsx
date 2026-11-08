@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import { GoogleAnalytics } from '@next/third-parties/google';
+import { getLocale } from 'next-intl/server';
 import './globals.css';
 
 export const metadata: Metadata = {
@@ -15,9 +16,11 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default async function RootLayout({ children }: { children: React.ReactNode }) {
+  const locale = await getLocale();
+
   return (
-    <html suppressHydrationWarning style={{ background: '#0C0C0A' }}>
+    <html lang={locale === 'pt' ? 'pt-BR' : 'en'} suppressHydrationWarning style={{ background: '#0C0C0A' }}>
       <head>
         <script
           dangerouslySetInnerHTML={{
