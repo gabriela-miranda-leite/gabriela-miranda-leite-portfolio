@@ -41,8 +41,8 @@
   },
   "blog": {
     "reading_time": "{minutes} min de leitura",
-    "prev": "← Anterior",
-    "next": "Próximo →",
+    "prev": "Anterior",
+    "next": "Próximo",
     "translation_pending": "Tradução em breve",
     "listing": {
       "title": "Blog",
