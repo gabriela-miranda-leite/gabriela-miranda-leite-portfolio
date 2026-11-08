@@ -13,7 +13,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const t = await getTranslations({ locale, namespace: 'projects' });
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL ?? 'https://gabrielaleite.dev';
   const url = locale === 'pt' ? `${baseUrl}/projects` : `${baseUrl}/en/projects`;
-  const ogUrl = `${baseUrl}/og`;
+  const ogUrl = `${baseUrl}/og?title=${encodeURIComponent(t('meta_title'))}&subtitle=${encodeURIComponent(t('description'))}`;
 
   return {
     title: t('meta_title'),

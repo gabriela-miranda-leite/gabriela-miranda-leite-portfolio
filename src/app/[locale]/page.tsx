@@ -14,21 +14,22 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: 'home.hero' });
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL ?? 'https://gabrielaleite.dev';
-  const ogUrl = `${baseUrl}/og`;
+  const pageTitle = `${t('greeting')} ${t('name')} — ${t('role')}`;
+  const ogUrl = `${baseUrl}/og?title=${encodeURIComponent(pageTitle)}&subtitle=${encodeURIComponent(t('bio'))}`;
 
   return {
-    title: `${t('greeting')} ${t('name')} — ${t('role')}`,
+    title: pageTitle,
     description: t('bio'),
     openGraph: {
       type: 'website',
-      title: `${t('greeting')} ${t('name')} — ${t('role')}`,
+      title: pageTitle,
       description: t('bio'),
       url: locale === 'pt' ? baseUrl : `${baseUrl}/en`,
       images: [{ url: ogUrl, width: 1200, height: 630 }],
     },
     twitter: {
       card: 'summary_large_image',
-      title: `${t('greeting')} ${t('name')} — ${t('role')}`,
+      title: pageTitle,
       description: t('bio'),
       images: [ogUrl],
     },
