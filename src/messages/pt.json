@@ -59,6 +59,8 @@
     "empty": "Nenhum projeto encontrado no momento."
   },
   "lang": {
-    "switch": "EN"
+    "switch": "EN",
+    "ariaLabel": "Mudar idioma para inglês",
+    "announce": "Idioma alterado para inglês"
   }
 }
