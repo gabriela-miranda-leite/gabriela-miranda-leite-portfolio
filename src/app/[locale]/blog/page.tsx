@@ -19,6 +19,8 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     description: t('description'),
     openGraph: {
       type: 'website',
+      siteName: 'Gabi Miranda',
+      locale: locale === 'pt' ? 'pt_BR' : 'en_US',
       title: t('meta_title'),
       description: t('description'),
       url,

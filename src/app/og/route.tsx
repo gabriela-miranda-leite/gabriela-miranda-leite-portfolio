@@ -1,5 +1,6 @@
 import { ImageResponse } from 'next/og';
 import { NextRequest } from 'next/server';
+import { SITE_URL } from '@/lib/constants';
 
 export const runtime = 'edge';
 
@@ -7,6 +8,7 @@ const BG = '#0C0C0A';
 const FG = '#F5F5F0';
 const FG2 = '#A0A09A';
 const ACCENT = '#CCFF00';
+const SITE_HOST = new URL(SITE_URL).host.replace(/^www\./, '');
 
 export async function GET(req: NextRequest) {
   const { searchParams } = req.nextUrl;
@@ -44,7 +46,7 @@ export async function GET(req: NextRequest) {
             }}
           />
           <span style={{ color: ACCENT, fontSize: '14px', letterSpacing: '0.12em', textTransform: 'uppercase' }}>
-            gabrielaleite.dev
+            {SITE_HOST}
           </span>
         </div>
 
