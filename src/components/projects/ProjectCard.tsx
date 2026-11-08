@@ -104,6 +104,7 @@ export function ProjectCard({ repo }: ProjectCardProps) {
 
       {/* Footer: tags + stars */}
       <div
+        className="project-card-footer"
         style={{
           display: 'flex',
           alignItems: 'center',

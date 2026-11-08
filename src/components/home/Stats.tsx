@@ -20,25 +20,11 @@ export function Stats() {
       }}
     >
       <Container>
-        <dl
-          style={{
-            display: 'flex',
-            margin: 0,
-          }}
-        >
-          {STAT_VALUES.map(({ key, value }, i) => (
+        <dl className="stats-list" style={{ margin: 0 }}>
+          {STAT_VALUES.map(({ key, value }) => (
             <div
               key={key}
-              style={{
-                flex: 1,
-                minWidth: 0,
-                display: 'flex',
-                flexDirection: 'column',
-                gap: 'var(--space-3)',
-                paddingLeft: i > 0 ? 'var(--space-16)' : undefined,
-                paddingRight: i < STAT_VALUES.length - 1 ? 'var(--space-16)' : undefined,
-                borderLeft: i > 0 ? '1px solid var(--border)' : undefined,
-              }}
+              className="stat-item"
             >
               <dd
                 style={{

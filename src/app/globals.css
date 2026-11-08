@@ -219,18 +219,40 @@
   .meta-author { flex: 1 0 100%; }
 }
 
-/* Post row list — hide index number on mobile */
+/* Post row list — hide index number and stack the tag under the text on mobile */
 @media (max-width: 639px) {
-  .post-row { grid-template-columns: 1fr auto !important; }
+  .post-row { grid-template-columns: minmax(0, 1fr) !important; }
   .post-row-num { display: none !important; }
+  .post-row-tag { justify-self: start; }
 }
 
-/* Project cards — horizontal layout on mobile */
+/* Project cards — icon beside the text on mobile, tags/stars on their own full-width row */
 @media (max-width: 639px) {
   .project-card {
-    flex-direction: row !important;
-    align-items: flex-start !important;
+    display: grid !important;
+    grid-template-columns: var(--space-17) minmax(0, 1fr);
+    align-items: start !important;
   }
+  .project-card-footer { grid-column: 1 / -1; }
+}
+
+/* Stats — stacked on mobile, three columns with dividers from 640px */
+.stats-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-12);
+}
+.stat-item {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  min-width: 0;
+}
+@media (min-width: 640px) {
+  .stats-list { flex-direction: row; gap: 0; }
+  .stat-item { flex: 1; padding: 0 var(--space-16); border-left: 1px solid var(--border); }
+  .stat-item:first-child { padding-left: 0; border-left: none; }
+  .stat-item:last-child { padding-right: 0; }
 }
 
 /* ── Layout responsivo (breakpoint padrão: 640px) ─────────────────────
