@@ -25,7 +25,9 @@
       "bio": "5 anos construindo produtos digitais de alta escala. Na Stone desde 2023, em produto de banking com 500K+ acessos diários. Kotlin Multiplatform, Compose, React Native e TypeScript.",
       "cta": {
         "projects": "Ver projetos",
-        "blog": "Ler o blog"
+        "blog": "Ler o blog",
+        "cv_label": "curriculo.pdf",
+        "cv_href": "/resume/Currículo - Gabriela Miranda - PT.pdf"
       }
     },
     "stats": {
