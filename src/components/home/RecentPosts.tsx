@@ -118,6 +118,7 @@ export function RecentPosts({ posts }: RecentPostsProps) {
             </div>
             {post.tags[0] && (
               <span
+                className="post-row-tag"
                 style={{
                   fontFamily: 'var(--font-mono)',
                   fontSize: 'var(--text-chip)',
