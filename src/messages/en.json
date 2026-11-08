@@ -50,7 +50,11 @@
       "meta_title": "Blog — Gabi Miranda",
       "filter_label": "Filter by tag",
       "all": "All",
-      "no_results": "No posts found for this tag.",
+      "search_label": "Search articles",
+      "search_placeholder": "Search articles…",
+      "search_clear": "Clear search",
+      "results_count": "{count, plural, =0 {No results} =1 {1 result} other {# results}}",
+      "no_results": "No posts found.",
       "read_more": "Read post"
     }
   },
