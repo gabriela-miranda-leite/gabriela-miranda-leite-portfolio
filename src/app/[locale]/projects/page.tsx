@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { Container } from '@/components/layout/Container';
 import { ProjectCard } from '@/components/projects/ProjectCard';
-import { getPinnedRepos, getRepos } from '@/lib/github';
+import { getRepos } from '@/lib/github';
 import { SITE_URL as baseUrl } from '@/lib/constants';
 
 export const revalidate = 604800; // 1 semana
@@ -48,11 +48,7 @@ export default async function ProjectsPage({ params }: PageProps) {
 
   const t = await getTranslations({ locale, namespace: 'projects' });
 
-  // Try pinned repos first; fall back to all repos if list is empty
-  let repos = await getPinnedRepos();
-  if (repos.length === 0) {
-    repos = await getRepos();
-  }
+  const repos = await getRepos();
 
   return (
     <main

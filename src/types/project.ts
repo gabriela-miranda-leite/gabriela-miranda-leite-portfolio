@@ -8,4 +8,6 @@ export interface GithubRepo {
   stargazers_count: number;
   pushed_at: string;
   topics: string[];
+  fork?: boolean;
+  archived?: boolean;
 }
