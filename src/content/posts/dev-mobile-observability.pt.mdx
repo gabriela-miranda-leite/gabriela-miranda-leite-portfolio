@@ -1,6 +1,6 @@
 ---
 title: "Dev mobile também faz observabilidade: o dia em que nossos dashboards salvaram o dia"
-description: "Como estruturei dashboards e alertas no Datadog para apps mobile críticos — e o que aprendi sobre ruído e calibração de alertas."
+description: "Como estruturei dashboards e alertas no Datadog para apps mobile críticos e o que aprendi sobre ruído e calibração de alertas."
 date: "2026-11-07"
 tags: ["observabilidade", "mobile", "datadog", "logs", "alertas"]
 slug: "dev-mobile-observability"
@@ -12,7 +12,7 @@ readingTime: 7
 
 **Observabilidade**: você ouve a palavra e já pensa em backend, métricas de servidor ou equipes de DevOps, né? Mas a verdade é que quem desenvolve mobile e frontend também precisa estar no meio dessa conversa. Cada camada cuida de uma ponta diferente, mas a responsabilidade sobre a experiência final do usuário é compartilhada.
 
-Eu aprendi a verdadeira importância disso na prática, trabalhando em uma empresa de grande porte. Meu time era responsável por aplicações críticas — como extrato bancário, imposto de renda, relatórios e recebimentos de adquirência —, ou seja, muita superfície de código para garantir que tudo estivesse 100% redondo e funcionando perfeitamente.
+Eu aprendi a verdadeira importância disso na prática, trabalhando em uma empresa de grande porte. Meu time era responsável por aplicações críticas (como extrato bancário, imposto de renda, relatórios e recebimentos de adquirência), ou seja, muita superfície de código para garantir que tudo estivesse 100% redondo e funcionando perfeitamente.
 
 Antes da observabilidade de verdade, saber se algo estava errado parecia um exercício de adivinhação. Dependíamos de fatores como:
 
@@ -20,7 +20,7 @@ Antes da observabilidade de verdade, saber se algo estava errado parecia um exer
 - O time de QA ou de saúde da release tropeçando em um bug crítico logo no lançamento;
 - Ou a sorte (ou o susto) de nós, desenvolvedores, encontrarmos o erro por acaso."
 
-Outro ponto crucial: o time já tinha dashboards e alertas de APM focados no backend, mas eles sofriam de um mal clássico: **ruído demais**. Apitavam a toda hora por motivos banais, e o resultado foi o pior possível — o time perdeu a confiança nos avisos.
+Outro ponto crucial: o time já tinha dashboards e alertas de APM focados no backend, mas eles sofriam de um mal clássico: **ruído demais**. Apitavam a toda hora por motivos banais, e o resultado foi o pior possível: o time perdeu a confiança nos avisos.
 
 Virou clássico exemplo da história do menino que mentia sobre o lobo. No início, as pessoas se preocupavam e iam checar; com o tempo, virou apenas barulho de fundo e ninguém mais olhava.
 
@@ -56,7 +56,7 @@ Depois de ajustar os logs, foi só esperar a release ir para produção e acompa
 
 ### Passo 2: Criar os alertas
 
-Depois de estruturar os logs, o resultado veio rápido. Como o dashboard trazia um card com os principais erros, passei a acompanhar o painel de perto — e foi assim que encontrei o nosso primeiro problema real.
+Depois de estruturar os logs, o resultado veio rápido. Como o dashboard trazia um card com os principais erros, passei a acompanhar o painel de perto, e foi assim que encontrei o nosso primeiro problema real.
 
 > Fiquei super feliz, porque aquilo provou que o trabalho valia a pena e que o monitoramento funcionava de verdade. Naquele momento, o time parou para refletir: *como a gente não tinha visto isso antes?*
 > 
@@ -70,7 +70,7 @@ E assim foram criados os alertas. Fim da história e vivemos felizes com tudo mo
 
 Os alertas do mobile apitavam demaaaaaais. Meu Deus, já não bastava o que a gente já tinha no backend.
 
-Essa etapa me deu muitos aprendizados — frutos de trocas com pessoas do time, apoio de IA e pesquisas em artigos sobre como criar bons alertas:
+Essa etapa me deu muitos aprendizados, frutos de trocas com pessoas do time, apoio de IA e pesquisas em artigos sobre como criar bons alertas:
 
 - **1ª lição (Sensibilidade alta demais):** Os alertas eram muito sensíveis. Deixei praticamente sem margem para erros em um produto que atinge mais de meio milhão de acessos diários. Qualquer oscilação mínima já virava um caos.
 - **2ª lição (Foco na responsabilidade correta):** Eu estava cobrindo erros que eram responsabilidade do backend, pegando falhas que nem eram da nossa BFF (como respostas `401`). Removi esses alertas e filtrei o restante para excluir respostas esperadas.
@@ -82,6 +82,6 @@ Essa etapa me deu muitos aprendizados — frutos de trocas com pessoas do time, 
 
 E, claro, fiquei completamente apaixonada por analisar logs!
 
-Aproveitei esse embalo para puxar uma oportunidade de refatorar e melhorar os alertas do backend do time — claro, com todo o aval e apoio dos desenvolvedores back, para que todo mundo finalmente tivesse paz.
+Aproveitei esse embalo para puxar uma oportunidade de refatorar e melhorar os alertas do backend do time (claro, com todo o aval e apoio dos desenvolvedores back), para que todo mundo finalmente tivesse paz.
 
 O resultado? Há pouco tempo, ouvi em uma *daily* que o canal de alertas **finalmente está em paz**. Não tem preço saber que o monitoramento agora trabalha para a gente, e não o contrário.
