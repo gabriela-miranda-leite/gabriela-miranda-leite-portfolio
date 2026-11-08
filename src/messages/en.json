@@ -59,6 +59,8 @@
     "empty": "No projects found at the moment."
   },
   "lang": {
-    "switch": "PT"
+    "switch": "PT",
+    "ariaLabel": "Change language to Portuguese",
+    "announce": "Language changed to Portuguese"
   }
 }
