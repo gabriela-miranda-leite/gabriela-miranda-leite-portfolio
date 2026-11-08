@@ -62,5 +62,67 @@
     "switch": "EN",
     "ariaLabel": "Mudar idioma para inglês",
     "announce": "Idioma alterado para inglês"
+  },
+  "about": {
+    "meta_title": "Sobre — Gabi Miranda",
+    "meta_description": "Conheça Gabi Miranda, Frontend & Mobile Developer especializada em design systems, acessibilidade e UX no setor de pagamentos.",
+    "hero": {
+      "eyebrow": "Sobre mim",
+      "title_line1": "Construindo",
+      "title_line2": "com propósito",
+      "bio": "Sou desenvolvedora frontend e mobile com 5+ anos de experiência no setor de pagamentos. Trabalho na interseção entre design e engenharia — criando interfaces que são ao mesmo tempo bonitas e acessíveis.",
+      "bio2": "Tenho paixão por design systems e pelo impacto que uma boa tipografia, hierarquia e espaçamento têm na experiência de quem usa o produto. Quando não estou codando, estou escrevendo sobre o que aprendo.",
+      "status": "Disponível para freela · São Paulo, BR",
+      "cta": {
+        "projects": "Ver projetos",
+        "cv": "Download CV",
+        "cv_href": "#"
+      }
+    },
+    "stack": {
+      "title": "Stack",
+      "frontend": {
+        "label": "Frontend",
+        "items": ["React · Next.js", "TypeScript", "Tailwind CSS", "Design Systems"]
+      },
+      "mobile": {
+        "label": "Mobile",
+        "items": ["React Native", "Expo", "iOS · Android", "Acessibilidade"]
+      },
+      "tools": {
+        "label": "Ferramentas",
+        "items": ["Figma", "Storybook", "Vitest · Playwright", "Vercel · GitHub"]
+      }
+    },
+    "experience": {
+      "title": "Experiência",
+      "items": [
+        {
+          "year": "2022 — hoje",
+          "role": "Senior Frontend Engineer",
+          "company": "Empresa de pagamentos · São Paulo",
+          "description": "Lidero o design system interno usado por 4 squads. Arquitetei a migração de CRA para Next.js e reduzi o bundle em 40%."
+        },
+        {
+          "year": "2020 — 2022",
+          "role": "Frontend Developer",
+          "company": "Startup de fintechs · Remoto",
+          "description": "Desenvolvi o app mobile em React Native do zero. Implementei suporte a acessibilidade (VoiceOver e TalkBack) em todos os fluxos críticos."
+        },
+        {
+          "year": "2019 — 2020",
+          "role": "Desenvolvedora Júnior",
+          "company": "Agência digital · São Paulo",
+          "description": "HTML, CSS e JavaScript vanilla. Primeiro contato com React e com a importância de código acessível e performático."
+        }
+      ]
+    },
+    "contact": {
+      "eyebrow": "Vamos conversar",
+      "title": "Aberta a projetos",
+      "title_em": "e colaborações",
+      "subtitle": "Manda uma mensagem se quiser trabalhar junto, trocar ideia ou só dizer oi.",
+      "button": "Entrar em contato"
+    }
   }
 }

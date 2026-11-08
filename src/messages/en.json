@@ -62,5 +62,67 @@
     "switch": "PT",
     "ariaLabel": "Change language to Portuguese",
     "announce": "Language changed to Portuguese"
+  },
+  "about": {
+    "meta_title": "About — Gabi Miranda",
+    "meta_description": "Meet Gabi Miranda, a Frontend & Mobile Developer specializing in design systems, accessibility and UX in the payments industry.",
+    "hero": {
+      "eyebrow": "About me",
+      "title_line1": "Building",
+      "title_line2": "with purpose",
+      "bio": "I'm a frontend and mobile developer with 5+ years of experience in the payments industry. I work at the intersection of design and engineering — crafting interfaces that are both beautiful and accessible.",
+      "bio2": "I'm passionate about design systems and the impact that good typography, hierarchy and spacing have on the user experience. When I'm not coding, I'm writing about what I learn.",
+      "status": "Available for freelance · São Paulo, BR",
+      "cta": {
+        "projects": "See projects",
+        "cv": "Download CV",
+        "cv_href": "#"
+      }
+    },
+    "stack": {
+      "title": "Stack",
+      "frontend": {
+        "label": "Frontend",
+        "items": ["React · Next.js", "TypeScript", "Tailwind CSS", "Design Systems"]
+      },
+      "mobile": {
+        "label": "Mobile",
+        "items": ["React Native", "Expo", "iOS · Android", "Accessibility"]
+      },
+      "tools": {
+        "label": "Tools",
+        "items": ["Figma", "Storybook", "Vitest · Playwright", "Vercel · GitHub"]
+      }
+    },
+    "experience": {
+      "title": "Experience",
+      "items": [
+        {
+          "year": "2022 — now",
+          "role": "Senior Frontend Engineer",
+          "company": "Payments company · São Paulo",
+          "description": "Leading the internal design system used by 4 squads. Architected the migration from CRA to Next.js and reduced the bundle by 40%."
+        },
+        {
+          "year": "2020 — 2022",
+          "role": "Frontend Developer",
+          "company": "Fintech startup · Remote",
+          "description": "Built the mobile app in React Native from scratch. Implemented accessibility support (VoiceOver and TalkBack) across all critical flows."
+        },
+        {
+          "year": "2019 — 2020",
+          "role": "Junior Developer",
+          "company": "Digital agency · São Paulo",
+          "description": "HTML, CSS and vanilla JavaScript. First contact with React and the importance of accessible, performant code."
+        }
+      ]
+    },
+    "contact": {
+      "eyebrow": "Let's talk",
+      "title": "Open to projects",
+      "title_em": "and collaborations",
+      "subtitle": "Send a message if you want to work together, exchange ideas or just say hi.",
+      "button": "Get in touch"
+    }
   }
 }
