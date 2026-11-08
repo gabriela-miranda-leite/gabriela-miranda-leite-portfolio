@@ -4,6 +4,7 @@ import { AboutHero } from '@/components/about/AboutHero';
 import { StackSection } from '@/components/about/StackSection';
 import { ExperienceSection } from '@/components/about/ExperienceSection';
 import { ContactCTA } from '@/components/about/ContactCTA';
+import { ScrollReveal } from '@/components/layout/ScrollReveal';
 import { profilePageJsonLd } from '@/lib/seo';
 import { SITE_URL as baseUrl } from '@/lib/constants';
 
@@ -56,9 +57,15 @@ export default async function AboutPage({ params }: PageProps) {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
       <AboutHero />
-      <StackSection />
-      <ExperienceSection />
-      <ContactCTA />
+      <ScrollReveal delay="0.05s">
+        <StackSection />
+      </ScrollReveal>
+      <ScrollReveal delay="0.05s">
+        <ExperienceSection />
+      </ScrollReveal>
+      <ScrollReveal delay="0.05s">
+        <ContactCTA />
+      </ScrollReveal>
     </>
   );
 }
