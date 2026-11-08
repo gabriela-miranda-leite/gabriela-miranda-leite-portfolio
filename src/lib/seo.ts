@@ -1,3 +1,5 @@
+import { SITE_URL } from './constants';
+
 export function blogPostingJsonLd({
   title,
   description,
@@ -11,9 +13,8 @@ export function blogPostingJsonLd({
   slug: string;
   locale: string;
 }) {
-  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL ?? 'https://gabrielaleite.dev';
   const url =
-    locale === 'pt' ? `${baseUrl}/blog/${slug}` : `${baseUrl}/en/blog/${slug}`;
+    locale === 'pt' ? `${SITE_URL}/blog/${slug}` : `${SITE_URL}/en/blog/${slug}`;
 
   return {
     '@context': 'https://schema.org',
@@ -26,19 +27,18 @@ export function blogPostingJsonLd({
     author: {
       '@type': 'Person',
       name: 'Gabriela Miranda Leite',
-      url: baseUrl,
+      url: SITE_URL,
     },
     publisher: {
       '@type': 'Person',
       name: 'Gabriela Miranda Leite',
-      url: baseUrl,
+      url: SITE_URL,
     },
   };
 }
 
 export function websiteJsonLd(locale: string) {
-  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL ?? 'https://gabrielaleite.dev';
-  const url = locale === 'pt' ? baseUrl : `${baseUrl}/en`;
+  const url = locale === 'pt' ? SITE_URL : `${SITE_URL}/en`;
 
   return {
     '@context': 'https://schema.org',

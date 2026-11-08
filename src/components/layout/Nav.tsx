@@ -7,7 +7,7 @@ import { Link, usePathname } from '@/i18n/navigation';
 import { LangSwitch } from './LangSwitch';
 import { ThemeToggle } from './ThemeToggle';
 
-const GITHUB_USERNAME = process.env.NEXT_PUBLIC_GITHUB_USERNAME ?? 'gabriela-miranda-leite';
+import { GITHUB_USERNAME } from '@/lib/constants';
 
 const BASE_NAV_LINKS = [
   { href: '/blog', key: 'blog' },

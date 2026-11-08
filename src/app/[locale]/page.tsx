@@ -7,13 +7,14 @@ import { FeaturedProjects } from '@/components/home/FeaturedProjects';
 import { getAllPosts } from '@/lib/posts';
 import { getRepos } from '@/lib/github';
 import { websiteJsonLd } from '@/lib/seo';
+import { SITE_URL as baseUrl } from '@/lib/constants';
 
 type PageProps = { params: Promise<{ locale: string }> };
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: 'home.hero' });
-  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL ?? 'https://gabrielaleite.dev';
+
   const pageTitle = `${t('greeting')} ${t('name')} — ${t('role')}`;
   const ogUrl = `${baseUrl}/og?title=${encodeURIComponent(pageTitle)}&subtitle=${encodeURIComponent(t('bio'))}`;
 

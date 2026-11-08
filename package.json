@@ -12,6 +12,7 @@
   "dependencies": {
     "@anthropic-ai/sdk": "^1.6.0",
     "@flags-sdk/vercel": "^1.6.0",
+    "@next/third-parties": "^16.4.5",
     "@phosphor-icons/react": "^2.1.10",
     "flags": "^4.4.0",
     "gray-matter": "^4.0.3",

@@ -1,4 +1,8 @@
+'use client';
+
 import { useTranslations } from 'next-intl';
+import { trackEvent } from '@/lib/analytics';
+import { SOCIAL_LINKS } from '@/lib/constants';
 
 export function Footer() {
   const t = useTranslations('footer');
@@ -37,10 +41,11 @@ export function Footer() {
         <nav aria-label={t('socialAriaLabel')}>
           <div style={{ display: 'flex', gap: 'var(--space-14)' }}>
             <a
-              href="https://github.com/gabriela-miranda-leite"
+              href={SOCIAL_LINKS.github}
               target="_blank"
               rel="noopener noreferrer"
               aria-label={t('githubAriaLabel')}
+              onClick={() => trackEvent({ screen: 'home', action: 'link-clicked', reference: 'GitHub footer' })}
               style={{
                 fontFamily: 'var(--font-mono)',
                 fontSize: 'var(--text-meta)',
@@ -53,10 +58,11 @@ export function Footer() {
               GitHub
             </a>
             <a
-              href="https://linkedin.com/in/gabriela-miranda-leite"
+              href={SOCIAL_LINKS.linkedin}
               target="_blank"
               rel="noopener noreferrer"
               aria-label={t('linkedinAriaLabel')}
+              onClick={() => trackEvent({ screen: 'home', action: 'link-clicked', reference: 'LinkedIn footer' })}
               style={{
                 fontFamily: 'var(--font-mono)',
                 fontSize: 'var(--text-meta)',

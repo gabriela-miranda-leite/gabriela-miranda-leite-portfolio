@@ -1,6 +1,9 @@
+'use client';
+
 import { useTranslations } from 'next-intl';
 import { Link } from '@/i18n/navigation';
 import { ArrowLeft, ArrowRight } from '@phosphor-icons/react/dist/ssr';
+import { trackEvent } from '@/lib/analytics';
 
 interface PostNavProps {
   prev: { slug: string; title: string } | null;
@@ -28,6 +31,7 @@ export function PostNav({ prev, next }: PostNavProps) {
       {prev && (
         <Link
           href={`/blog/${prev.slug}`}
+          onClick={() => trackEvent({ screen: 'blog', action: 'link-clicked', reference: 'Post anterior' })}
           style={{
             display: 'flex',
             flexDirection: 'column',
@@ -71,6 +75,7 @@ export function PostNav({ prev, next }: PostNavProps) {
       {next && (
         <Link
           href={`/blog/${next.slug}`}
+          onClick={() => trackEvent({ screen: 'blog', action: 'link-clicked', reference: 'Próximo post' })}
           style={{
             display: 'flex',
             flexDirection: 'column',
