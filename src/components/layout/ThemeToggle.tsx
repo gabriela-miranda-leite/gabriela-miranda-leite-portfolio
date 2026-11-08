@@ -2,11 +2,14 @@
 import { useEffect, useState } from 'react';
 import { useTranslations } from 'next-intl';
 import { CircleHalf } from '@phosphor-icons/react';
+import { usePathname } from '@/i18n/navigation';
+import { screenFromPathname, trackEvent } from '@/lib/analytics';
 
 type Theme = 'dark' | 'light';
 
 export function ThemeToggle() {
   const t = useTranslations('nav');
+  const pathname = usePathname();
   const [theme, setTheme] = useState<Theme>('dark');
 
   useEffect(() => {
@@ -21,6 +24,7 @@ export function ThemeToggle() {
 
   const toggle = () => {
     const next: Theme = theme === 'dark' ? 'light' : 'dark';
+    trackEvent({ screen: screenFromPathname(pathname), action: 'button-clicked', reference: `Trocou o tema para ${next}` });
     setTheme(next);
     document.documentElement.setAttribute('data-theme', next);
     try { localStorage.setItem('theme', next); } catch {}

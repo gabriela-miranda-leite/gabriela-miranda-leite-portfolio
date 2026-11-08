@@ -1,6 +1,9 @@
+'use client';
+
 import Image from 'next/image';
 import { useTranslations } from 'next-intl';
 import { Link } from '@/i18n/navigation';
+import { trackEvent } from '@/lib/analytics';
 
 const GITHUB_USERNAME = process.env.GITHUB_USERNAME ?? 'gabriela-miranda-leite';
 
@@ -27,7 +30,11 @@ export function PostHeader({ post }: PostHeaderProps) {
           marginBottom: 'var(--space-14)',
         }}
       >
-        <Link href="/blog" style={{ color: 'var(--fg-2)', textDecoration: 'none' }}>
+        <Link
+          href="/blog"
+          onClick={() => trackEvent({ screen: 'blog', action: 'button-clicked', reference: 'Voltou para o blog pelo breadcrumb' })}
+          style={{ color: 'var(--fg-2)', textDecoration: 'none' }}
+        >
           Blog
         </Link>
         {post.tags[0] && (

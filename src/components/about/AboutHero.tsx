@@ -5,6 +5,7 @@ import { Link } from '@/i18n/navigation';
 import { Container } from '@/components/layout/Container';
 import { AboutArt } from './AboutArt';
 import { SOCIAL_LINKS } from '@/lib/constants';
+import { trackEvent } from '@/lib/analytics';
 
 export function AboutHero() {
   const t = useTranslations('about.hero');
@@ -41,7 +42,7 @@ export function AboutHero() {
               id="about-heading"
               style={{
                 fontFamily: 'var(--font-serif)',
-                fontSize: 'clamp(2.5rem, 8vw, 72px)',
+                fontSize: 'clamp(2rem, 8vw, 72px)',
                 letterSpacing: '-0.025em',
                 lineHeight: 0.95,
                 fontOpticalSizing: 'auto' as React.CSSProperties['fontOpticalSizing'],
@@ -57,27 +58,36 @@ export function AboutHero() {
             </h1>
 
             {/* Bio — two paragraphs */}
-            <p style={{ margin: 0, maxWidth: '520px', color: 'var(--fg-2)', fontFamily: 'var(--font-sans)', fontSize: '17px', lineHeight: 1.75 }}>
+            <p style={{ margin: 0, maxWidth: '520px', color: 'var(--fg-2)', fontFamily: 'var(--font-sans)', fontSize: 'var(--text-body)', lineHeight: 1.75 }}>
               {t('bio')}
             </p>
-            <p style={{ margin: 0, maxWidth: '520px', color: 'var(--fg-2)', fontFamily: 'var(--font-sans)', fontSize: '17px', lineHeight: 1.75 }}>
+            <p style={{ margin: 0, maxWidth: '520px', color: 'var(--fg-2)', fontFamily: 'var(--font-sans)', fontSize: 'var(--text-body)', lineHeight: 1.75 }}>
               {t('bio2')}
             </p>
 
             {/* CTAs */}
             <div style={{ display: 'flex', gap: 'var(--space-7)', alignItems: 'center', flexWrap: 'wrap', paddingTop: '4px' }}>
-              <Link href="/projects" className="btn btn-primary">
+              <Link
+                href="/projects"
+                onClick={() => trackEvent({ screen: 'about', action: 'button-clicked', reference: 'Abriu projetos' })}
+                className="btn btn-primary"
+              >
                 {t('cta.projects')}
               </Link>
-              <a href={t('cta.cv_href')} download className="btn btn-ghost">
+              <a
+                href={t('cta.cv_href')}
+                download
+                onClick={() => trackEvent({ screen: 'about', action: 'button-clicked', reference: 'Baixou o CV' })}
+                className="btn btn-ghost"
+              >
                 {t('cta.cv')}
               </a>
             </div>
           </div>
 
           {/* Right column — art + badges */}
-          <div className="about-hero-art" style={{ display: 'flex', flexDirection: 'column', gap: '16px', paddingTop: '8px' }}>
-            <div style={{ width: '340px', borderRadius: '16px', overflow: 'hidden', border: '1px solid var(--border)' }}>
+          <div className="about-hero-art">
+            <div style={{ width: '100%', maxWidth: '340px', borderRadius: '16px', overflow: 'hidden', border: '1px solid var(--border)' }}>
               <AboutArt />
             </div>
 
@@ -115,31 +125,6 @@ export function AboutHero() {
           </div>
         </div>
       </Container>
-
-      <style>{`
-        .about-hero-grid {
-          display: grid;
-          grid-template-columns: 1fr;
-          gap: var(--space-18);
-          align-items: start;
-        }
-        .about-hero-art {
-          display: none;
-        }
-        @media (min-width: 640px) {
-          .about-hero-grid {
-            grid-template-columns: 1fr 340px;
-            gap: 80px;
-          }
-          .about-hero-art {
-            display: flex;
-          }
-        }
-        .about-hero-grid a:focus-visible {
-          outline: 2px solid var(--accent);
-          outline-offset: 2px;
-        }
-      `}</style>
     </section>
   );
 }

@@ -31,7 +31,7 @@ export function PostNav({ prev, next }: PostNavProps) {
       {prev && (
         <Link
           href={`/blog/${prev.slug}`}
-          onClick={() => trackEvent({ screen: 'blog', action: 'link-clicked', reference: 'Post anterior' })}
+          onClick={() => trackEvent({ screen: 'blog', action: 'button-clicked', reference: 'Abriu o post anterior' })}
           style={{
             display: 'flex',
             flexDirection: 'column',
@@ -75,7 +75,7 @@ export function PostNav({ prev, next }: PostNavProps) {
       {next && (
         <Link
           href={`/blog/${next.slug}`}
-          onClick={() => trackEvent({ screen: 'blog', action: 'link-clicked', reference: 'Próximo post' })}
+          onClick={() => trackEvent({ screen: 'blog', action: 'button-clicked', reference: 'Abriu o próximo post' })}
           style={{
             display: 'flex',
             flexDirection: 'column',

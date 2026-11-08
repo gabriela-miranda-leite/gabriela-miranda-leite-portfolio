@@ -8,6 +8,7 @@ import { LangSwitch } from './LangSwitch';
 import { ThemeToggle } from './ThemeToggle';
 
 import { GITHUB_USERNAME } from '@/lib/constants';
+import { screenFromPathname, trackEvent } from '@/lib/analytics';
 
 const BASE_NAV_LINKS = [
   { href: '/blog', key: 'blog' },
@@ -43,6 +44,7 @@ export function Nav({ showAbout = false }: NavProps) {
   const [menuOpen, setMenuOpen] = useState(false);
 
   const NAV_LINKS = showAbout ? [...BASE_NAV_LINKS, ABOUT_LINK] : BASE_NAV_LINKS;
+  const screen = screenFromPathname(pathname);
 
   return (
     <header
@@ -73,6 +75,7 @@ export function Nav({ showAbout = false }: NavProps) {
         <Link
           href="/"
           aria-label="Gabi Miranda — início"
+          onClick={() => trackEvent({ screen, action: 'button-clicked', reference: 'Voltou para a home pelo logo' })}
           style={{
             display: 'flex',
             alignItems: 'center',
@@ -112,6 +115,7 @@ export function Nav({ showAbout = false }: NavProps) {
                   key={key}
                   href={href}
                   aria-current={isActive ? 'page' : undefined}
+                  onClick={() => trackEvent({ screen, action: 'button-clicked', reference: `Abriu ${key} pelo menu` })}
                   className={isActive ? undefined : 'nav-link'}
                   style={{
                     display: 'block',
@@ -132,10 +136,7 @@ export function Nav({ showAbout = false }: NavProps) {
         </nav>
 
         {/* Controls — desktop */}
-        <div
-          className="nav-desktop-controls"
-          style={{ display: 'none', alignItems: 'center', gap: 'var(--space-5)' }}
-        >
+        <div className="nav-desktop-controls">
           <ThemeToggle />
           <LangSwitch />
         </div>
@@ -145,7 +146,10 @@ export function Nav({ showAbout = false }: NavProps) {
           aria-label={menuOpen ? t('closeMenu') : t('openMenu')}
           aria-expanded={menuOpen}
           aria-controls="mobile-menu"
-          onClick={() => setMenuOpen((v) => !v)}
+          onClick={() => {
+            trackEvent({ screen, action: 'button-clicked', reference: menuOpen ? 'Fechou o menu' : 'Abriu o menu' });
+            setMenuOpen((v) => !v);
+          }}
           className="nav-mobile-btn"
           style={{
             background: 'none',
@@ -153,8 +157,6 @@ export function Nav({ showAbout = false }: NavProps) {
             cursor: 'pointer',
             color: 'var(--fg)',
             padding: 'var(--space-5)',
-            display: 'flex',
-            alignItems: 'center',
           }}
         >
           {menuOpen ? (
@@ -186,7 +188,10 @@ export function Nav({ showAbout = false }: NavProps) {
                     <Link
                       href={href}
                       aria-current={isActive ? 'page' : undefined}
-                      onClick={() => setMenuOpen(false)}
+                      onClick={() => {
+                        trackEvent({ screen, action: 'button-clicked', reference: `Abriu ${key} pelo menu mobile` });
+                        setMenuOpen(false);
+                      }}
                       className={isActive ? undefined : 'nav-link'}
                       style={{
                         display: 'block',
@@ -212,19 +217,6 @@ export function Nav({ showAbout = false }: NavProps) {
           </nav>
         </div>
       )}
-
-      <style>{`
-        @media (min-width: 640px) {
-          .nav-desktop-links { display: block !important; }
-          .nav-desktop-controls { display: flex !important; }
-          .nav-mobile-btn { display: none !important; }
-          .nav-mobile-menu { display: none !important; }
-        }
-        @media (max-width: 639px) {
-          .nav-desktop-links { display: none !important; }
-          .nav-desktop-controls { display: none !important; }
-        }
-      `}</style>
     </header>
   );
 }

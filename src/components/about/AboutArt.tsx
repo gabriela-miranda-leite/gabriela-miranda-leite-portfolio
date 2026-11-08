@@ -13,7 +13,7 @@ export function AboutArt({ className }: AboutArtProps) {
       aria-hidden="true"
       role="presentation"
       className={className}
-      style={{ display: 'block' }}
+      style={{ display: 'block', width: '100%', height: 'auto' }}
     >
       {/* Background */}
       <rect width="340" height="380" style={{ fill: 'var(--bg-e)' }} />

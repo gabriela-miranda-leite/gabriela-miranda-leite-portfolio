@@ -2,6 +2,7 @@
 
 import { MagnifyingGlass, X } from '@phosphor-icons/react';
 import { useTranslations } from 'next-intl';
+import { trackEvent } from '@/lib/analytics';
 
 interface SearchBarProps {
   value: string;
@@ -54,7 +55,10 @@ export function SearchBar({ value, onChange }: SearchBarProps) {
         <button
           type="button"
           aria-label={t('search_clear')}
-          onClick={() => onChange('')}
+          onClick={() => {
+            trackEvent({ screen: 'blog', action: 'button-clicked', reference: 'Limpou a busca' });
+            onChange('');
+          }}
           style={{
             position: 'absolute',
             right: '12px',
