@@ -1,7 +1,6 @@
 'use client';
 
 import { useTranslations } from 'next-intl';
-import { ArrowDown } from '@phosphor-icons/react';
 import { Link } from '@/i18n/navigation';
 import { Container } from '@/components/layout/Container';
 import { trackEvent } from '@/lib/analytics';
@@ -127,8 +126,7 @@ export function Hero() {
               letterSpacing: '0.05em',
             }}
           >
-            {t('cta.cv_label')}
-            <ArrowDown size={14} weight="bold" aria-hidden="true" />
+            {t('cta.cv_label')} ↓
           </a>
         </div>
       </Container>
