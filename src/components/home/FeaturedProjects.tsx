@@ -134,6 +134,7 @@ export function FeaturedProjects({ repos }: FeaturedProjectsProps) {
 
               {(repo.language || repo.topics.length > 0) && (
                 <div
+                  className="project-card-footer"
                   style={{
                     display: 'flex',
                     gap: 'var(--space-3)',
