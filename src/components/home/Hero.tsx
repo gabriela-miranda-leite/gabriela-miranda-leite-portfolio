@@ -1,6 +1,9 @@
+'use client';
+
 import { useTranslations } from 'next-intl';
 import { Link } from '@/i18n/navigation';
 import { Container } from '@/components/layout/Container';
+import { trackEvent } from '@/lib/analytics';
 
 export function Hero() {
   const t = useTranslations('home.hero');
@@ -83,6 +86,7 @@ export function Hero() {
         <div style={{ display: 'flex', gap: 'var(--space-7)', alignItems: 'center', flexWrap: 'wrap' }}>
           <Link
             href="/projects"
+            onClick={() => trackEvent('cta_click', { label: 'ver_projetos' })}
             style={{
               background: 'var(--accent)',
               color: 'var(--bg)',

@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { usePathname } from '@/i18n/navigation';
+import { trackEvent } from '@/lib/analytics';
 
 interface ShareBarProps {
   title: string;
@@ -35,6 +36,7 @@ export function ShareBar({ title }: ShareBarProps) {
 
   async function handleCopy() {
     await navigator.clipboard.writeText(url);
+    trackEvent('share', { method: 'copy' });
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
   }
@@ -71,6 +73,7 @@ export function ShareBar({ title }: ShareBarProps) {
         target="_blank"
         rel="noopener noreferrer"
         aria-label="Compartilhar no LinkedIn (abre em nova aba)"
+        onClick={() => trackEvent('share', { method: 'linkedin' })}
         style={PILL}
       >
         <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false">
@@ -85,6 +88,7 @@ export function ShareBar({ title }: ShareBarProps) {
         target="_blank"
         rel="noopener noreferrer"
         aria-label="Compartilhar no WhatsApp (abre em nova aba)"
+        onClick={() => trackEvent('share', { method: 'whatsapp' })}
         style={PILL}
       >
         <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false">
@@ -99,6 +103,7 @@ export function ShareBar({ title }: ShareBarProps) {
         target="_blank"
         rel="noopener noreferrer"
         aria-label="Compartilhar no X (abre em nova aba)"
+        onClick={() => trackEvent('share', { method: 'x' })}
         style={PILL}
       >
         <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false">
