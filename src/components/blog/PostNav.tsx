@@ -22,7 +22,7 @@ export function PostNav({ prev, next }: PostNavProps) {
       style={{
         borderTop: '1px solid var(--border)',
         paddingTop: 'var(--space-16)',
-        marginTop: 'var(--space-18)',
+        marginTop: 'var(--space-16)',
         display: 'grid',
         gridTemplateColumns: prev && next ? '1fr 1fr' : '1fr',
         gap: 'var(--space-10)',
