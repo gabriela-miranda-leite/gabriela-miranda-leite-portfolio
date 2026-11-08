@@ -34,7 +34,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL ?? 'https://gabrielaleite.dev';
   const url =
     locale === 'pt' ? `${baseUrl}/blog/${slug}` : `${baseUrl}/en/blog/${slug}`;
-  const ogUrl = `${baseUrl}/og?slug=${slug}&locale=${locale}`;
+  const ogUrl = `${baseUrl}/og?title=${encodeURIComponent(post.title)}&subtitle=${encodeURIComponent(post.description)}`;
 
   return {
     title: `${post.title} — Gabi Miranda`,
