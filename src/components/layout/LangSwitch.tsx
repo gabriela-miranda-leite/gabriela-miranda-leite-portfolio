@@ -1,23 +1,19 @@
 'use client';
-import { useLocale, useTranslations } from 'next-intl';
-import { usePathname, useRouter } from '@/i18n/navigation';
 import { useState } from 'react';
+import { useLocale, useTranslations } from 'next-intl';
+import { Link, usePathname } from '@/i18n/navigation';
 import { screenFromPathname, trackEvent } from '@/lib/analytics';
+
+const LANGUAGES = [
+  { locale: 'pt', label: 'PT', htmlLang: 'pt-BR', nameKey: 'namePt', announceKey: 'announcePt' },
+  { locale: 'en', label: 'EN', htmlLang: 'en', nameKey: 'nameEn', announceKey: 'announceEn' },
+] as const;
 
 export function LangSwitch() {
   const locale = useLocale();
   const t = useTranslations('lang');
   const pathname = usePathname();
-  const router = useRouter();
   const [announcement, setAnnouncement] = useState('');
-
-  const next = locale === 'pt' ? 'en' : 'pt';
-
-  const toggle = () => {
-    trackEvent({ screen: screenFromPathname(pathname), action: 'button_clicked', reference: `Trocou o idioma para ${next}` });
-    setAnnouncement(t('announce'));
-    router.replace(pathname, { locale: next });
-  };
 
   return (
     <>
@@ -40,47 +36,55 @@ export function LangSwitch() {
         {announcement}
       </span>
 
-      <button
-        onClick={toggle}
-        aria-label={t('ariaLabel')}
-        className="nav-pill-btn"
+      <div
+        role="group"
+        aria-label={t('groupLabel')}
+        className="lang-switch"
         style={{
           background: 'var(--bg-s)',
           border: '1px solid var(--border)',
-          color: 'var(--fg-2)',
-          padding: 'var(--space-4) var(--space-9)',
           borderRadius: 'var(--radius-pill)',
+          padding: 'var(--space-2)',
           fontSize: 'var(--text-eyebrow)',
           fontFamily: 'var(--font-mono)',
-          whiteSpace: 'nowrap',
-          cursor: 'pointer',
           display: 'flex',
           alignItems: 'center',
-          gap: 'var(--space-3)',
+          gap: 'var(--space-2)',
         }}
       >
-        <span
-          style={{
-            color: locale === 'pt' ? 'var(--accent)' : 'var(--fg-2)',
-            fontWeight: locale === 'pt' ? 600 : 400,
-            textDecoration: locale === 'pt' ? 'underline' : 'none',
-            textUnderlineOffset: '3px',
-          }}
-        >
-          PT
-        </span>
-        <span aria-hidden="true" style={{ color: 'var(--fg-3)' }}>|</span>
-        <span
-          style={{
-            color: locale === 'en' ? 'var(--accent)' : 'var(--fg-2)',
-            fontWeight: locale === 'en' ? 600 : 400,
-            textDecoration: locale === 'en' ? 'underline' : 'none',
-            textUnderlineOffset: '3px',
-          }}
-        >
-          EN
-        </span>
-      </button>
+        {LANGUAGES.map(({ locale: target, label, htmlLang, nameKey, announceKey }) => {
+          const isCurrent = locale === target;
+          return (
+            <Link
+              key={target}
+              href={pathname}
+              locale={target}
+              lang={htmlLang}
+              hrefLang={htmlLang}
+              aria-label={t(nameKey)}
+              aria-current={isCurrent ? 'true' : undefined}
+              className="lang-switch-option"
+              onClick={() => {
+                if (isCurrent) return;
+                trackEvent({
+                  screen: screenFromPathname(pathname),
+                  action: 'button_clicked',
+                  reference: `Trocou o idioma para ${target}`,
+                });
+                setAnnouncement(t(announceKey));
+              }}
+              style={{
+                color: isCurrent ? 'var(--accent)' : 'var(--fg-2)',
+                fontWeight: isCurrent ? 600 : 400,
+                textDecoration: isCurrent ? 'underline' : 'none',
+                textUnderlineOffset: '3px',
+              }}
+            >
+              {label}
+            </Link>
+          );
+        })}
+      </div>
     </>
   );
 }
