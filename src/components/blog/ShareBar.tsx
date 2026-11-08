@@ -3,12 +3,13 @@
 import { useState } from 'react';
 import { usePathname } from '@/i18n/navigation';
 import { trackEvent } from '@/lib/analytics';
+import { SITE_URL } from '@/lib/constants';
 
 interface ShareBarProps {
   title: string;
 }
 
-const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL ?? 'https://gabrielaleite.dev';
+const BASE_URL = SITE_URL;
 
 const PILL: React.CSSProperties = {
   display: 'inline-flex',

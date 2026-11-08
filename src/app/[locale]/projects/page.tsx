@@ -3,6 +3,7 @@ import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { Container } from '@/components/layout/Container';
 import { ProjectCard } from '@/components/projects/ProjectCard';
 import { getPinnedRepos, getRepos } from '@/lib/github';
+import { SITE_URL as baseUrl } from '@/lib/constants';
 
 export const revalidate = 604800; // 1 semana
 
@@ -11,7 +12,7 @@ type PageProps = { params: Promise<{ locale: string }> };
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: 'projects' });
-  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL ?? 'https://gabrielaleite.dev';
+
   const url = locale === 'pt' ? `${baseUrl}/projects` : `${baseUrl}/en/projects`;
   const ogUrl = `${baseUrl}/og?title=${encodeURIComponent(t('meta_title'))}&subtitle=${encodeURIComponent(t('description'))}`;
 

@@ -3,13 +3,14 @@ import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { Container } from '@/components/layout/Container';
 import { PostList } from '@/components/blog/PostList';
 import { getAllPosts } from '@/lib/posts';
+import { SITE_URL as baseUrl } from '@/lib/constants';
 
 type PageProps = { params: Promise<{ locale: string }> };
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: 'blog.listing' });
-  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL ?? 'https://gabrielaleite.dev';
+
   const url = locale === 'pt' ? `${baseUrl}/blog` : `${baseUrl}/en/blog`;
   const ogUrl = `${baseUrl}/og?title=${encodeURIComponent(t('meta_title'))}&subtitle=${encodeURIComponent(t('description'))}`;
 

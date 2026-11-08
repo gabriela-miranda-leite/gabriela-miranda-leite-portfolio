@@ -1,7 +1,6 @@
 import { MetadataRoute } from 'next';
 import { getAllPosts } from '@/lib/posts';
-
-const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL ?? 'https://gabrielaleite.dev';
+import { SITE_URL as BASE_URL } from '@/lib/constants';
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const staticRoutes: MetadataRoute.Sitemap = [
