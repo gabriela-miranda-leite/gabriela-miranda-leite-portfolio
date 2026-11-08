@@ -1,5 +1,7 @@
-export const SITE_URL =
-  process.env.NEXT_PUBLIC_BASE_URL ?? 'https://www.gabrielamiranda.dev.br';
+// Trailing slashes are stripped so a value like "https://site.dev/" never yields "//path".
+export const SITE_URL = (
+  process.env.NEXT_PUBLIC_BASE_URL ?? 'https://www.gabrielamiranda.dev.br'
+).replace(/\/+$/, '');
 
 export const GITHUB_USERNAME =
   process.env.NEXT_PUBLIC_GITHUB_USERNAME ?? 'gabriela-miranda-leite';
