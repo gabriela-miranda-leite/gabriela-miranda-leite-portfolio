@@ -176,7 +176,7 @@ export function ShareBar({ title, description = '', image }: ShareBarProps) {
         X
       </a>
 
-      {storyImageUrl ? (
+      {storyFile ? (
         <button
           type="button"
           onClick={handleInstagramShare}
