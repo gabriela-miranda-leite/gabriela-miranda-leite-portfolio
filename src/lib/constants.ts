@@ -13,3 +13,6 @@ export const SOCIAL_LINKS = {
 
 export const CONTACT_EMAIL =
   process.env.NEXT_PUBLIC_CONTACT_EMAIL ?? 'gabrielamiranda11.10@gmail.com';
+
+export const SPOTIFY_PLAYLIST_ID =
+  process.env.NEXT_PUBLIC_SPOTIFY_PLAYLIST_ID ?? '37i9dQZF1DXcBWIGoYBM5M';

@@ -148,6 +148,12 @@
       "title_em": "and collaborations",
       "subtitle": "Send a message if you want to work together, exchange ideas or just say hi.",
       "button": "Get in touch"
+    },
+    "spotify": {
+      "label": "what I listen to while coding",
+      "hint": "send yours too",
+      "iframeTitle": "Spotify playlist",
+      "unavailable": "Couldn't load the playlist right now."
     }
   }
 }

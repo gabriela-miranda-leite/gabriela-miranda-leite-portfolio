@@ -148,6 +148,12 @@
       "title_em": "e colaborações",
       "subtitle": "Manda uma mensagem se quiser trabalhar junto, trocar ideia ou só dizer oi.",
       "button": "Entrar em contato"
+    },
+    "spotify": {
+      "label": "o que tô ouvindo enquanto codifico",
+      "hint": "manda a sua também",
+      "iframeTitle": "Playlist do Spotify",
+      "unavailable": "Não foi possível carregar a playlist agora."
     }
   }
 }
