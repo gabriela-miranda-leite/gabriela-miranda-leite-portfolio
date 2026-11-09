@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { useTranslations } from 'next-intl';
-import { EnvelopeSimple, GithubLogo, LinkedinLogo, MusicNotes, PaperPlaneTilt } from '@phosphor-icons/react/dist/ssr';
+import { EnvelopeSimple, GithubLogo, LinkedinLogo, MusicNotes, PaperPlaneTilt, SpotifyLogo } from '@phosphor-icons/react/dist/ssr';
 import { Container } from '@/components/layout/Container';
 import { CONTACT_EMAIL, SOCIAL_LINKS, SPOTIFY_PLAYLIST_ID } from '@/lib/constants';
 import { trackEvent } from '@/lib/analytics';
@@ -106,6 +106,16 @@ export function ContactCTA() {
               >
                 <GithubLogo size={14} weight="fill" aria-hidden="true" />
                 {t('githubLabel')}
+              </a>
+              <a
+                href={SOCIAL_LINKS.spotify}
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={() => trackEvent({ screen: 'about', action: 'button_clicked', reference: 'Abriu o Spotify' })}
+                className="share-pill"
+              >
+                <SpotifyLogo size={14} weight="fill" aria-hidden="true" />
+                {t('spotifyLabel')}
               </a>
             </div>
           </div>

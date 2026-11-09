@@ -146,7 +146,8 @@
       "title": "Diz oi",
       "body": "Se quiser trocar ideia, colaborar em algo ou só mandar uma playlist boa:",
       "linkedinLabel": "LinkedIn",
-      "githubLabel": "GitHub"
+      "githubLabel": "GitHub",
+      "spotifyLabel": "Spotify"
     },
     "spotify": {
       "label": "o que tô ouvindo enquanto codifico",
