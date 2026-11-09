@@ -115,13 +115,36 @@ describe('ShareBar', () => {
       expect(global.fetch).toHaveBeenCalledWith(expect.stringContaining(`${window.location.origin}/og/story?`));
     });
 
-    it('shares the fetched story image as a file via the native share sheet', async () => {
+    it('falls back to the native share sheet when the Clipboard API is unavailable', async () => {
       await renderShareBar(props);
       const btn = screen.getByRole('button', { name: /instagram/i });
       await act(async () => { fireEvent.click(btn); });
       expect(navigator.share).toHaveBeenCalledWith(
         expect.objectContaining({ title: 'Meu Post', files: expect.any(Array) })
       );
+    });
+
+    it('copies the story image to the clipboard when the Clipboard API is available', async () => {
+      const mockWrite = jest.fn().mockResolvedValue(undefined);
+      Object.defineProperty(navigator, 'clipboard', {
+        value: { writeText: mockWriteText, write: mockWrite },
+        configurable: true,
+      });
+      const globalRecord = global as unknown as Record<string, unknown>;
+      globalRecord.ClipboardItem = jest.fn().mockImplementation((data: unknown) => data);
+
+      await renderShareBar(props);
+      const btn = screen.getByRole('button', { name: /instagram/i });
+      await act(async () => { fireEvent.click(btn); });
+
+      expect(mockWrite).toHaveBeenCalled();
+      expect(navigator.share).not.toHaveBeenCalled();
+
+      delete globalRecord.ClipboardItem;
+      Object.defineProperty(navigator, 'clipboard', {
+        value: { writeText: mockWriteText },
+        configurable: true,
+      });
     });
   });
 

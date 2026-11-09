@@ -13,7 +13,7 @@ import {
 } from '@phosphor-icons/react/dist/ssr';
 import { usePathname } from '@/i18n/navigation';
 import { trackEvent } from '@/lib/analytics';
-import { SITE_URL } from '@/lib/constants';
+import { INSTAGRAM_APP_ID, SITE_URL } from '@/lib/constants';
 
 interface ShareBarProps {
   title: string;
@@ -85,22 +85,45 @@ export function ShareBar({ title, description = '', image }: ShareBarProps) {
     }
   }
 
-  // Instagram has no web share endpoint, so we hand the generated Stories card to the
-  // OS share sheet (people pick "Instagram Stories" there) when the device supports
-  // sharing files. Otherwise we open the image so it can be saved and posted manually.
-  // navigator.share() is called synchronously here (no await before it) — see the
-  // storyFile effect above for why.
-  function handleInstagramShare() {
-    if (!storyImageUrl) return;
-    trackEvent({ screen: 'blog', action: 'button_clicked', reference: 'Compartilhou no Instagram Stories' });
+  // Generic file sharing (navigator.share with files) hands Instagram a plain image,
+  // which its share extension frequently rejects with an in-app error. Instagram's own
+  // integration instead expects the image on the system clipboard plus a deep link
+  // (used by Spotify, Shazam, etc.): copy the image, then open instagram-stories://,
+  // which reads it straight into the Stories editor as the background.
+  function openInstagramStoriesWithClipboardImage() {
+    if (!storyFile) return false;
+    if (typeof ClipboardItem === 'undefined' || typeof navigator.clipboard?.write !== 'function') return false;
 
+    navigator.clipboard
+      .write([new ClipboardItem({ [storyFile.type]: storyFile })])
+      .then(() => {
+        // If Instagram isn't installed, this deep link is a silent no-op — fall back
+        // to the OS share sheet unless the tab lost focus (a sign the app opened).
+        const fallbackTimer = setTimeout(fallbackToFileShare, 1500);
+        window.addEventListener('blur', () => clearTimeout(fallbackTimer), { once: true });
+        window.location.href = `instagram-stories://share?source_application=${INSTAGRAM_APP_ID}`;
+      })
+      .catch(fallbackToFileShare);
+    return true;
+  }
+
+  function fallbackToFileShare() {
     if (storyFile && typeof navigator.canShare === 'function' && navigator.canShare({ files: [storyFile] })) {
       navigator.share({ files: [storyFile], title }).catch(() => {
         // Dismissing the share sheet, or the OS refusing the file, rejects the promise — nothing to do.
       });
       return;
     }
-    window.open(storyImageUrl, '_blank', 'noopener,noreferrer');
+    if (storyImageUrl) window.open(storyImageUrl, '_blank', 'noopener,noreferrer');
+  }
+
+  // navigator.clipboard.write()/navigator.share() are called synchronously here (no
+  // await before them) — see the storyFile effect above for why.
+  function handleInstagramShare() {
+    if (!storyImageUrl) return;
+    trackEvent({ screen: 'blog', action: 'button_clicked', reference: 'Compartilhou no Instagram Stories' });
+
+    if (!openInstagramStoriesWithClipboardImage()) fallbackToFileShare();
   }
 
   return (
