@@ -43,16 +43,17 @@ export function AboutHero() {
               style={{
                 fontFamily: 'var(--font-serif)',
                 fontSize: 'clamp(2rem, 8vw, 72px)',
+                fontWeight: 400,
                 letterSpacing: '-0.025em',
                 lineHeight: 0.95,
                 fontOpticalSizing: 'auto' as React.CSSProperties['fontOpticalSizing'],
                 margin: 0,
               }}
             >
-              <span style={{ display: 'block', fontStyle: 'italic', fontWeight: 300, color: 'var(--fg-2)' }}>
+              <span style={{ display: 'block', fontStyle: 'italic', fontWeight: 400, color: 'var(--fg-2)' }}>
                 {t('title_line1')}
               </span>
-              <span style={{ display: 'block', fontWeight: 800, color: 'var(--fg)' }}>
+              <span style={{ display: 'block', fontWeight: 400, color: 'var(--fg)' }}>
                 {t('title_line2')}
               </span>
             </h1>

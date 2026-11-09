@@ -34,7 +34,7 @@ export function ContactCTA() {
             style={{
               fontFamily: 'var(--font-serif)',
               fontSize: 'clamp(2rem, 5vw, var(--text-title))',
-              fontWeight: 700,
+              fontWeight: 400,
               lineHeight: 1.05,
               letterSpacing: '-0.02em',
               margin: 0,

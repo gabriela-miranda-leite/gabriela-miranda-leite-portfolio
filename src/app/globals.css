@@ -13,23 +13,23 @@
   --border:  #232320;
 
   /* Typography — families */
-  --font-sans:  'Plus Jakarta Sans', sans-serif;
-  --font-serif: Fraunces, serif;
+  --font-sans:  Syne, sans-serif;
+  --font-serif: 'Instrument Serif', serif;
   --font-mono:  'JetBrains Mono', monospace;
 
   /* Typography — scale */
-  --text-hero:    116px;  /* Fraunces · hero name */
-  --text-title:   52px;   /* Fraunces · post titles */
-  --text-stat:    44px;   /* Fraunces · stats numbers */
-  --text-section: 30px;   /* Fraunces · section headings */
-  --text-logo:    17px;   /* Fraunces · logo/wordmark */
+  --text-hero:    116px;  /* Instrument Serif · hero name */
+  --text-title:   52px;   /* Instrument Serif · post titles */
+  --text-stat:    44px;   /* Instrument Serif · stats numbers */
+  --text-section: 30px;   /* Instrument Serif · section headings */
+  --text-logo:    17px;   /* Instrument Serif · logo/wordmark */
 
-  --text-lede:    19px;   /* Jakarta · post lede */
-  --text-body:    16.5px; /* Jakarta · body copy */
-  --text-card:    16px;   /* Jakarta · card titles (600) */
-  --text-sm:      14px;   /* Jakarta · secondary text */
-  --text-eyebrow: 13px;   /* Jakarta · eyebrow labels */
-  --text-meta:    11px;   /* Jakarta/Mono · nav, metadata */
+  --text-lede:    19px;   /* Syne · post lede */
+  --text-body:    16.5px; /* Syne · body copy */
+  --text-card:    16px;   /* Syne · card titles (600) */
+  --text-sm:      14px;   /* Syne · secondary text */
+  --text-eyebrow: 13px;   /* Syne · eyebrow labels */
+  --text-meta:    11px;   /* Syne/Mono · nav, metadata */
   --text-chip:    10px;   /* Mono · chips, tags */
 
   /* Typography — leading */
@@ -114,8 +114,8 @@
    keeps @theme vars internal — browsers don't see them without this block) */
 :root {
   --bg-nav: rgba(12,12,10,0.88);
-  --font-sans:  'Plus Jakarta Sans', sans-serif;
-  --font-serif: Fraunces, serif;
+  --font-sans:  Syne, sans-serif;
+  --font-serif: 'Instrument Serif', serif;
   --font-mono:  'JetBrains Mono', monospace;
 
   --text-hero:    116px;

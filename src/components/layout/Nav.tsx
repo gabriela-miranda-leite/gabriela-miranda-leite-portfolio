@@ -95,7 +95,7 @@ export function Nav({ showAbout = false }: NavProps) {
             style={{
               fontFamily: 'var(--font-serif)',
               fontSize: 'var(--text-logo)',
-              fontWeight: 500,
+              fontWeight: 400,
               fontStyle: 'italic',
               color: 'var(--fg)',
               whiteSpace: 'nowrap',

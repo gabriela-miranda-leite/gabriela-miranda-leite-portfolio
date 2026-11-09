@@ -29,7 +29,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
         />
         <link
           rel="stylesheet"
-          href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&family=Plus+Jakarta+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap"
+          href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Syne:wght@400..800&family=JetBrains+Mono:wght@400;500&display=swap"
         />
       </head>
       <body>{children}</body>

@@ -17,7 +17,7 @@ export function Prose({ children }: ProseProps) {
         .prose h2 {
           font-family: var(--font-serif);
           font-size: var(--text-section);
-          font-weight: 600;
+          font-weight: 400;
           line-height: var(--leading-heading);
           color: var(--fg);
           margin: var(--space-18) 0 var(--space-12);

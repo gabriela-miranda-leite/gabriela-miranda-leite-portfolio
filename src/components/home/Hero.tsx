@@ -44,6 +44,7 @@ export function Hero() {
           style={{
             fontFamily: 'var(--font-serif)',
             fontSize: 'clamp(3rem, 10vw, var(--text-hero))',
+            fontWeight: 400,
             letterSpacing: '-0.025em',
             lineHeight: 0.91,
             fontOpticalSizing: 'auto',
@@ -55,7 +56,7 @@ export function Hero() {
             style={{
               display: 'block',
               fontStyle: 'italic',
-              fontWeight: 300,
+              fontWeight: 400,
               color: 'var(--fg-2)',
             }}
           >
@@ -64,7 +65,7 @@ export function Hero() {
           <span
             style={{
               display: 'block',
-              fontWeight: 800,
+              fontWeight: 400,
               color: 'var(--fg)',
             }}
           >

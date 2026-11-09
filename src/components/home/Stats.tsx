@@ -30,7 +30,7 @@ export function Stats() {
                 style={{
                   fontFamily: 'var(--font-serif)',
                   fontSize: 'var(--text-stat)',
-                  fontWeight: 700,
+                  fontWeight: 400,
                   lineHeight: 1,
                   color: 'var(--fg)',
                   margin: 0,

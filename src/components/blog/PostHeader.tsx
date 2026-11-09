@@ -64,12 +64,12 @@ export function PostHeader({ post }: PostHeaderProps) {
         </div>
       )}
 
-      {/* Title — weight 700, sem italic (fiel ao design) */}
+      {/* Title — weight 400 (Instrument Serif só tem 400), sem italic */}
       <h1
         style={{
           fontFamily: 'var(--font-serif)',
           fontSize: 'clamp(2rem, 6vw, var(--text-title))',
-          fontWeight: 700,
+          fontWeight: 400,
           lineHeight: 'var(--leading-heading)',
           color: 'var(--fg)',
           margin: '0 0 var(--space-13)',
