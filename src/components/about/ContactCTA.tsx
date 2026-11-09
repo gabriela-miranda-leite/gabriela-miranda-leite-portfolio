@@ -15,8 +15,10 @@ export function ContactCTA() {
 
   const linkStyle: React.CSSProperties = {
     color: 'var(--fg-2)',
-    textDecoration: 'none',
-    transition: 'color 0.15s ease',
+    textDecoration: 'underline',
+    textDecorationColor: 'var(--border)',
+    textUnderlineOffset: '3px',
+    transition: 'color 0.15s ease, text-decoration-color 0.15s ease',
   };
 
   return (
@@ -24,8 +26,8 @@ export function ContactCTA() {
       className="section-enter"
       aria-labelledby="contact-heading"
       style={{
-        paddingTop: 'clamp(2rem, 5vw, 72px)',
-        paddingBottom: 'clamp(2.5rem, 8vw, 96px)',
+        paddingTop: 'clamp(2rem, 5vw, var(--space-18))',
+        paddingBottom: 'clamp(2rem, 5vw, var(--space-18))',
         borderTop: '1px solid var(--border)',
         '--enter-delay': '0.35s',
       } as React.CSSProperties}
@@ -158,6 +160,7 @@ export function ContactCTA() {
         .contact-signature-link:hover,
         .contact-signature-link:focus-visible {
           color: var(--fg);
+          text-decoration-color: var(--fg);
         }
         .contact-signature-link:focus-visible {
           outline: 2px solid var(--accent);
