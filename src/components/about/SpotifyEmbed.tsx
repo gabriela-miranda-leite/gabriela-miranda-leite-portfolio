@@ -1,13 +1,30 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useTranslations } from 'next-intl';
 import { Container } from '@/components/layout/Container';
 import { SPOTIFY_PLAYLIST_ID } from '@/lib/constants';
 
+function useIsDarkTheme() {
+  const [isDark, setIsDark] = useState(true);
+
+  useEffect(() => {
+    const root = document.documentElement;
+    const read = () => setIsDark(root.getAttribute('data-theme') !== 'light');
+
+    read();
+    const observer = new MutationObserver(read);
+    observer.observe(root, { attributes: true, attributeFilter: ['data-theme'] });
+    return () => observer.disconnect();
+  }, []);
+
+  return isDark;
+}
+
 export function SpotifyEmbed() {
   const t = useTranslations('about.spotify');
   const [hasError, setHasError] = useState(false);
+  const isDark = useIsDarkTheme();
 
   return (
     <section
@@ -40,7 +57,8 @@ export function SpotifyEmbed() {
           </p>
         ) : (
           <iframe
-            src={`https://open.spotify.com/embed/playlist/${SPOTIFY_PLAYLIST_ID}?utm_source=generator&theme=0`}
+            key={isDark ? 'dark' : 'light'}
+            src={`https://open.spotify.com/embed/playlist/${SPOTIFY_PLAYLIST_ID}?utm_source=generator${isDark ? '&theme=0' : ''}`}
             width="100%"
             height="152"
             frameBorder="0"

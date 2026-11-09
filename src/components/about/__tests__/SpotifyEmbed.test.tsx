@@ -33,4 +33,16 @@ describe('SpotifyEmbed', () => {
     const { container } = render(<SpotifyEmbed />);
     expect(await axe(container)).toHaveNoViolations();
   });
+
+  it('uses theme=0 by default (dark theme)', () => {
+    const { getByTitle } = render(<SpotifyEmbed />);
+    expect(getByTitle('iframeTitle').getAttribute('src')).toContain('theme=0');
+  });
+
+  it('drops theme=0 when data-theme is light', () => {
+    document.documentElement.setAttribute('data-theme', 'light');
+    const { getByTitle } = render(<SpotifyEmbed />);
+    expect(getByTitle('iframeTitle').getAttribute('src')).not.toContain('theme=0');
+    document.documentElement.removeAttribute('data-theme');
+  });
 });
