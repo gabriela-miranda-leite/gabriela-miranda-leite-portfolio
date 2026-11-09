@@ -85,14 +85,3 @@ export function postShareImageUrl(post: {
   if (post.image) return `${SITE_URL}${post.image}`;
   return `${SITE_URL}/og?title=${encodeURIComponent(post.title)}&subtitle=${encodeURIComponent(post.description)}`;
 }
-
-/** Absolute URL for a post's vertical (9:16) Instagram Stories card: cover photo + title + excerpt. */
-export function postStoryImageUrl(post: {
-  title: string;
-  description: string;
-  image?: string;
-}): string {
-  const params = new URLSearchParams({ title: post.title, subtitle: post.description });
-  if (post.image) params.set('image', `${SITE_URL}${post.image}`);
-  return `${SITE_URL}/og/story?${params.toString()}`;
-}

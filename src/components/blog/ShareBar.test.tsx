@@ -80,14 +80,7 @@ describe('ShareBar', () => {
     expect(link.getAttribute('href')).toContain('blog%2Ftest-post');
   });
 
-  it('does not render the Instagram button without a storyImageUrl', () => {
-    render(<ShareBar title="Meu Post" />);
-    expect(screen.queryByRole('button', { name: /instagram/i })).not.toBeInTheDocument();
-  });
-
-  describe('with a storyImageUrl', () => {
-    const storyImageUrl = 'https://www.gabrielamiranda.dev.br/og/story?title=Meu+Post';
-
+  describe('Instagram Stories button', () => {
     beforeEach(() => {
       global.fetch = jest.fn().mockResolvedValue({
         blob: () => Promise.resolve(new Blob(['fake'], { type: 'image/png' })),
@@ -99,16 +92,22 @@ describe('ShareBar', () => {
       Object.defineProperty(navigator, 'share', { value: jest.fn().mockResolvedValue(undefined), configurable: true });
     });
 
-    it('renders an Instagram button', () => {
-      render(<ShareBar title="Meu Post" storyImageUrl={storyImageUrl} />);
-      expect(screen.getByRole('button', { name: /instagram/i })).toBeInTheDocument();
+    it('renders once the story image URL is built on mount', async () => {
+      render(<ShareBar title="Meu Post" description="Um resumo do post" image="/posts/x/cover.jpg" />);
+      expect(await screen.findByRole('button', { name: /instagram/i })).toBeInTheDocument();
+    });
+
+    it('fetches the /og/story endpoint on the current origin, not a hardcoded domain', async () => {
+      render(<ShareBar title="Meu Post" description="Um resumo do post" image="/posts/x/cover.jpg" />);
+      const btn = await screen.findByRole('button', { name: /instagram/i });
+      await act(async () => { fireEvent.click(btn); });
+      expect(global.fetch).toHaveBeenCalledWith(expect.stringContaining(`${window.location.origin}/og/story?`));
     });
 
     it('shares the fetched story image as a file via the native share sheet', async () => {
-      render(<ShareBar title="Meu Post" storyImageUrl={storyImageUrl} />);
-      const btn = screen.getByRole('button', { name: /instagram/i });
+      render(<ShareBar title="Meu Post" description="Um resumo do post" image="/posts/x/cover.jpg" />);
+      const btn = await screen.findByRole('button', { name: /instagram/i });
       await act(async () => { fireEvent.click(btn); });
-      expect(global.fetch).toHaveBeenCalledWith(storyImageUrl);
       expect(navigator.share).toHaveBeenCalledWith(
         expect.objectContaining({ title: 'Meu Post', files: expect.any(Array) })
       );

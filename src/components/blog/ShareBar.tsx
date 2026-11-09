@@ -17,13 +17,14 @@ import { SITE_URL } from '@/lib/constants';
 
 interface ShareBarProps {
   title: string;
-  /** Absolute URL of the vertical (9:16) Instagram Stories card for this post. */
-  storyImageUrl?: string;
+  description?: string;
+  /** Cover image path under /public (1200×630), if the post has one. */
+  image?: string;
 }
 
 const BASE_URL = SITE_URL;
 
-export function ShareBar({ title, storyImageUrl }: ShareBarProps) {
+export function ShareBar({ title, description = '', image }: ShareBarProps) {
   const t = useTranslations('blog.share');
   const pathname = usePathname();
   const url = `${BASE_URL}${pathname}`;
@@ -36,10 +37,19 @@ export function ShareBar({ title, storyImageUrl }: ShareBarProps) {
   // (most phones, Safari, Chrome on Windows) we hand off to the OS share sheet, which
   // lists the apps the person really has. Otherwise we fall back to per-network links.
   const [canNativeShare, setCanNativeShare] = useState(false);
+  // Built from window.location.origin (not SITE_URL) so the /og/story endpoint it
+  // points at always matches the deployment actually serving the page — SITE_URL is
+  // the production domain and would 404 on preview deploys.
+  const [storyImageUrl, setStoryImageUrl] = useState<string>();
 
   useEffect(() => {
     setCanNativeShare(typeof navigator !== 'undefined' && typeof navigator.share === 'function');
-  }, []);
+
+    const origin = window.location.origin;
+    const params = new URLSearchParams({ title, subtitle: description });
+    if (image) params.set('image', `${origin}${image}`);
+    setStoryImageUrl(`${origin}/og/story?${params.toString()}`);
+  }, [title, description, image]);
 
   async function handleCopy() {
     await navigator.clipboard.writeText(url);
