@@ -9,6 +9,7 @@ export const GITHUB_USERNAME =
 export const SOCIAL_LINKS = {
   github: `https://github.com/${GITHUB_USERNAME}`,
   linkedin: 'https://www.linkedin.com/in/gabriela-msl/',
+  spotify: 'https://open.spotify.com/user/gabrielamiranda11.10',
 } as const;
 
 export const CONTACT_EMAIL =
