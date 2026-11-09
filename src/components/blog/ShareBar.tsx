@@ -24,6 +24,41 @@ interface ShareBarProps {
 
 const BASE_URL = SITE_URL;
 
+function blobToJpegFile(blob: Blob): Promise<File> {
+  return new Promise((resolve, reject) => {
+    const objectUrl = URL.createObjectURL(blob);
+    const img = new Image();
+    img.onload = () => {
+      const canvas = document.createElement('canvas');
+      canvas.width = img.naturalWidth;
+      canvas.height = img.naturalHeight;
+      const ctx = canvas.getContext('2d');
+      URL.revokeObjectURL(objectUrl);
+      if (!ctx) {
+        reject(new Error('2D canvas context unavailable'));
+        return;
+      }
+      ctx.drawImage(img, 0, 0);
+      canvas.toBlob(
+        (jpegBlob) => {
+          if (!jpegBlob) {
+            reject(new Error('JPEG conversion failed'));
+            return;
+          }
+          resolve(new File([jpegBlob], 'story.jpg', { type: 'image/jpeg' }));
+        },
+        'image/jpeg',
+        0.92
+      );
+    };
+    img.onerror = () => {
+      URL.revokeObjectURL(objectUrl);
+      reject(new Error('Failed to load story image for JPEG conversion'));
+    };
+    img.src = objectUrl;
+  });
+}
+
 export function ShareBar({ title, description = '', image }: ShareBarProps) {
   const t = useTranslations('blog.share');
   const pathname = usePathname();
@@ -58,8 +93,11 @@ export function ShareBar({ title, description = '', image }: ShareBarProps) {
     let cancelled = false;
     fetch(imageUrl)
       .then((res) => res.blob())
-      .then((blob) => {
-        if (!cancelled) setStoryFile(new File([blob], 'story.png', { type: blob.type || 'image/png' }));
+      // Instagram's Stories pasteboard sharing only reliably reads JPEG backgrounds —
+      // the PNG the /og/story route renders often shows up blank, so convert it here.
+      .then(blobToJpegFile)
+      .then((file) => {
+        if (!cancelled) setStoryFile(file);
       })
       .catch(() => {
         // Native share falls back to opening storyImageUrl directly when storyFile is unset.
@@ -97,11 +135,16 @@ export function ShareBar({ title, description = '', image }: ShareBarProps) {
     navigator.clipboard
       .write([new ClipboardItem({ [storyFile.type]: storyFile })])
       .then(() => {
-        // If Instagram isn't installed, this deep link is a silent no-op — fall back
-        // to the OS share sheet unless the tab lost focus (a sign the app opened).
-        const fallbackTimer = setTimeout(fallbackToFileShare, 1500);
-        window.addEventListener('blur', () => clearTimeout(fallbackTimer), { once: true });
-        window.location.href = `instagram-stories://share?source_application=${INSTAGRAM_APP_ID}`;
+        // iOS needs a beat after the write resolves for the system pasteboard to
+        // actually sync — opening the deep link immediately can land Instagram on an
+        // empty background because it reads the pasteboard before the image is there.
+        setTimeout(() => {
+          // If Instagram isn't installed, this deep link is a silent no-op — fall back
+          // to the OS share sheet unless the tab lost focus (a sign the app opened).
+          const fallbackTimer = setTimeout(fallbackToFileShare, 1500);
+          window.addEventListener('blur', () => clearTimeout(fallbackTimer), { once: true });
+          window.location.href = `instagram-stories://share?source_application=${INSTAGRAM_APP_ID}`;
+        }, 300);
       })
       .catch(fallbackToFileShare);
     return true;
