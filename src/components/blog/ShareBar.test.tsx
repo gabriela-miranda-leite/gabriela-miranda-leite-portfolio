@@ -115,13 +115,11 @@ describe('ShareBar', () => {
       expect(global.fetch).toHaveBeenCalledWith(expect.stringContaining(`${window.location.origin}/og/story?`));
     });
 
-    it('shares the story image as a file via the native share sheet', async () => {
+    it('shares only the story image file via the native share sheet (no title/text)', async () => {
       await renderShareBar(props);
       const btn = screen.getByRole('button', { name: /instagram/i });
       await act(async () => { fireEvent.click(btn); });
-      expect(navigator.share).toHaveBeenCalledWith(
-        expect.objectContaining({ title: 'Meu Post', files: expect.any(Array) })
-      );
+      expect(navigator.share).toHaveBeenCalledWith({ files: expect.any(Array) });
     });
 
     it('opens the image in a new tab when the device cannot share files', async () => {

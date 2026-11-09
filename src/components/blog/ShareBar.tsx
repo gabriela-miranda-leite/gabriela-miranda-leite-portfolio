@@ -97,7 +97,10 @@ export function ShareBar({ title, description = '', image }: ShareBarProps) {
     trackEvent({ screen: 'blog', action: 'button_clicked', reference: 'Compartilhou no Instagram Stories' });
 
     if (typeof navigator.canShare === 'function' && navigator.canShare({ files: [storyFile] })) {
-      navigator.share({ files: [storyFile], title }).catch(() => {
+      // iOS only shows the quick "Instagram Stories" icon in the share sheet for a
+      // pure image share — adding title/text alongside the file can make it treat
+      // this as a link/text share instead and hide that shortcut, so files only.
+      navigator.share({ files: [storyFile] }).catch(() => {
         // Dismissing the share sheet, or the OS refusing the file, rejects the promise — nothing to do.
       });
       return;
