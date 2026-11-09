@@ -111,7 +111,7 @@ export default async function PostPage({ params }: PageProps) {
             <Prose>
               {content}
             </Prose>
-            <ShareBar title={post.title} description={post.description} image={post.image} />
+            <ShareBar title={post.title} />
             <RssCta />
             <PostNav prev={prev} next={next} />
           </div>
