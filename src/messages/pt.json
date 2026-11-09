@@ -22,7 +22,7 @@
       "role": "Engenheira de Software",
       "greeting": "Olá, sou",
       "name": "Gabi",
-      "bio": "5 anos construindo produtos digitais de alta escala. Na Stone desde 2023, em produto de banking com 500K+ acessos diários. Kotlin Multiplatform, Compose, React Native e TypeScript.",
+      "bio": "{years, plural, one{# ano} other{# anos}} construindo produtos digitais de alta escala. Na Stone desde 2023, em produto de banking com 500K+ acessos diários. Kotlin Multiplatform, Compose, React Native e TypeScript.",
       "cta": {
         "projects": "Ver projetos",
         "blog": "Ler o blog",
@@ -92,7 +92,7 @@
       "eyebrow": "Sobre mim",
       "title_line1": "Construindo",
       "title_line2": "com propósito",
-      "bio": "Comecei em frontend, fui pra mobile e acabei fazendo os dois ao mesmo tempo. Passei por uma plataforma de delivery, um design system consumido por múltiplos times e dois anos em banking na Stone — onde trabalhei com React Native, Kotlin Multiplatform e Compose Multiplatform numa codebase de mais de 500 módulos.",
+      "bio": "Comecei em frontend, fui pra mobile e acabei fazendo os dois ao mesmo tempo. Passei por uma plataforma de delivery em React Native na pede.ai, um design system consumido por múltiplos times na Gupy e {stoneYears, plural, one{# ano} other{# anos}} em banking na Stone — onde trabalho com Kotlin Multiplatform e Compose Multiplatform numa codebase de mais de 500 módulos.",
       "bio2": "Meu TCC foi sobre acessibilidade digital e esse cuidado ficou. Gosto de documentação que presta, testes que confiam em fakes em vez de mocks e componentes que funcionam pra todo mundo. Hoje estou explorando como IA pode entrar no fluxo de desenvolvimento sem virar atalho pra código ruim. Em paralelo, desenvolvendo projetos pessoais em Kotlin nativo pra fortalecer Android.",
       "status": "Software Engineer @ Stone · Remoto",
       "cta": {

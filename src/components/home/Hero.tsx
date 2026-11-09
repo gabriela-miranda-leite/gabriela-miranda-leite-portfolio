@@ -4,9 +4,11 @@ import { useTranslations } from 'next-intl';
 import { Link } from '@/i18n/navigation';
 import { Container } from '@/components/layout/Container';
 import { trackEvent } from '@/lib/analytics';
+import { getCareerYears } from '@/lib/experience';
 
 export function Hero() {
   const t = useTranslations('home.hero');
+  const years = getCareerYears();
 
   return (
     <section
@@ -85,7 +87,7 @@ export function Hero() {
             '--enter-delay': '0.2s',
           } as React.CSSProperties}
         >
-          {t('bio')}
+          {t('bio', { years })}
         </p>
 
         {/* CTAs */}
