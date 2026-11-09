@@ -115,7 +115,7 @@ describe('ShareBar', () => {
       expect(global.fetch).toHaveBeenCalledWith(expect.stringContaining(`${window.location.origin}/og/story?`));
     });
 
-    it('falls back to the native share sheet when the Clipboard API is unavailable', async () => {
+    it('shares the story image as a file via the native share sheet', async () => {
       await renderShareBar(props);
       const btn = screen.getByRole('button', { name: /instagram/i });
       await act(async () => { fireEvent.click(btn); });
@@ -124,27 +124,24 @@ describe('ShareBar', () => {
       );
     });
 
-    it('copies the story image to the clipboard when the Clipboard API is available', async () => {
-      const mockWrite = jest.fn().mockResolvedValue(undefined);
-      Object.defineProperty(navigator, 'clipboard', {
-        value: { writeText: mockWriteText, write: mockWrite },
+    it('opens the image in a new tab when the device cannot share files', async () => {
+      Object.defineProperty(navigator, 'canShare', {
+        value: jest.fn().mockReturnValue(false),
         configurable: true,
       });
-      const globalRecord = global as unknown as Record<string, unknown>;
-      globalRecord.ClipboardItem = jest.fn().mockImplementation((data: unknown) => data);
+      const openSpy = jest.spyOn(window, 'open').mockImplementation(() => null);
 
       await renderShareBar(props);
       const btn = screen.getByRole('button', { name: /instagram/i });
       await act(async () => { fireEvent.click(btn); });
 
-      expect(mockWrite).toHaveBeenCalled();
+      expect(openSpy).toHaveBeenCalledWith(
+        expect.stringContaining(`${window.location.origin}/og/story?`),
+        '_blank',
+        'noopener,noreferrer'
+      );
       expect(navigator.share).not.toHaveBeenCalled();
-
-      delete globalRecord.ClipboardItem;
-      Object.defineProperty(navigator, 'clipboard', {
-        value: { writeText: mockWriteText },
-        configurable: true,
-      });
+      openSpy.mockRestore();
     });
   });
 
