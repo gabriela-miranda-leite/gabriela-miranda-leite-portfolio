@@ -32,7 +32,6 @@ export function ShareBar({ title, description = '', image }: ShareBarProps) {
   const encodedTitle = encodeURIComponent(title);
 
   const [copied, setCopied] = useState(false);
-  const [sharingStory, setSharingStory] = useState(false);
   // Browsers can't tell which apps are installed. When the Web Share API exists
   // (most phones, Safari, Chrome on Windows) we hand off to the OS share sheet, which
   // lists the apps the person really has. Otherwise we fall back to per-network links.
@@ -41,6 +40,11 @@ export function ShareBar({ title, description = '', image }: ShareBarProps) {
   // points at always matches the deployment actually serving the page — SITE_URL is
   // the production domain and would 404 on preview deploys.
   const [storyImageUrl, setStoryImageUrl] = useState<string>();
+  // Pre-fetched so the click handler can call navigator.share() synchronously — iOS/
+  // Android revoke the "user gesture" that file sharing requires as soon as an await
+  // happens inside the click handler, which turns navigator.share into a silent/thrown
+  // rejection if we fetch the image after the click instead of before it.
+  const [storyFile, setStoryFile] = useState<File>();
 
   useEffect(() => {
     setCanNativeShare(typeof navigator !== 'undefined' && typeof navigator.share === 'function');
@@ -48,7 +52,21 @@ export function ShareBar({ title, description = '', image }: ShareBarProps) {
     const origin = window.location.origin;
     const params = new URLSearchParams({ title, subtitle: description });
     if (image) params.set('image', `${origin}${image}`);
-    setStoryImageUrl(`${origin}/og/story?${params.toString()}`);
+    const imageUrl = `${origin}/og/story?${params.toString()}`;
+    setStoryImageUrl(imageUrl);
+
+    let cancelled = false;
+    fetch(imageUrl)
+      .then((res) => res.blob())
+      .then((blob) => {
+        if (!cancelled) setStoryFile(new File([blob], 'story.png', { type: blob.type || 'image/png' }));
+      })
+      .catch(() => {
+        // Native share falls back to opening storyImageUrl directly when storyFile is unset.
+      });
+    return () => {
+      cancelled = true;
+    };
   }, [title, description, image]);
 
   async function handleCopy() {
@@ -70,25 +88,19 @@ export function ShareBar({ title, description = '', image }: ShareBarProps) {
   // Instagram has no web share endpoint, so we hand the generated Stories card to the
   // OS share sheet (people pick "Instagram Stories" there) when the device supports
   // sharing files. Otherwise we open the image so it can be saved and posted manually.
-  async function handleInstagramShare() {
-    if (!storyImageUrl || sharingStory) return;
+  // navigator.share() is called synchronously here (no await before it) — see the
+  // storyFile effect above for why.
+  function handleInstagramShare() {
+    if (!storyImageUrl) return;
     trackEvent({ screen: 'blog', action: 'button_clicked', reference: 'Compartilhou no Instagram Stories' });
-    setSharingStory(true);
-    try {
-      const response = await fetch(storyImageUrl);
-      const blob = await response.blob();
-      const file = new File([blob], 'story.png', { type: blob.type || 'image/png' });
 
-      if (typeof navigator.canShare === 'function' && navigator.canShare({ files: [file] })) {
-        await navigator.share({ files: [file], title });
-        return;
-      }
-      window.open(storyImageUrl, '_blank', 'noopener,noreferrer');
-    } catch {
-      window.open(storyImageUrl, '_blank', 'noopener,noreferrer');
-    } finally {
-      setSharingStory(false);
+    if (storyFile && typeof navigator.canShare === 'function' && navigator.canShare({ files: [storyFile] })) {
+      navigator.share({ files: [storyFile], title }).catch(() => {
+        // Dismissing the share sheet, or the OS refusing the file, rejects the promise — nothing to do.
+      });
+      return;
     }
+    window.open(storyImageUrl, '_blank', 'noopener,noreferrer');
   }
 
   return (
@@ -145,7 +157,6 @@ export function ShareBar({ title, description = '', image }: ShareBarProps) {
         <button
           type="button"
           onClick={handleInstagramShare}
-          disabled={sharingStory}
           aria-label={t('instagram_aria')}
           className="share-pill share-pill-instagram"
         >
