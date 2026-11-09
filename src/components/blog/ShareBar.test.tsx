@@ -24,15 +24,9 @@ expect.extend(toHaveNoViolations);
 // ShareBar fetches its /og/story card on mount (to pre-build the Instagram share
 // file); flushing that microtask after render keeps every test's state updates
 // inside act(), even tests that never await anything else themselves.
-async function flushMicrotasks(ticks = 10) {
-  for (let i = 0; i < ticks; i += 1) await Promise.resolve();
-}
-
 async function renderShareBar(props: React.ComponentProps<typeof ShareBar>) {
   const result = render(<ShareBar {...props} />);
-  // The fetch → blob → MockImage-load → canvas-toBlob chain is several microtasks
-  // deep; flush enough of them that storyFile is ready before assertions run.
-  await act(flushMicrotasks);
+  await act(async () => {});
   return result;
 }
 
@@ -42,19 +36,6 @@ Object.defineProperty(navigator, 'clipboard', {
   configurable: true,
 });
 
-// jsdom doesn't implement real image decoding or canvas rendering; stub just enough
-// of the browser APIs blobToJpegFile() uses (Image load, 2D canvas, object URLs) so
-// the PNG → JPEG conversion in ShareBar's mount effect resolves in tests.
-class MockImage {
-  onload: (() => void) | null = null;
-  onerror: (() => void) | null = null;
-  naturalWidth = 1080;
-  naturalHeight = 1920;
-  set src(_value: string) {
-    Promise.resolve().then(() => this.onload?.());
-  }
-}
-
 beforeEach(() => {
   mockWriteText.mockClear();
   Object.defineProperty(navigator, 'share', { value: undefined, configurable: true });
@@ -63,14 +44,6 @@ beforeEach(() => {
   global.fetch = jest.fn().mockResolvedValue({
     blob: () => Promise.resolve(new Blob(['fake'], { type: 'image/png' })),
   }) as unknown as typeof fetch;
-
-  (global as unknown as { Image: unknown }).Image = MockImage;
-  global.URL.createObjectURL = jest.fn().mockReturnValue('blob:mock');
-  global.URL.revokeObjectURL = jest.fn();
-  HTMLCanvasElement.prototype.getContext = jest.fn().mockReturnValue({ drawImage: jest.fn() }) as never;
-  HTMLCanvasElement.prototype.toBlob = function toBlob(callback: BlobCallback) {
-    callback(new Blob(['fake-jpeg'], { type: 'image/jpeg' }));
-  };
 });
 
 describe('ShareBar', () => {
