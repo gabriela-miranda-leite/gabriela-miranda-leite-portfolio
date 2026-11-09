@@ -6,9 +6,11 @@ import { Container } from '@/components/layout/Container';
 import { AboutArt } from './AboutArt';
 import { SOCIAL_LINKS } from '@/lib/constants';
 import { trackEvent } from '@/lib/analytics';
+import { getStoneYears } from '@/lib/experience';
 
 export function AboutHero() {
   const t = useTranslations('about.hero');
+  const stoneYears = getStoneYears();
 
   return (
     <section
@@ -59,7 +61,7 @@ export function AboutHero() {
 
             {/* Bio — two paragraphs */}
             <p style={{ margin: 0, maxWidth: '520px', color: 'var(--fg-2)', fontFamily: 'var(--font-sans)', fontSize: 'var(--text-body)', lineHeight: 1.75 }}>
-              {t('bio')}
+              {t('bio', { stoneYears })}
             </p>
             <p style={{ margin: 0, maxWidth: '520px', color: 'var(--fg-2)', fontFamily: 'var(--font-sans)', fontSize: 'var(--text-body)', lineHeight: 1.75 }}>
               {t('bio2')}

@@ -22,7 +22,7 @@
       "role": "Software Engineer",
       "greeting": "Hi, I'm",
       "name": "Gabi",
-      "bio": "5 years building high-scale digital products. At Stone since 2023, working on a banking product with 500K+ daily active users. Kotlin Multiplatform, Compose, React Native and TypeScript.",
+      "bio": "{years, plural, one{# year} other{# years}} building high-scale digital products. At Stone since 2023, working on a banking product with 500K+ daily active users. Kotlin Multiplatform, Compose, React Native and TypeScript.",
       "cta": {
         "projects": "See projects",
         "blog": "Read the blog",
@@ -92,7 +92,7 @@
       "eyebrow": "About me",
       "title_line1": "Building",
       "title_line2": "with purpose",
-      "bio": "I started in frontend, moved to mobile, and ended up doing both at the same time. I've worked on a delivery platform, a design system used by multiple teams, and two years in banking at Stone — with React Native, Kotlin Multiplatform and Compose Multiplatform in a codebase with over 500 modules.",
+      "bio": "I started in frontend, moved to mobile, and ended up doing both at the same time. I've worked on a React Native delivery platform at pede.ai, a design system used by multiple teams at Gupy, and {stoneYears, plural, one{# year} other{# years}} in banking at Stone — where I work with Kotlin Multiplatform and Compose Multiplatform in a codebase with over 500 modules.",
       "bio2": "My thesis was about digital accessibility and that care never left. I like documentation that actually helps, tests that trust fakes over mocks and components that work for everyone. I'm currently exploring how AI can fit into the development workflow without becoming a shortcut to bad code. On the side, building personal projects in native Kotlin to sharpen my Android skills.",
       "status": "Software Engineer @ Stone · Remote",
       "cta": {

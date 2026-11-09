@@ -1,14 +1,15 @@
 import { useTranslations } from 'next-intl';
 import { Container } from '@/components/layout/Container';
-
-const STAT_VALUES = [
-  { key: 'years', value: '5+' },
-  { key: 'dau', value: '500K+' },
-  { key: 'observability', value: '3' },
-] as const;
+import { getCareerYears } from '@/lib/experience';
 
 export function Stats() {
   const t = useTranslations('home.stats');
+
+  const STAT_VALUES = [
+    { key: 'years', value: `${getCareerYears()}+` },
+    { key: 'dau', value: '500K+' },
+    { key: 'observability', value: '3' },
+  ] as const;
 
   return (
     <section
