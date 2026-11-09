@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { useTranslations } from 'next-intl';
+import { EnvelopeSimple, GithubLogo, LinkedinLogo } from '@phosphor-icons/react/dist/ssr';
 import { Container } from '@/components/layout/Container';
 import { CONTACT_EMAIL, SOCIAL_LINKS, SPOTIFY_PLAYLIST_ID } from '@/lib/constants';
 import { trackEvent } from '@/lib/analytics';
@@ -13,12 +14,12 @@ export function ContactCTA() {
   const [spotifyHasError, setSpotifyHasError] = useState(false);
   const isDark = useIsDarkTheme();
 
-  const linkStyle: React.CSSProperties = {
+  const spotifyMetaStyle: React.CSSProperties = {
+    margin: 0,
+    fontFamily: 'var(--font-mono)',
+    fontSize: 'var(--text-eyebrow)',
     color: 'var(--fg-2)',
-    textDecoration: 'underline',
-    textDecorationColor: 'var(--border)',
-    textUnderlineOffset: '3px',
-    transition: 'color 0.15s ease, text-decoration-color 0.15s ease',
+    letterSpacing: '0.04em',
   };
 
   return (
@@ -65,44 +66,31 @@ export function ContactCTA() {
               {t('body')}
             </p>
 
-            <div
-              style={{
-                display: 'flex',
-                flexWrap: 'wrap',
-                alignItems: 'center',
-                gap: '8px',
-                fontFamily: 'var(--font-sans)',
-                fontSize: 'var(--text-body)',
-                color: 'var(--fg-2)',
-                marginTop: '4px',
-              }}
-            >
+            <div style={{ display: 'flex', flexWrap: 'wrap', gap: 'var(--space-7)', marginTop: '4px' }}>
               <a
                 href={`mailto:${CONTACT_EMAIL}`}
                 onClick={() => trackEvent({ screen: 'about', action: 'button_clicked', reference: 'Abriu o e-mail de contato' })}
-                className="contact-signature-link"
-                style={linkStyle}
+                className="share-pill"
               >
+                <EnvelopeSimple size={14} aria-hidden="true" />
                 {CONTACT_EMAIL}
               </a>
-              <span aria-hidden="true">·</span>
               <a
                 href={SOCIAL_LINKS.linkedin}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="contact-signature-link"
-                style={linkStyle}
+                className="share-pill"
               >
+                <LinkedinLogo size={14} weight="fill" aria-hidden="true" />
                 {t('linkedinLabel')}
               </a>
-              <span aria-hidden="true">·</span>
               <a
                 href={SOCIAL_LINKS.github}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="contact-signature-link"
-                style={linkStyle}
+                className="share-pill"
               >
+                <GithubLogo size={14} weight="fill" aria-hidden="true" />
                 {t('githubLabel')}
               </a>
             </div>
@@ -110,21 +98,12 @@ export function ContactCTA() {
 
           {/* Right — what I'm listening to */}
           <div aria-labelledby="spotify-heading" style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-6)' }}>
-            <p
-              id="spotify-heading"
-              style={{
-                fontFamily: 'var(--font-mono)',
-                fontSize: 'var(--text-eyebrow)',
-                color: 'var(--fg-2)',
-                letterSpacing: '0.04em',
-                margin: 0,
-              }}
-            >
+            <p id="spotify-heading" style={spotifyMetaStyle}>
               {ts('label')}
             </p>
 
             {spotifyHasError ? (
-              <p style={{ margin: 0, color: 'var(--fg-2)', fontFamily: 'var(--font-sans)', fontSize: 'var(--text-body)' }}>
+              <p style={spotifyMetaStyle}>
                 {ts('unavailable')}
               </p>
             ) : (
@@ -142,31 +121,12 @@ export function ContactCTA() {
               />
             )}
 
-            <p
-              style={{
-                margin: 0,
-                color: 'var(--fg-2)',
-                fontFamily: 'var(--font-sans)',
-                fontSize: 'var(--text-body)',
-              }}
-            >
+            <p style={spotifyMetaStyle}>
               {ts('hint')}
             </p>
           </div>
         </div>
       </Container>
-
-      <style>{`
-        .contact-signature-link:hover,
-        .contact-signature-link:focus-visible {
-          color: var(--fg);
-          text-decoration-color: var(--fg);
-        }
-        .contact-signature-link:focus-visible {
-          outline: 2px solid var(--accent);
-          outline-offset: 2px;
-        }
-      `}</style>
     </section>
   );
 }
