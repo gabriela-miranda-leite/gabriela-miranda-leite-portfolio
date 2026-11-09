@@ -2,15 +2,21 @@
 
 import { useTranslations } from 'next-intl';
 import { Container } from '@/components/layout/Container';
-import { CONTACT_EMAIL } from '@/lib/constants';
+import { CONTACT_EMAIL, SOCIAL_LINKS } from '@/lib/constants';
 import { trackEvent } from '@/lib/analytics';
 
 export function ContactCTA() {
   const t = useTranslations('about.contact');
 
+  const linkStyle: React.CSSProperties = {
+    color: 'var(--fg-2)',
+    textDecoration: 'none',
+    transition: 'color 0.15s ease',
+  };
+
   return (
     <section
-      className="section-enter"
+      className="section-enter contact-signature"
       aria-labelledby="contact-heading"
       style={{
         paddingTop: 'clamp(2rem, 5vw, 72px)',
@@ -20,51 +26,86 @@ export function ContactCTA() {
       } as React.CSSProperties}
     >
       <Container>
-        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center', gap: '24px' }}>
-          {/* Eyebrow */}
-          <div style={{ fontFamily: 'var(--font-mono)', fontSize: 'var(--text-eyebrow)', color: 'var(--accent)', letterSpacing: '0.10em', textTransform: 'uppercase', display: 'flex', alignItems: 'center', gap: '10px' }}>
-            <span aria-hidden="true" style={{ display: 'block', width: '28px', height: '1px', background: 'var(--accent)' }} />
-            {t('eyebrow')}
-            <span aria-hidden="true" style={{ display: 'block', width: '28px', height: '1px', background: 'var(--accent)' }} />
-          </div>
-
-          {/* Display heading */}
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
           <h2
             id="contact-heading"
             style={{
               fontFamily: 'var(--font-serif)',
-              fontSize: 'clamp(2rem, 5vw, var(--text-title))',
-              fontWeight: 700,
-              lineHeight: 1.05,
-              letterSpacing: '-0.02em',
+              fontStyle: 'italic',
+              fontSize: 'clamp(1.5rem, 3vw, var(--text-section))',
+              fontWeight: 400,
+              lineHeight: 'var(--leading-heading)',
+              color: 'var(--fg)',
               margin: 0,
-              maxWidth: '560px',
-              fontOpticalSizing: 'auto' as React.CSSProperties['fontOpticalSizing'],
+              letterSpacing: '-0.02em',
             }}
           >
-            {t('title')}{' '}
-            <span style={{ fontStyle: 'italic', color: 'var(--fg-2)' }}>{t('title_em')}</span>
+            {t('title')}
           </h2>
 
-          {/* Subtitle */}
-          <p style={{ margin: 0, maxWidth: '420px', color: 'var(--fg-2)', fontFamily: 'var(--font-sans)', fontSize: 'var(--text-body)', lineHeight: 1.7 }}>
-            {t('subtitle')}
+          <p
+            style={{
+              margin: 0,
+              maxWidth: '480px',
+              color: 'var(--fg-2)',
+              fontFamily: 'var(--font-sans)',
+              fontSize: 'var(--text-body)',
+              lineHeight: 1.7,
+            }}
+          >
+            {t('body')}
           </p>
 
-          {/* CTA button */}
-          <a
-            href={`mailto:${CONTACT_EMAIL}`}
-            onClick={() => trackEvent({ screen: 'about', action: 'button_clicked', reference: 'Abriu o e-mail de contato' })}
-            className="btn btn-primary"
-            style={{ marginTop: '4px' }}
+          <div
+            style={{
+              display: 'flex',
+              flexWrap: 'wrap',
+              alignItems: 'center',
+              gap: '8px',
+              fontFamily: 'var(--font-sans)',
+              fontSize: 'var(--text-body)',
+              color: 'var(--fg-2)',
+              marginTop: '4px',
+            }}
           >
-            {t('button')}
-          </a>
+            <a
+              href={`mailto:${CONTACT_EMAIL}`}
+              onClick={() => trackEvent({ screen: 'about', action: 'button_clicked', reference: 'Abriu o e-mail de contato' })}
+              className="contact-signature-link"
+              style={linkStyle}
+            >
+              {CONTACT_EMAIL}
+            </a>
+            <span aria-hidden="true">·</span>
+            <a
+              href={SOCIAL_LINKS.linkedin}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="contact-signature-link"
+              style={linkStyle}
+            >
+              {t('linkedinLabel')}
+            </a>
+            <span aria-hidden="true">·</span>
+            <a
+              href={SOCIAL_LINKS.github}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="contact-signature-link"
+              style={linkStyle}
+            >
+              {t('githubLabel')}
+            </a>
+          </div>
         </div>
       </Container>
 
       <style>{`
-        section[aria-labelledby="contact-heading"] a:focus-visible {
+        .contact-signature-link:hover,
+        .contact-signature-link:focus-visible {
+          color: var(--fg);
+        }
+        .contact-signature-link:focus-visible {
           outline: 2px solid var(--accent);
           outline-offset: 2px;
         }

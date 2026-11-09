@@ -143,11 +143,10 @@
       ]
     },
     "contact": {
-      "eyebrow": "Vamos conversar",
-      "title": "Aberta a projetos",
-      "title_em": "e colaborações",
-      "subtitle": "Manda uma mensagem se quiser trabalhar junto, trocar ideia ou só dizer oi.",
-      "button": "Entrar em contato"
+      "title": "Diz oi",
+      "body": "Se quiser trocar ideia, colaborar em algo ou só mandar uma playlist boa:",
+      "linkedinLabel": "LinkedIn",
+      "githubLabel": "GitHub"
     },
     "spotify": {
       "label": "o que tô ouvindo enquanto codifico",

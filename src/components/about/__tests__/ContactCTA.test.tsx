@@ -15,6 +15,14 @@ jest.mock('@/components/layout/Container', () => ({
 
 jest.mock('@/lib/constants', () => ({
   CONTACT_EMAIL: 'test@example.com',
+  SOCIAL_LINKS: {
+    linkedin: 'https://www.linkedin.com/in/test/',
+    github: 'https://github.com/test',
+  },
+}));
+
+jest.mock('@/lib/analytics', () => ({
+  trackEvent: jest.fn(),
 }));
 
 import { ContactCTA } from '../ContactCTA';
@@ -27,10 +35,20 @@ describe('ContactCTA', () => {
     expect(getByRole('heading', { level: 2 })).toHaveAttribute('id', 'contact-heading');
   });
 
-  it('renders mailto link with the contact email', () => {
-    const { getByRole } = render(<ContactCTA />);
-    const link = getByRole('link');
-    expect(link.getAttribute('href')).toBe('mailto:test@example.com');
+  it('renders mailto, LinkedIn and GitHub links without a CTA button', () => {
+    const { getByRole, container } = render(<ContactCTA />);
+    const mailLink = getByRole('link', { name: 'test@example.com' });
+    expect(mailLink.getAttribute('href')).toBe('mailto:test@example.com');
+
+    const linkedinLink = getByRole('link', { name: 'linkedinLabel' });
+    expect(linkedinLink.getAttribute('href')).toBe('https://www.linkedin.com/in/test/');
+    expect(linkedinLink).toHaveAttribute('target', '_blank');
+
+    const githubLink = getByRole('link', { name: 'githubLabel' });
+    expect(githubLink.getAttribute('href')).toBe('https://github.com/test');
+    expect(githubLink).toHaveAttribute('target', '_blank');
+
+    expect(container.querySelector('.btn-primary')).toBeNull();
   });
 
   it('has no accessibility violations', async () => {
