@@ -143,11 +143,16 @@
       ]
     },
     "contact": {
-      "eyebrow": "Let's talk",
-      "title": "Open to projects",
-      "title_em": "and collaborations",
-      "subtitle": "Send a message if you want to work together, exchange ideas or just say hi.",
-      "button": "Get in touch"
+      "title": "Say hi",
+      "body": "If you want to exchange ideas, collaborate on something or just send a good playlist:",
+      "linkedinLabel": "LinkedIn",
+      "githubLabel": "GitHub"
+    },
+    "spotify": {
+      "label": "what I listen to while coding",
+      "hint": "send yours too",
+      "iframeTitle": "Spotify playlist",
+      "unavailable": "Couldn't load the playlist right now."
     }
   }
 }

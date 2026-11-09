@@ -1,74 +1,148 @@
 'use client';
 
+import { useState } from 'react';
 import { useTranslations } from 'next-intl';
+import { EnvelopeSimple, GithubLogo, LinkedinLogo, MusicNotes, PaperPlaneTilt } from '@phosphor-icons/react/dist/ssr';
 import { Container } from '@/components/layout/Container';
-import { CONTACT_EMAIL } from '@/lib/constants';
+import { CONTACT_EMAIL, SOCIAL_LINKS, SPOTIFY_PLAYLIST_ID } from '@/lib/constants';
 import { trackEvent } from '@/lib/analytics';
+import { useIsDarkTheme } from '@/lib/useIsDarkTheme';
 
 export function ContactCTA() {
   const t = useTranslations('about.contact');
+  const ts = useTranslations('about.spotify');
+  const [spotifyHasError, setSpotifyHasError] = useState(false);
+  const isDark = useIsDarkTheme();
+
+  const spotifyLabelStyle: React.CSSProperties = {
+    display: 'flex',
+    alignItems: 'center',
+    gap: 'var(--space-5)',
+    margin: 0,
+    fontFamily: 'var(--font-mono)',
+    fontSize: 'var(--text-eyebrow)',
+    color: 'var(--accent)',
+    letterSpacing: '0.10em',
+    textTransform: 'uppercase',
+  };
+
+  const spotifyHintStyle: React.CSSProperties = {
+    display: 'flex',
+    alignItems: 'center',
+    gap: 'var(--space-5)',
+    margin: 0,
+    fontFamily: 'var(--font-sans)',
+    fontSize: 'var(--text-eyebrow)',
+    color: 'var(--fg-2)',
+  };
 
   return (
     <section
       className="section-enter"
       aria-labelledby="contact-heading"
       style={{
-        paddingTop: 'clamp(2rem, 5vw, 72px)',
-        paddingBottom: 'clamp(2.5rem, 8vw, 96px)',
+        paddingTop: 'clamp(2rem, 5vw, var(--space-18))',
+        paddingBottom: 'clamp(2rem, 5vw, var(--space-18))',
         borderTop: '1px solid var(--border)',
         '--enter-delay': '0.35s',
       } as React.CSSProperties}
     >
       <Container>
-        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center', gap: '24px' }}>
-          {/* Eyebrow */}
-          <div style={{ fontFamily: 'var(--font-mono)', fontSize: 'var(--text-eyebrow)', color: 'var(--accent)', letterSpacing: '0.10em', textTransform: 'uppercase', display: 'flex', alignItems: 'center', gap: '10px' }}>
-            <span aria-hidden="true" style={{ display: 'block', width: '28px', height: '1px', background: 'var(--accent)' }} />
-            {t('eyebrow')}
-            <span aria-hidden="true" style={{ display: 'block', width: '28px', height: '1px', background: 'var(--accent)' }} />
+        <div className="about-contact-grid">
+          {/* Left — contact signature */}
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+            <h2
+              id="contact-heading"
+              style={{
+                fontFamily: 'var(--font-serif)',
+                fontStyle: 'italic',
+                fontSize: 'clamp(1.5rem, 3vw, var(--text-section))',
+                fontWeight: 400,
+                lineHeight: 'var(--leading-heading)',
+                color: 'var(--fg)',
+                margin: 0,
+                letterSpacing: '-0.02em',
+              }}
+            >
+              {t('title')}
+            </h2>
+
+            <p
+              style={{
+                margin: 0,
+                maxWidth: '420px',
+                color: 'var(--fg-2)',
+                fontFamily: 'var(--font-sans)',
+                fontSize: 'var(--text-body)',
+                lineHeight: 1.7,
+              }}
+            >
+              {t('body')}
+            </p>
+
+            <div style={{ display: 'flex', flexWrap: 'wrap', gap: 'var(--space-7)', marginTop: '4px' }}>
+              <a
+                href={`mailto:${CONTACT_EMAIL}`}
+                onClick={() => trackEvent({ screen: 'about', action: 'button_clicked', reference: 'Abriu o e-mail de contato' })}
+                className="share-pill"
+              >
+                <EnvelopeSimple size={14} aria-hidden="true" />
+                {CONTACT_EMAIL}
+              </a>
+              <a
+                href={SOCIAL_LINKS.linkedin}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="share-pill"
+              >
+                <LinkedinLogo size={14} weight="fill" aria-hidden="true" />
+                {t('linkedinLabel')}
+              </a>
+              <a
+                href={SOCIAL_LINKS.github}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="share-pill"
+              >
+                <GithubLogo size={14} weight="fill" aria-hidden="true" />
+                {t('githubLabel')}
+              </a>
+            </div>
           </div>
 
-          {/* Display heading */}
-          <h2
-            id="contact-heading"
-            style={{
-              fontFamily: 'var(--font-serif)',
-              fontSize: 'clamp(2rem, 5vw, var(--text-title))',
-              fontWeight: 700,
-              lineHeight: 1.05,
-              letterSpacing: '-0.02em',
-              margin: 0,
-              maxWidth: '560px',
-              fontOpticalSizing: 'auto' as React.CSSProperties['fontOpticalSizing'],
-            }}
-          >
-            {t('title')}{' '}
-            <span style={{ fontStyle: 'italic', color: 'var(--fg-2)' }}>{t('title_em')}</span>
-          </h2>
+          {/* Right — what I'm listening to */}
+          <div aria-labelledby="spotify-heading" style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-6)' }}>
+            <p id="spotify-heading" style={spotifyLabelStyle}>
+              <MusicNotes size={14} weight="fill" aria-hidden="true" />
+              {ts('label')}
+            </p>
 
-          {/* Subtitle */}
-          <p style={{ margin: 0, maxWidth: '420px', color: 'var(--fg-2)', fontFamily: 'var(--font-sans)', fontSize: 'var(--text-body)', lineHeight: 1.7 }}>
-            {t('subtitle')}
-          </p>
+            {spotifyHasError ? (
+              <p style={spotifyHintStyle}>
+                {ts('unavailable')}
+              </p>
+            ) : (
+              <iframe
+                key={isDark ? 'dark' : 'light'}
+                src={`https://open.spotify.com/embed/playlist/${SPOTIFY_PLAYLIST_ID}?utm_source=generator${isDark ? '&theme=0' : ''}`}
+                width="100%"
+                height="152"
+                frameBorder="0"
+                allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+                loading="lazy"
+                title={ts('iframeTitle')}
+                onError={() => setSpotifyHasError(true)}
+                style={{ borderRadius: 'var(--radius)', maxWidth: '100%', display: 'block' }}
+              />
+            )}
 
-          {/* CTA button */}
-          <a
-            href={`mailto:${CONTACT_EMAIL}`}
-            onClick={() => trackEvent({ screen: 'about', action: 'button_clicked', reference: 'Abriu o e-mail de contato' })}
-            className="btn btn-primary"
-            style={{ marginTop: '4px' }}
-          >
-            {t('button')}
-          </a>
+            <p style={spotifyHintStyle}>
+              <PaperPlaneTilt size={14} aria-hidden="true" />
+              {ts('hint')}
+            </p>
+          </div>
         </div>
       </Container>
-
-      <style>{`
-        section[aria-labelledby="contact-heading"] a:focus-visible {
-          outline: 2px solid var(--accent);
-          outline-offset: 2px;
-        }
-      `}</style>
     </section>
   );
 }
