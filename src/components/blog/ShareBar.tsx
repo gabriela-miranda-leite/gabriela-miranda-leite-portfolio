@@ -5,6 +5,7 @@ import { useTranslations } from 'next-intl';
 import {
   Check,
   Copy,
+  InstagramLogo,
   LinkedinLogo,
   ShareNetwork,
   WhatsappLogo,
@@ -16,11 +17,13 @@ import { SITE_URL } from '@/lib/constants';
 
 interface ShareBarProps {
   title: string;
+  /** Absolute URL of the vertical (9:16) Instagram Stories card for this post. */
+  storyImageUrl?: string;
 }
 
 const BASE_URL = SITE_URL;
 
-export function ShareBar({ title }: ShareBarProps) {
+export function ShareBar({ title, storyImageUrl }: ShareBarProps) {
   const t = useTranslations('blog.share');
   const pathname = usePathname();
   const url = `${BASE_URL}${pathname}`;
@@ -28,6 +31,7 @@ export function ShareBar({ title }: ShareBarProps) {
   const encodedTitle = encodeURIComponent(title);
 
   const [copied, setCopied] = useState(false);
+  const [sharingStory, setSharingStory] = useState(false);
   // Browsers can't tell which apps are installed. When the Web Share API exists
   // (most phones, Safari, Chrome on Windows) we hand off to the OS share sheet, which
   // lists the apps the person really has. Otherwise we fall back to per-network links.
@@ -50,6 +54,30 @@ export function ShareBar({ title }: ShareBarProps) {
       await navigator.share({ title, url });
     } catch {
       // Dismissing the share sheet rejects with AbortError — nothing to do.
+    }
+  }
+
+  // Instagram has no web share endpoint, so we hand the generated Stories card to the
+  // OS share sheet (people pick "Instagram Stories" there) when the device supports
+  // sharing files. Otherwise we open the image so it can be saved and posted manually.
+  async function handleInstagramShare() {
+    if (!storyImageUrl || sharingStory) return;
+    trackEvent({ screen: 'blog', action: 'button_clicked', reference: 'Compartilhou no Instagram Stories' });
+    setSharingStory(true);
+    try {
+      const response = await fetch(storyImageUrl);
+      const blob = await response.blob();
+      const file = new File([blob], 'story.png', { type: blob.type || 'image/png' });
+
+      if (typeof navigator.canShare === 'function' && navigator.canShare({ files: [file] })) {
+        await navigator.share({ files: [file], title });
+        return;
+      }
+      window.open(storyImageUrl, '_blank', 'noopener,noreferrer');
+    } catch {
+      window.open(storyImageUrl, '_blank', 'noopener,noreferrer');
+    } finally {
+      setSharingStory(false);
     }
   }
 
@@ -102,6 +130,19 @@ export function ShareBar({ title }: ShareBarProps) {
         <XLogo size={14} weight="fill" aria-hidden="true" />
         X
       </a>
+
+      {storyImageUrl ? (
+        <button
+          type="button"
+          onClick={handleInstagramShare}
+          disabled={sharingStory}
+          aria-label={t('instagram_aria')}
+          className="share-pill share-pill-instagram"
+        >
+          <InstagramLogo size={14} weight="fill" aria-hidden="true" />
+          {t('instagram')}
+        </button>
+      ) : null}
 
       {canNativeShare ? (
         <button

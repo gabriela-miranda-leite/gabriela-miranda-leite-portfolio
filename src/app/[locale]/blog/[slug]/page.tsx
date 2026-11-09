@@ -8,7 +8,7 @@ import { PostNav } from '@/components/blog/PostNav';
 import { ShareBar } from '@/components/blog/ShareBar';
 import { RssCta } from '@/components/blog/RssCta';
 import { getAllPosts, getPostBySlug } from '@/lib/posts';
-import { blogPostingJsonLd, postShareImageUrl } from '@/lib/seo';
+import { blogPostingJsonLd, postShareImageUrl, postStoryImageUrl } from '@/lib/seo';
 import { SITE_URL as baseUrl } from '@/lib/constants';
 
 type PageProps = { params: Promise<{ locale: string; slug: string }> };
@@ -111,7 +111,7 @@ export default async function PostPage({ params }: PageProps) {
             <Prose>
               {content}
             </Prose>
-            <ShareBar title={post.title} />
+            <ShareBar title={post.title} storyImageUrl={postStoryImageUrl(post)} />
             <RssCta />
             <PostNav prev={prev} next={next} />
           </div>

@@ -80,6 +80,41 @@ describe('ShareBar', () => {
     expect(link.getAttribute('href')).toContain('blog%2Ftest-post');
   });
 
+  it('does not render the Instagram button without a storyImageUrl', () => {
+    render(<ShareBar title="Meu Post" />);
+    expect(screen.queryByRole('button', { name: /instagram/i })).not.toBeInTheDocument();
+  });
+
+  describe('with a storyImageUrl', () => {
+    const storyImageUrl = 'https://www.gabrielamiranda.dev.br/og/story?title=Meu+Post';
+
+    beforeEach(() => {
+      global.fetch = jest.fn().mockResolvedValue({
+        blob: () => Promise.resolve(new Blob(['fake'], { type: 'image/png' })),
+      }) as unknown as typeof fetch;
+      Object.defineProperty(navigator, 'canShare', {
+        value: jest.fn().mockReturnValue(true),
+        configurable: true,
+      });
+      Object.defineProperty(navigator, 'share', { value: jest.fn().mockResolvedValue(undefined), configurable: true });
+    });
+
+    it('renders an Instagram button', () => {
+      render(<ShareBar title="Meu Post" storyImageUrl={storyImageUrl} />);
+      expect(screen.getByRole('button', { name: /instagram/i })).toBeInTheDocument();
+    });
+
+    it('shares the fetched story image as a file via the native share sheet', async () => {
+      render(<ShareBar title="Meu Post" storyImageUrl={storyImageUrl} />);
+      const btn = screen.getByRole('button', { name: /instagram/i });
+      await act(async () => { fireEvent.click(btn); });
+      expect(global.fetch).toHaveBeenCalledWith(storyImageUrl);
+      expect(navigator.share).toHaveBeenCalledWith(
+        expect.objectContaining({ title: 'Meu Post', files: expect.any(Array) })
+      );
+    });
+  });
+
   it('opens share links in new tab', () => {
     render(<ShareBar title="Meu Post" />);
     const links = [

@@ -332,6 +332,12 @@
   .prose pre { font-size: var(--text-chip); }
 }
 
+/* Instagram Stories sharing only makes sense on touch devices (phone/tablet) —
+   desktop has no Instagram Stories flow to hand the share sheet off to. */
+@media (hover: hover) and (pointer: fine) {
+  .share-pill-instagram { display: none; }
+}
+
 /* Base resets — ensure box model and margin are correct across browsers */
 *, *::before, *::after {
   box-sizing: border-box;
