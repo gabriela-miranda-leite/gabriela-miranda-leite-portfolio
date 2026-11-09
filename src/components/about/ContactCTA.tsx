@@ -1,12 +1,17 @@
 'use client';
 
+import { useState } from 'react';
 import { useTranslations } from 'next-intl';
 import { Container } from '@/components/layout/Container';
-import { CONTACT_EMAIL, SOCIAL_LINKS } from '@/lib/constants';
+import { CONTACT_EMAIL, SOCIAL_LINKS, SPOTIFY_PLAYLIST_ID } from '@/lib/constants';
 import { trackEvent } from '@/lib/analytics';
+import { useIsDarkTheme } from '@/lib/useIsDarkTheme';
 
 export function ContactCTA() {
   const t = useTranslations('about.contact');
+  const ts = useTranslations('about.spotify');
+  const [spotifyHasError, setSpotifyHasError] = useState(false);
+  const isDark = useIsDarkTheme();
 
   const linkStyle: React.CSSProperties = {
     color: 'var(--fg-2)',
@@ -16,7 +21,7 @@ export function ContactCTA() {
 
   return (
     <section
-      className="section-enter contact-signature"
+      className="section-enter"
       aria-labelledby="contact-heading"
       style={{
         paddingTop: 'clamp(2rem, 5vw, 72px)',
@@ -26,76 +31,125 @@ export function ContactCTA() {
       } as React.CSSProperties}
     >
       <Container>
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
-          <h2
-            id="contact-heading"
-            style={{
-              fontFamily: 'var(--font-serif)',
-              fontStyle: 'italic',
-              fontSize: 'clamp(1.5rem, 3vw, var(--text-section))',
-              fontWeight: 400,
-              lineHeight: 'var(--leading-heading)',
-              color: 'var(--fg)',
-              margin: 0,
-              letterSpacing: '-0.02em',
-            }}
-          >
-            {t('title')}
-          </h2>
+        <div className="about-contact-grid">
+          {/* Left — contact signature */}
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+            <h2
+              id="contact-heading"
+              style={{
+                fontFamily: 'var(--font-serif)',
+                fontStyle: 'italic',
+                fontSize: 'clamp(1.5rem, 3vw, var(--text-section))',
+                fontWeight: 400,
+                lineHeight: 'var(--leading-heading)',
+                color: 'var(--fg)',
+                margin: 0,
+                letterSpacing: '-0.02em',
+              }}
+            >
+              {t('title')}
+            </h2>
 
-          <p
-            style={{
-              margin: 0,
-              maxWidth: '480px',
-              color: 'var(--fg-2)',
-              fontFamily: 'var(--font-sans)',
-              fontSize: 'var(--text-body)',
-              lineHeight: 1.7,
-            }}
-          >
-            {t('body')}
-          </p>
+            <p
+              style={{
+                margin: 0,
+                maxWidth: '420px',
+                color: 'var(--fg-2)',
+                fontFamily: 'var(--font-sans)',
+                fontSize: 'var(--text-body)',
+                lineHeight: 1.7,
+              }}
+            >
+              {t('body')}
+            </p>
 
-          <div
-            style={{
-              display: 'flex',
-              flexWrap: 'wrap',
-              alignItems: 'center',
-              gap: '8px',
-              fontFamily: 'var(--font-sans)',
-              fontSize: 'var(--text-body)',
-              color: 'var(--fg-2)',
-              marginTop: '4px',
-            }}
-          >
-            <a
-              href={`mailto:${CONTACT_EMAIL}`}
-              onClick={() => trackEvent({ screen: 'about', action: 'button_clicked', reference: 'Abriu o e-mail de contato' })}
-              className="contact-signature-link"
-              style={linkStyle}
+            <div
+              style={{
+                display: 'flex',
+                flexWrap: 'wrap',
+                alignItems: 'center',
+                gap: '8px',
+                fontFamily: 'var(--font-sans)',
+                fontSize: 'var(--text-body)',
+                color: 'var(--fg-2)',
+                marginTop: '4px',
+              }}
             >
-              {CONTACT_EMAIL}
-            </a>
-            <span aria-hidden="true">·</span>
-            <a
-              href={SOCIAL_LINKS.linkedin}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="contact-signature-link"
-              style={linkStyle}
+              <a
+                href={`mailto:${CONTACT_EMAIL}`}
+                onClick={() => trackEvent({ screen: 'about', action: 'button_clicked', reference: 'Abriu o e-mail de contato' })}
+                className="contact-signature-link"
+                style={linkStyle}
+              >
+                {CONTACT_EMAIL}
+              </a>
+              <span aria-hidden="true">·</span>
+              <a
+                href={SOCIAL_LINKS.linkedin}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="contact-signature-link"
+                style={linkStyle}
+              >
+                {t('linkedinLabel')}
+              </a>
+              <span aria-hidden="true">·</span>
+              <a
+                href={SOCIAL_LINKS.github}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="contact-signature-link"
+                style={linkStyle}
+              >
+                {t('githubLabel')}
+              </a>
+            </div>
+          </div>
+
+          {/* Right — what I'm listening to */}
+          <div aria-labelledby="spotify-heading" style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-6)' }}>
+            <p
+              id="spotify-heading"
+              style={{
+                fontFamily: 'var(--font-mono)',
+                fontSize: 'var(--text-eyebrow)',
+                color: 'var(--fg-2)',
+                letterSpacing: '0.04em',
+                margin: 0,
+              }}
             >
-              {t('linkedinLabel')}
-            </a>
-            <span aria-hidden="true">·</span>
-            <a
-              href={SOCIAL_LINKS.github}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="contact-signature-link"
-              style={linkStyle}
+              {ts('label')}
+            </p>
+
+            {spotifyHasError ? (
+              <p style={{ margin: 0, color: 'var(--fg-2)', fontFamily: 'var(--font-sans)', fontSize: 'var(--text-body)' }}>
+                {ts('unavailable')}
+              </p>
+            ) : (
+              <iframe
+                key={isDark ? 'dark' : 'light'}
+                src={`https://open.spotify.com/embed/playlist/${SPOTIFY_PLAYLIST_ID}?utm_source=generator${isDark ? '&theme=0' : ''}`}
+                width="100%"
+                height="152"
+                frameBorder="0"
+                allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+                loading="lazy"
+                title={ts('iframeTitle')}
+                onError={() => setSpotifyHasError(true)}
+                style={{ borderRadius: 'var(--radius)', maxWidth: '100%', display: 'block' }}
+              />
+            )}
+
+            <p
+              style={{
+                margin: 0,
+                color: 'var(--fg-2)',
+                fontFamily: 'var(--font-sans)',
+                fontSize: 'var(--text-body)',
+              }}
             >
-              {t('githubLabel')}
-            </a>
+              {ts('hint')}
+            </p>
           </div>
         </div>
       </Container>

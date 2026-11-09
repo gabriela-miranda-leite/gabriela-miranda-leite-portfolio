@@ -299,6 +299,20 @@
   .about-hero-art { display: flex; }
 }
 
+/* About — contact signature + Spotify */
+.about-contact-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--space-14);
+  align-items: start;
+}
+@media (min-width: 640px) {
+  .about-contact-grid {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: clamp(var(--space-13), 6vw, var(--space-18));
+  }
+}
+
 /* About — experiência */
 .experience-row {
   display: grid;

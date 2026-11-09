@@ -19,10 +19,15 @@ jest.mock('@/lib/constants', () => ({
     linkedin: 'https://www.linkedin.com/in/test/',
     github: 'https://github.com/test',
   },
+  SPOTIFY_PLAYLIST_ID: 'test-playlist-id',
 }));
 
 jest.mock('@/lib/analytics', () => ({
   trackEvent: jest.fn(),
+}));
+
+jest.mock('@/lib/useIsDarkTheme', () => ({
+  useIsDarkTheme: () => true,
 }));
 
 import { ContactCTA } from '../ContactCTA';
@@ -49,6 +54,11 @@ describe('ContactCTA', () => {
     expect(githubLink).toHaveAttribute('target', '_blank');
 
     expect(container.querySelector('.btn-primary')).toBeNull();
+  });
+
+  it('renders the Spotify embed with an accessible title', () => {
+    const { getByTitle } = render(<ContactCTA />);
+    expect(getByTitle('iframeTitle')).toBeInTheDocument();
   });
 
   it('has no accessibility violations', async () => {

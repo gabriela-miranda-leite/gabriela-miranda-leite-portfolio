@@ -3,7 +3,6 @@ import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { AboutHero } from '@/components/about/AboutHero';
 import { StackSection } from '@/components/about/StackSection';
 import { ExperienceSection } from '@/components/about/ExperienceSection';
-import { SpotifyEmbed } from '@/components/about/SpotifyEmbed';
 import { ContactCTA } from '@/components/about/ContactCTA';
 import { ScrollReveal } from '@/components/layout/ScrollReveal';
 import { profilePageJsonLd } from '@/lib/seo';
@@ -63,9 +62,6 @@ export default async function AboutPage({ params }: PageProps) {
       </ScrollReveal>
       <ScrollReveal delay="0.05s">
         <ExperienceSection />
-      </ScrollReveal>
-      <ScrollReveal delay="0.05s">
-        <SpotifyEmbed />
       </ScrollReveal>
       <ScrollReveal delay="0.05s">
         <ContactCTA />
