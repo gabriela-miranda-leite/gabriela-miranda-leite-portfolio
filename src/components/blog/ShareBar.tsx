@@ -79,6 +79,30 @@ export function ShareBar({ title }: ShareBarProps) {
         {t('label')}
       </span>
 
+      <a
+        href={`https://www.linkedin.com/sharing/share-offsite/?url=${encoded}`}
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label={t('linkedin_aria')}
+        onClick={() => trackEvent({ screen: 'blog', action: 'button_clicked', reference: 'Compartilhou no LinkedIn' })}
+        className="share-pill"
+      >
+        <LinkedinLogo size={14} weight="fill" aria-hidden="true" />
+        LinkedIn
+      </a>
+
+      <a
+        href={`https://x.com/intent/tweet?text=${encodedTitle}&url=${encoded}`}
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label={t('x_aria')}
+        onClick={() => trackEvent({ screen: 'blog', action: 'button_clicked', reference: 'Compartilhou no X' })}
+        className="share-pill"
+      >
+        <XLogo size={14} weight="fill" aria-hidden="true" />
+        X
+      </a>
+
       {canNativeShare ? (
         <button
           type="button"
@@ -90,43 +114,17 @@ export function ShareBar({ title }: ShareBarProps) {
           {t('native')}
         </button>
       ) : (
-        <>
-          <a
-            href={`https://www.linkedin.com/sharing/share-offsite/?url=${encoded}`}
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label={t('linkedin_aria')}
-            onClick={() => trackEvent({ screen: 'blog', action: 'button_clicked', reference: 'Compartilhou no LinkedIn' })}
-            className="share-pill"
-          >
-            <LinkedinLogo size={14} weight="fill" aria-hidden="true" />
-            LinkedIn
-          </a>
-
-          <a
-            href={`https://wa.me/?text=${encodedTitle}%20${encoded}`}
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label={t('whatsapp_aria')}
-            onClick={() => trackEvent({ screen: 'blog', action: 'button_clicked', reference: 'Compartilhou no WhatsApp' })}
-            className="share-pill"
-          >
-            <WhatsappLogo size={14} weight="fill" aria-hidden="true" />
-            WhatsApp
-          </a>
-
-          <a
-            href={`https://x.com/intent/tweet?text=${encodedTitle}&url=${encoded}`}
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label={t('x_aria')}
-            onClick={() => trackEvent({ screen: 'blog', action: 'button_clicked', reference: 'Compartilhou no X' })}
-            className="share-pill"
-          >
-            <XLogo size={14} weight="fill" aria-hidden="true" />
-            X
-          </a>
-        </>
+        <a
+          href={`https://wa.me/?text=${encodedTitle}%20${encoded}`}
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label={t('whatsapp_aria')}
+          onClick={() => trackEvent({ screen: 'blog', action: 'button_clicked', reference: 'Compartilhou no WhatsApp' })}
+          className="share-pill"
+        >
+          <WhatsappLogo size={14} weight="fill" aria-hidden="true" />
+          WhatsApp
+        </a>
       )}
 
       <button
