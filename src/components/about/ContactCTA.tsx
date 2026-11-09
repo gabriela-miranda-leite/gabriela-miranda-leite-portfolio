@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { useTranslations } from 'next-intl';
-import { EnvelopeSimple, GithubLogo, LinkedinLogo } from '@phosphor-icons/react/dist/ssr';
+import { EnvelopeSimple, GithubLogo, LinkedinLogo, MusicNotes, PaperPlaneTilt } from '@phosphor-icons/react/dist/ssr';
 import { Container } from '@/components/layout/Container';
 import { CONTACT_EMAIL, SOCIAL_LINKS, SPOTIFY_PLAYLIST_ID } from '@/lib/constants';
 import { trackEvent } from '@/lib/analytics';
@@ -14,12 +14,26 @@ export function ContactCTA() {
   const [spotifyHasError, setSpotifyHasError] = useState(false);
   const isDark = useIsDarkTheme();
 
-  const spotifyMetaStyle: React.CSSProperties = {
+  const spotifyLabelStyle: React.CSSProperties = {
+    display: 'flex',
+    alignItems: 'center',
+    gap: 'var(--space-5)',
     margin: 0,
     fontFamily: 'var(--font-mono)',
     fontSize: 'var(--text-eyebrow)',
+    color: 'var(--accent)',
+    letterSpacing: '0.10em',
+    textTransform: 'uppercase',
+  };
+
+  const spotifyHintStyle: React.CSSProperties = {
+    display: 'flex',
+    alignItems: 'center',
+    gap: 'var(--space-5)',
+    margin: 0,
+    fontFamily: 'var(--font-sans)',
+    fontSize: 'var(--text-eyebrow)',
     color: 'var(--fg-2)',
-    letterSpacing: '0.04em',
   };
 
   return (
@@ -98,12 +112,13 @@ export function ContactCTA() {
 
           {/* Right — what I'm listening to */}
           <div aria-labelledby="spotify-heading" style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-6)' }}>
-            <p id="spotify-heading" style={spotifyMetaStyle}>
+            <p id="spotify-heading" style={spotifyLabelStyle}>
+              <MusicNotes size={14} weight="fill" aria-hidden="true" />
               {ts('label')}
             </p>
 
             {spotifyHasError ? (
-              <p style={spotifyMetaStyle}>
+              <p style={spotifyHintStyle}>
                 {ts('unavailable')}
               </p>
             ) : (
@@ -121,7 +136,8 @@ export function ContactCTA() {
               />
             )}
 
-            <p style={spotifyMetaStyle}>
+            <p style={spotifyHintStyle}>
+              <PaperPlaneTilt size={14} aria-hidden="true" />
               {ts('hint')}
             </p>
           </div>
