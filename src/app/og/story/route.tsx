@@ -43,72 +43,90 @@ export async function GET(req: NextRequest) {
           background: BG,
           display: 'flex',
           flexDirection: 'column',
-          position: 'relative',
           fontFamily: 'Plus Jakarta Sans',
         }}
       >
+        {/* Photo — cropped to a fixed-height band at the top only. Text never sits on
+            top of it, so a white-background screenshot cover reads exactly as well as
+            a moody photo: legibility never depends on what's in the image. */}
         {image ? (
-          // eslint-disable-next-line @next/next/no-img-element
-          <img
-            src={image}
-            alt=""
-            width={1080}
-            height={1920}
-            style={{ position: 'absolute', inset: 0, objectFit: 'cover' }}
-          />
+          <div style={{ display: 'flex', position: 'relative', width: '1080px', height: '1100px' }}>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src={image}
+              alt=""
+              width={1080}
+              height={1100}
+              style={{ position: 'absolute', inset: 0, objectFit: 'cover' }}
+            />
+
+            {/* Site badge overlay — solid pill behind it so it stays legible over any photo. */}
+            <div
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: '12px',
+                position: 'absolute',
+                top: '64px',
+                left: '64px',
+                background: 'rgba(12,12,10,0.75)',
+                padding: '14px 24px',
+                borderRadius: '100px',
+              }}
+            >
+              <div style={{ width: '12px', height: '12px', borderRadius: '50%', background: ACCENT }} />
+              <span
+                style={{
+                  fontFamily: 'Plus Jakarta Sans',
+                  fontWeight: 600,
+                  color: ACCENT,
+                  fontSize: '24px',
+                  letterSpacing: '0.12em',
+                  textTransform: 'uppercase',
+                }}
+              >
+                {SITE_HOST}
+              </span>
+            </div>
+          </div>
         ) : null}
 
-        {/* Strong gradient anchored at the bottom, where the text sits, so it stays
-            legible regardless of what the cover photo looks like there. */}
+        {/* Solid-color block — guaranteed contrast for the title/subtitle/footer,
+            independent of the cover photo above it. */}
         <div
           style={{
-            position: 'absolute',
-            inset: 0,
-            display: 'flex',
-            background: image
-              ? 'linear-gradient(180deg, rgba(12,12,10,0.15) 0%, rgba(12,12,10,0.1) 30%, rgba(12,12,10,0.75) 62%, rgba(12,12,10,0.97) 100%)'
-              : BG,
-          }}
-        />
-
-        {/* Content */}
-        <div
-          style={{
-            position: 'relative',
             display: 'flex',
             flexDirection: 'column',
             justifyContent: 'space-between',
-            width: '100%',
-            height: '100%',
-            padding: '96px 72px',
+            flex: 1,
+            borderTop: image ? `3px solid ${ACCENT}` : 'none',
+            padding: '64px 72px 72px',
           }}
         >
-          <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
-            <div style={{ width: '14px', height: '14px', borderRadius: '50%', background: ACCENT }} />
-            <span
-              style={{
-                fontFamily: 'Plus Jakarta Sans',
-                fontWeight: 600,
-                color: ACCENT,
-                fontSize: '26px',
-                letterSpacing: '0.12em',
-                textTransform: 'uppercase',
-              }}
-            >
-              {SITE_HOST}
-            </span>
-          </div>
-
-          {/* Spacer pushes title/subtitle down to the strongest part of the gradient */}
-          <div style={{ display: 'flex', flex: 1 }} />
-
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '28px' }}>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
+            {!image ? (
+              <div style={{ display: 'flex', alignItems: 'center', gap: '16px', marginBottom: '16px' }}>
+                <div style={{ width: '14px', height: '14px', borderRadius: '50%', background: ACCENT }} />
+                <span
+                  style={{
+                    fontFamily: 'Plus Jakarta Sans',
+                    fontWeight: 600,
+                    color: ACCENT,
+                    fontSize: '26px',
+                    letterSpacing: '0.12em',
+                    textTransform: 'uppercase',
+                  }}
+                >
+                  {SITE_HOST}
+                </span>
+              </div>
+            ) : null}
             <h1
               style={{
                 fontFamily: 'Fraunces',
                 fontWeight: 600,
                 color: FG,
-                fontSize: title.length > 60 ? '58px' : '72px',
+                fontSize: title.length > 60 ? '54px' : '64px',
                 margin: 0,
                 lineHeight: 1.15,
               }}
@@ -120,10 +138,9 @@ export async function GET(req: NextRequest) {
                 style={{
                   fontFamily: 'Plus Jakarta Sans',
                   color: FG2,
-                  fontSize: '32px',
+                  fontSize: '30px',
                   margin: 0,
                   lineHeight: 1.5,
-                  maxWidth: '880px',
                 }}
               >
                 {subtitle}
@@ -131,8 +148,8 @@ export async function GET(req: NextRequest) {
             ) : null}
           </div>
 
-          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginTop: '56px' }}>
-            <span style={{ fontFamily: 'Plus Jakarta Sans', fontWeight: 600, color: FG, fontSize: '30px' }}>
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+            <span style={{ fontFamily: 'Plus Jakarta Sans', fontWeight: 600, color: FG, fontSize: '28px' }}>
               Gabi Miranda
             </span>
             <div
@@ -140,7 +157,7 @@ export async function GET(req: NextRequest) {
                 fontFamily: 'Plus Jakarta Sans',
                 background: ACCENT,
                 color: BG,
-                fontSize: '22px',
+                fontSize: '20px',
                 fontWeight: 600,
                 letterSpacing: '0.08em',
                 padding: '12px 28px',
