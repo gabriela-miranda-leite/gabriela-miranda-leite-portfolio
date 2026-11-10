@@ -5,6 +5,7 @@ import { useTranslations } from 'next-intl';
 import {
   Check,
   Copy,
+  InstagramLogo,
   LinkedinLogo,
   ShareNetwork,
   WhatsappLogo,
@@ -16,11 +17,14 @@ import { SITE_URL } from '@/lib/constants';
 
 interface ShareBarProps {
   title: string;
+  description?: string;
+  /** Cover image path under /public (1200×630), if the post has one. */
+  image?: string;
 }
 
 const BASE_URL = SITE_URL;
 
-export function ShareBar({ title }: ShareBarProps) {
+export function ShareBar({ title, description = '', image }: ShareBarProps) {
   const t = useTranslations('blog.share');
   const pathname = usePathname();
   const url = `${BASE_URL}${pathname}`;
@@ -32,10 +36,38 @@ export function ShareBar({ title }: ShareBarProps) {
   // (most phones, Safari, Chrome on Windows) we hand off to the OS share sheet, which
   // lists the apps the person really has. Otherwise we fall back to per-network links.
   const [canNativeShare, setCanNativeShare] = useState(false);
+  // Built from window.location.origin (not SITE_URL) so the /og/story endpoint it
+  // points at always matches the deployment actually serving the page — SITE_URL is
+  // the production domain and would 404 on preview deploys.
+  const [storyImageUrl, setStoryImageUrl] = useState<string>();
+  // Pre-fetched so the click handler can call navigator.share() synchronously — iOS/
+  // Android revoke the "user gesture" that file sharing requires as soon as an await
+  // happens inside the click handler, which turns navigator.share into a silent/thrown
+  // rejection if we fetch the image after the click instead of before it.
+  const [storyFile, setStoryFile] = useState<File>();
 
   useEffect(() => {
     setCanNativeShare(typeof navigator !== 'undefined' && typeof navigator.share === 'function');
-  }, []);
+
+    const origin = window.location.origin;
+    const params = new URLSearchParams({ title, subtitle: description });
+    if (image) params.set('image', `${origin}${image}`);
+    const imageUrl = `${origin}/og/story?${params.toString()}`;
+    setStoryImageUrl(imageUrl);
+
+    let cancelled = false;
+    fetch(imageUrl)
+      .then((res) => res.blob())
+      .then((blob) => {
+        if (!cancelled) setStoryFile(new File([blob], 'story.png', { type: blob.type || 'image/png' }));
+      })
+      .catch(() => {
+        // Native share falls back to opening storyImageUrl directly when storyFile is unset.
+      });
+    return () => {
+      cancelled = true;
+    };
+  }, [title, description, image]);
 
   async function handleCopy() {
     await navigator.clipboard.writeText(url);
@@ -51,6 +83,29 @@ export function ShareBar({ title }: ShareBarProps) {
     } catch {
       // Dismissing the share sheet rejects with AbortError — nothing to do.
     }
+  }
+
+  // Instagram has no web share endpoint, so we hand the generated Stories card to the
+  // OS share sheet — Instagram's share extension reads the image and offers "Add to
+  // Story" from there. (A clipboard + instagram-stories:// deep link can open the
+  // Stories editor directly, but that's an undocumented community trick with a known,
+  // unfixed "blank background" bug — not worth the fragility.)
+  // navigator.share() is called synchronously here (no await before it) — see the
+  // storyFile effect above for why.
+  function handleInstagramShare() {
+    if (!storyFile) return;
+    trackEvent({ screen: 'blog', action: 'button_clicked', reference: 'Compartilhou no Instagram Stories' });
+
+    if (typeof navigator.canShare === 'function' && navigator.canShare({ files: [storyFile] })) {
+      // iOS only shows the quick "Instagram Stories" icon in the share sheet for a
+      // pure image share — adding title/text alongside the file can make it treat
+      // this as a link/text share instead and hide that shortcut, so files only.
+      navigator.share({ files: [storyFile] }).catch(() => {
+        // Dismissing the share sheet, or the OS refusing the file, rejects the promise — nothing to do.
+      });
+      return;
+    }
+    if (storyImageUrl) window.open(storyImageUrl, '_blank', 'noopener,noreferrer');
   }
 
   return (
@@ -103,6 +158,30 @@ export function ShareBar({ title }: ShareBarProps) {
         X
       </a>
 
+      {storyFile ? (
+        <button
+          type="button"
+          onClick={handleInstagramShare}
+          aria-label={t('instagram_aria')}
+          className="share-pill share-pill-instagram"
+        >
+          <InstagramLogo size={14} weight="fill" aria-hidden="true" />
+          {t('instagram')}
+        </button>
+      ) : null}
+
+      <a
+        href={`https://wa.me/?text=${encodedTitle}%20${encoded}`}
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label={t('whatsapp_aria')}
+        onClick={() => trackEvent({ screen: 'blog', action: 'button_clicked', reference: 'Compartilhou no WhatsApp' })}
+        className="share-pill"
+      >
+        <WhatsappLogo size={14} weight="fill" aria-hidden="true" />
+        WhatsApp
+      </a>
+
       {canNativeShare ? (
         <button
           type="button"
@@ -113,19 +192,7 @@ export function ShareBar({ title }: ShareBarProps) {
           <ShareNetwork size={14} aria-hidden="true" />
           {t('native')}
         </button>
-      ) : (
-        <a
-          href={`https://wa.me/?text=${encodedTitle}%20${encoded}`}
-          target="_blank"
-          rel="noopener noreferrer"
-          aria-label={t('whatsapp_aria')}
-          onClick={() => trackEvent({ screen: 'blog', action: 'button_clicked', reference: 'Compartilhou no WhatsApp' })}
-          className="share-pill"
-        >
-          <WhatsappLogo size={14} weight="fill" aria-hidden="true" />
-          WhatsApp
-        </a>
-      )}
+      ) : null}
 
       <button
         type="button"

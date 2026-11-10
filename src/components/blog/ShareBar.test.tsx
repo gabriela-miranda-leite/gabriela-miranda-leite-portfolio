@@ -21,6 +21,15 @@ import { ShareBar } from './ShareBar';
 
 expect.extend(toHaveNoViolations);
 
+// ShareBar fetches its /og/story card on mount (to pre-build the Instagram share
+// file); flushing that microtask after render keeps every test's state updates
+// inside act(), even tests that never await anything else themselves.
+async function renderShareBar(props: React.ComponentProps<typeof ShareBar>) {
+  const result = render(<ShareBar {...props} />);
+  await act(async () => {});
+  return result;
+}
+
 const mockWriteText = jest.fn().mockResolvedValue(undefined);
 Object.defineProperty(navigator, 'clipboard', {
   value: { writeText: mockWriteText },
@@ -30,24 +39,29 @@ Object.defineProperty(navigator, 'clipboard', {
 beforeEach(() => {
   mockWriteText.mockClear();
   Object.defineProperty(navigator, 'share', { value: undefined, configurable: true });
+  // ShareBar always fetches its /og/story card on mount to pre-build the Instagram
+  // share file; every test needs this mocked, not just the Instagram-specific ones.
+  global.fetch = jest.fn().mockResolvedValue({
+    blob: () => Promise.resolve(new Blob(['fake'], { type: 'image/png' })),
+  }) as unknown as typeof fetch;
 });
 
 describe('ShareBar', () => {
-  it('renders share links for LinkedIn, WhatsApp, X', () => {
-    render(<ShareBar title="Meu Post" />);
+  it('renders share links for LinkedIn, WhatsApp, X', async () => {
+    await renderShareBar({ title: 'Meu Post' });
     expect(screen.getByRole('link', { name: /linkedin/i })).toBeInTheDocument();
     expect(screen.getByRole('link', { name: /whatsapp/i })).toBeInTheDocument();
     expect(screen.getByRole('link', { name: /^compartilhar no x/i })).toBeInTheDocument();
   });
 
-  it('renders copy button with initial label', () => {
-    render(<ShareBar title="Meu Post" />);
+  it('renders copy button with initial label', async () => {
+    await renderShareBar({ title: 'Meu Post' });
     expect(screen.getByRole('button', { name: /copiar link do post/i })).toBeInTheDocument();
     expect(screen.getByText('Copiar link')).toBeInTheDocument();
   });
 
   it('calls clipboard.writeText with the full URL on copy click', async () => {
-    render(<ShareBar title="Meu Post" />);
+    await renderShareBar({ title: 'Meu Post' });
     const btn = screen.getByRole('button', { name: /copiar link/i });
     await act(async () => { fireEvent.click(btn); });
     expect(mockWriteText).toHaveBeenCalledWith(
@@ -56,15 +70,15 @@ describe('ShareBar', () => {
   });
 
   it('shows "Copiado!" after clicking copy', async () => {
-    render(<ShareBar title="Meu Post" />);
+    await renderShareBar({ title: 'Meu Post' });
     const btn = screen.getByRole('button', { name: /copiar link/i });
     await act(async () => { fireEvent.click(btn); });
     expect(screen.getByText('Copiado!')).toBeInTheDocument();
   });
 
   it('reverts to "Copiar link" after 2s', async () => {
+    await renderShareBar({ title: 'Meu Post' });
     jest.useFakeTimers();
-    render(<ShareBar title="Meu Post" />);
     const btn = screen.getByRole('button', { name: /copiar link/i });
     await act(async () => { fireEvent.click(btn); });
     expect(screen.getByText('Copiado!')).toBeInTheDocument();
@@ -73,15 +87,64 @@ describe('ShareBar', () => {
     jest.useRealTimers();
   });
 
-  it('LinkedIn href contains encoded URL', () => {
-    render(<ShareBar title="Meu Post" />);
+  it('LinkedIn href contains encoded URL', async () => {
+    await renderShareBar({ title: 'Meu Post' });
     const link = screen.getByRole('link', { name: /linkedin/i });
     expect(link.getAttribute('href')).toContain('linkedin.com');
     expect(link.getAttribute('href')).toContain('blog%2Ftest-post');
   });
 
-  it('opens share links in new tab', () => {
-    render(<ShareBar title="Meu Post" />);
+  describe('Instagram Stories button', () => {
+    beforeEach(() => {
+      Object.defineProperty(navigator, 'canShare', {
+        value: jest.fn().mockReturnValue(true),
+        configurable: true,
+      });
+      Object.defineProperty(navigator, 'share', { value: jest.fn().mockResolvedValue(undefined), configurable: true });
+    });
+
+    const props = { title: 'Meu Post', description: 'Um resumo do post', image: '/posts/x/cover.jpg' };
+
+    it('renders once the story image URL is built on mount', async () => {
+      await renderShareBar(props);
+      expect(screen.getByRole('button', { name: /instagram/i })).toBeInTheDocument();
+    });
+
+    it('fetches the /og/story endpoint on the current origin, not a hardcoded domain', async () => {
+      await renderShareBar(props);
+      expect(global.fetch).toHaveBeenCalledWith(expect.stringContaining(`${window.location.origin}/og/story?`));
+    });
+
+    it('shares only the story image file via the native share sheet (no title/text)', async () => {
+      await renderShareBar(props);
+      const btn = screen.getByRole('button', { name: /instagram/i });
+      await act(async () => { fireEvent.click(btn); });
+      expect(navigator.share).toHaveBeenCalledWith({ files: expect.any(Array) });
+    });
+
+    it('opens the image in a new tab when the device cannot share files', async () => {
+      Object.defineProperty(navigator, 'canShare', {
+        value: jest.fn().mockReturnValue(false),
+        configurable: true,
+      });
+      const openSpy = jest.spyOn(window, 'open').mockImplementation(() => null);
+
+      await renderShareBar(props);
+      const btn = screen.getByRole('button', { name: /instagram/i });
+      await act(async () => { fireEvent.click(btn); });
+
+      expect(openSpy).toHaveBeenCalledWith(
+        expect.stringContaining(`${window.location.origin}/og/story?`),
+        '_blank',
+        'noopener,noreferrer'
+      );
+      expect(navigator.share).not.toHaveBeenCalled();
+      openSpy.mockRestore();
+    });
+  });
+
+  it('opens share links in new tab', async () => {
+    await renderShareBar({ title: 'Meu Post' });
     const links = [
       screen.getByRole('link', { name: /linkedin/i }),
       screen.getByRole('link', { name: /whatsapp/i }),
@@ -98,17 +161,17 @@ describe('ShareBar', () => {
       Object.defineProperty(navigator, 'share', { value: mockShare, configurable: true });
     });
 
-    it('adds a native share button alongside LinkedIn and X, replacing WhatsApp', async () => {
-      render(<ShareBar title="Meu Post" />);
+    it('adds a native share button alongside LinkedIn, WhatsApp and X', async () => {
+      await renderShareBar({ title: 'Meu Post' });
       expect(await screen.findByRole('button', { name: /escolher um app/i })).toBeInTheDocument();
       expect(screen.getByRole('link', { name: /linkedin/i })).toBeInTheDocument();
       expect(screen.getByRole('link', { name: /^compartilhar no x/i })).toBeInTheDocument();
-      expect(screen.queryByRole('link', { name: /whatsapp/i })).not.toBeInTheDocument();
+      expect(screen.getByRole('link', { name: /whatsapp/i })).toBeInTheDocument();
       expect(screen.getByRole('button', { name: /copiar link do post/i })).toBeInTheDocument();
     });
 
     it('calls navigator.share with the title and full URL', async () => {
-      render(<ShareBar title="Meu Post" />);
+      await renderShareBar({ title: 'Meu Post' });
       const btn = await screen.findByRole('button', { name: /escolher um app/i });
       await act(async () => { fireEvent.click(btn); });
       expect(mockShare).toHaveBeenCalledWith({
@@ -119,27 +182,27 @@ describe('ShareBar', () => {
 
     it('ignores the rejection when the share sheet is dismissed', async () => {
       mockShare.mockRejectedValueOnce(new DOMException('cancelled', 'AbortError'));
-      render(<ShareBar title="Meu Post" />);
+      await renderShareBar({ title: 'Meu Post' });
       const btn = await screen.findByRole('button', { name: /escolher um app/i });
       await act(async () => { fireEvent.click(btn); });
       expect(mockShare).toHaveBeenCalledTimes(1);
     });
 
     it('has no accessibility violations', async () => {
-      const { container } = render(<ShareBar title="Meu Post" />);
+      const { container } = await renderShareBar({ title: 'Meu Post' });
       await screen.findByRole('button', { name: /escolher um app/i });
       expect(await axe(container)).toHaveNoViolations();
     }, 15000);
   });
 
   it('has no accessibility violations', async () => {
-    const { container } = render(<ShareBar title="Meu Post" />);
+    const { container } = await renderShareBar({ title: 'Meu Post' });
     const results = await axe(container);
     expect(results).toHaveNoViolations();
   }, 15000);
 
   it('has no accessibility violations in copied state', async () => {
-    const { container } = render(<ShareBar title="Meu Post" />);
+    const { container } = await renderShareBar({ title: 'Meu Post' });
     const btn = screen.getByRole('button', { name: /copiar link/i });
     await act(async () => { fireEvent.click(btn); });
     const results = await axe(container);

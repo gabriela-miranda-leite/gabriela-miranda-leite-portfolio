@@ -52,6 +52,8 @@
       "linkedin_aria": "Share on LinkedIn (opens in a new tab)",
       "whatsapp_aria": "Share on WhatsApp (opens in a new tab)",
       "x_aria": "Share on X (opens in a new tab)",
+      "instagram": "Instagram",
+      "instagram_aria": "Share to Instagram Stories",
       "copy": "Copy link",
       "copy_aria": "Copy post link",
       "copied": "Copied!",

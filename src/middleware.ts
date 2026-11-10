@@ -9,8 +9,11 @@ const intlMiddleware = createMiddleware({
 });
 
 export default function middleware(req: NextRequest) {
-  // /og is an unlocalized Edge route (OG images); skip locale routing for it.
-  if (req.nextUrl.pathname === '/og') return NextResponse.next();
+  // /og and its subroutes (e.g. /og/story) are unlocalized Edge routes (OG images);
+  // skip locale routing for all of them, not just the exact /og path.
+  if (req.nextUrl.pathname === '/og' || req.nextUrl.pathname.startsWith('/og/')) {
+    return NextResponse.next();
+  }
   return intlMiddleware(req);
 }
 
