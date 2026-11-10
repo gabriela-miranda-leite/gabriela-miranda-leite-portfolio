@@ -161,12 +161,12 @@ describe('ShareBar', () => {
       Object.defineProperty(navigator, 'share', { value: mockShare, configurable: true });
     });
 
-    it('adds a native share button alongside LinkedIn and X, replacing WhatsApp', async () => {
+    it('adds a native share button alongside LinkedIn, WhatsApp and X', async () => {
       await renderShareBar({ title: 'Meu Post' });
       expect(await screen.findByRole('button', { name: /escolher um app/i })).toBeInTheDocument();
       expect(screen.getByRole('link', { name: /linkedin/i })).toBeInTheDocument();
       expect(screen.getByRole('link', { name: /^compartilhar no x/i })).toBeInTheDocument();
-      expect(screen.queryByRole('link', { name: /whatsapp/i })).not.toBeInTheDocument();
+      expect(screen.getByRole('link', { name: /whatsapp/i })).toBeInTheDocument();
       expect(screen.getByRole('button', { name: /copiar link do post/i })).toBeInTheDocument();
     });
 

@@ -170,6 +170,18 @@ export function ShareBar({ title, description = '', image }: ShareBarProps) {
         </button>
       ) : null}
 
+      <a
+        href={`https://wa.me/?text=${encodedTitle}%20${encoded}`}
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label={t('whatsapp_aria')}
+        onClick={() => trackEvent({ screen: 'blog', action: 'button_clicked', reference: 'Compartilhou no WhatsApp' })}
+        className="share-pill"
+      >
+        <WhatsappLogo size={14} weight="fill" aria-hidden="true" />
+        WhatsApp
+      </a>
+
       {canNativeShare ? (
         <button
           type="button"
@@ -180,19 +192,7 @@ export function ShareBar({ title, description = '', image }: ShareBarProps) {
           <ShareNetwork size={14} aria-hidden="true" />
           {t('native')}
         </button>
-      ) : (
-        <a
-          href={`https://wa.me/?text=${encodedTitle}%20${encoded}`}
-          target="_blank"
-          rel="noopener noreferrer"
-          aria-label={t('whatsapp_aria')}
-          onClick={() => trackEvent({ screen: 'blog', action: 'button_clicked', reference: 'Compartilhou no WhatsApp' })}
-          className="share-pill"
-        >
-          <WhatsappLogo size={14} weight="fill" aria-hidden="true" />
-          WhatsApp
-        </a>
-      )}
+      ) : null}
 
       <button
         type="button"
