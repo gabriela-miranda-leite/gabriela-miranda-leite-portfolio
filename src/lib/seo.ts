@@ -76,12 +76,13 @@ export function websiteJsonLd(locale: string) {
   };
 }
 
-/** Absolute URL for a post's share image: its own cover when set, else the generated /og card. */
+/** Absolute URL for a post's share image: the branded /og card, with its cover photo as the backdrop when set. */
 export function postShareImageUrl(post: {
   title: string;
   description: string;
   image?: string;
 }): string {
-  if (post.image) return `${SITE_URL}${post.image}`;
-  return `${SITE_URL}/og?title=${encodeURIComponent(post.title)}&subtitle=${encodeURIComponent(post.description)}`;
+  const params = new URLSearchParams({ title: post.title, subtitle: post.description });
+  if (post.image) params.set('image', `${SITE_URL}${post.image}`);
+  return `${SITE_URL}/og?${params.toString()}`;
 }
