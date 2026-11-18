@@ -1,0 +1,73 @@
+---
+title: "Bugsy: a pocket-sized debug overlay"
+description: "How and why I built Bugsy, a Kotlin Multiplatform in-app debugging library with network inspection, mocks, feature flags, and release hardening."
+date: "2026-11-18"
+tags: ["kotlin multiplatform", "android", "ios", "debugging", "open source"]
+slug: "bugsy"
+readingTime: 6
+---
+
+# Bugsy: a pocket-sized debug overlay
+
+While building a personal project, I missed having a debugging tool built right into the app, something that went beyond Logcat or external proxies. Throughout my experience working on mobile apps in production, I got used to the productivity boost that good internal inspection tools bring to the daily work of developers and QAs.
+
+When I found myself without that kind of setup outside of work, I decided to build my own. But I wanted to go beyond inspecting network calls: I wanted to mock responses, toggle flags, and simulate error scenarios right on the phone, without depending on the backend or recompiling the app.
+
+### What Bugsy is
+
+Bugsy is a Kotlin Multiplatform library (Android and iOS) that adds a debug panel built into the app itself. It works as an overlay (a floating visual layer that appears on top of the app when you shake the phone, without replacing the screen you're on), in the same spirit as tools like Chucker and Flipper, with four main modules: real-time network request inspection, response mocks, feature flags, and device information.
+
+![Map of Bugsy features from the Android/iOS app: control flags (toggle states on and off), app data (email, document, and other helpful data), view requests (details, .har export, and mocking from a request), and mock requests (import/export, one-shot mocks, and configurable body, headers, and status)](/posts/bugsy/funcionalidades.png)
+
+All of this under a strict policy: "when in doubt, mask it." Tokens, passwords, and sensitive data like national ID numbers are never exposed on screen by default.
+
+<VideoEmbed src="/posts/bugsy/bugsy.webm" caption="Request inspection in Bugsy: a list of GET, POST, PUT, and DELETE calls, request details with status and duration, and sensitive headers like Authorization and Cookie masked until revealed" />
+
+### The real pain behind the Mocks tab
+
+Inspecting what goes in and out over the network solves half the problem. Reproducing specific scenarios is the other bottleneck.
+
+As a mobile developer, I've been through it many times: the requirement was to make sure a feedback screen showed up if a request took longer than a certain amount of time. Testing that in practice was rarely simple: add an artificial delay to the build, send it for validation, and then remember to remove it, or ask for a temporary tweak on the backend. A complex, error-prone flow just to validate a visual behavior.
+
+The same problem shows up in products full of business rules. The backend can't always quickly produce the exact test data for a specific scenario. There are tools like Mockoon for simulating responses locally, but when a QA, PM, or PO needs to validate on the phone, requiring a proxy and a local server setup creates an unnecessary technical barrier.
+
+Bugsy's Mocks tab was born to remove that friction. Anyone with the debug app installed can create rules that intercept calls by matching an HTTP method with a regex URL pattern, returning custom status, headers, and body right on the device, without touching the server.
+
+Three features make this flow accessible to the whole team:
+
+- **Create from real calls:** With "Create mock from this response," you just pick a request that has just gone over the network and the rule gets filled in automatically. From there, anyone can change only the status or the JSON field needed to simulate the desired scenario.
+- **Timing and execution control:** Each rule can set a simulated delay to validate loading states and timeouts without changing a line of code, plus a one-shot mode that applies the mock only to the next request and then goes back to the normal flow.
+- **Sharing via JSON:** Rules can be exported and imported as JSON files. If a QA finds a bug under a specific response condition, they export the rule and send it to the developer, who can reproduce the same behavior in seconds.
+
+<VideoEmbed src="/posts/bugsy/bugsy-mock.mp4" caption="Bugsy's Mocks tab: importing a JSON file with four rules, such as an empty feed, a one-shot 401 login failure, and a 503 payments error, each with its own toggle" />
+
+### Under the hood: KMP architecture and technical decisions
+
+For Bugsy to work consistently on both platforms without weighing down the host app's codebase, the architecture was split into three independent modules: `:core`, `:ui`, and `:bugsy-noop`.
+
+The `:core` module holds the library's engine: state management, the mock rules engine, feature flags, and the network layer abstraction. Interception happens natively, using an OkHttp interceptor on Android and `NSURLProtocol` on iOS, but both convert the captured data into a single shared Kotlin model.
+
+The `:ui` module consumes that shared state to render the overlay in Compose Multiplatform. The entire interface (request inspection, mock rule editing, flags, and device info) is written once, with the same visual experience on both platforms.
+
+The third module, `:bugsy-noop`, exists for safety and build hygiene. It exposes exactly the same public API as the library, but with empty implementations and zero instrumentation. The app uses the full version in development and staging, and swaps in the no-op dependency for the release build, with no environment conditionals scattered across the project's code.
+
+![Bugsy architecture flowchart: OkHttp Interceptor (Android) and NSURLProtocol (iOS) feed the :core module (capture, mock engine, masking, and flags), which feeds :ui in Compose Multiplatform; in the release build, :bugsy-noop replaces everything with the same API and zero code](/posts/bugsy/fluxograma.png)
+
+Privacy by default was non-negotiable from the start. Debug tools produce screenshots, bug evidence videos, and logs shared on Slack. If a token or ID number shows up in plain text, the risk of an accidental leak is immediate. That's why `:core` applies masking right when payloads and headers are captured, requiring an explicit action to reveal any sensitive data.
+
+### Release hardening
+
+Any engineer who has worked on apps at scale looks at a debug library and asks the same question: what if this leaks into the store build, or breaks the production build? Treating that concern as a priority from day one was essential.
+
+The critical point in libraries that use the no-op pattern is signature drift. It's common to add a new method to the main module and forget to mirror it in the empty version, only finding out when the pipeline tries to compile the release. To eliminate that risk, Bugsy has a parity contract called `ApiSurface.kt`, which forces `:bugsy-noop` to keep exactly the same public signature as the `:core` and `:ui` modules. Any mismatch breaks compilation before the code even goes to review.
+
+On top of that, automated gates in the CI/CD pipeline make sure no trace of instrumentation reaches the end user:
+
+- **Final binary audit:** The `check-release-clean.sh` script inspects the release APK to verify that no overlay class, mock engine, or debug code was packaged by mistake.
+- **Visual regression and security:** Before any artifact is published to Maven Central, the pipeline runs screenshot tests with Paparazzi, static security analysis, and checks on an Android emulator and an iOS simulator.
+
+### Next steps
+
+Bugsy is already available on Maven Central for Kotlin Multiplatform, Android, and iOS projects. Next up are React Native and Flutter support, and an interface for following the debug session from your computer, which should make the development and validation flow even smoother for the team.
+
+Library link: [github.com/gabriela-miranda-leite/bugsy](https://github.com/gabriela-miranda-leite/bugsy)

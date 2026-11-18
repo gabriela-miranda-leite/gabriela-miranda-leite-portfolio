@@ -1,5 +1,6 @@
 import type { MDXComponents } from 'mdx/types';
 import { CodeBlock } from '@/components/ui/CodeBlock';
+import { VideoEmbed } from '@/components/blog/VideoEmbed';
 
 type PreProps = React.ComponentPropsWithoutRef<'pre'>;
 
@@ -13,4 +14,5 @@ function Pre({ children }: PreProps) {
 
 export const mdxComponents: MDXComponents = {
   pre: Pre,
+  VideoEmbed,
 };
