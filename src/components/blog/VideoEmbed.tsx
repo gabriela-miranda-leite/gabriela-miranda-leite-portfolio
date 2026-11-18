@@ -16,8 +16,9 @@ export function VideoEmbed({ src, caption, poster }: VideoEmbedProps) {
         .video-embed video {
           display: block;
           width: 100%;
-          max-width: 100%;
+          max-width: 320px;
           height: auto;
+          margin: 0 auto;
           border-radius: var(--radius-lg);
           background: var(--bg-s);
         }
@@ -28,7 +29,8 @@ export function VideoEmbed({ src, caption, poster }: VideoEmbedProps) {
         }
 
         .video-embed figcaption {
-          margin-top: var(--space-3);
+          max-width: 320px;
+          margin: var(--space-3) auto 0;
           font-size: var(--text-sm);
           line-height: var(--leading-sm);
           color: var(--fg-2);
