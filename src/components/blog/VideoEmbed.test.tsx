@@ -28,6 +28,14 @@ describe('VideoEmbed', () => {
     expect(source).toHaveAttribute('type', type);
   });
 
+  it('adds the landscape modifier only when requested', () => {
+    const { container, rerender } = render(<VideoEmbed src="/posts/demo.mp4" caption={caption} />);
+    expect(container.querySelector('figure')).not.toHaveClass('video-embed--landscape');
+
+    rerender(<VideoEmbed src="/posts/demo.mp4" caption={caption} landscape />);
+    expect(container.querySelector('figure')).toHaveClass('video-embed--landscape');
+  });
+
   it('has no accessibility violations', async () => {
     const { container } = render(<VideoEmbed src="/posts/demo.mp4" caption={caption} />);
     expect(await axe(container)).toHaveNoViolations();

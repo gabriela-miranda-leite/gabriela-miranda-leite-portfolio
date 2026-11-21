@@ -27,18 +27,27 @@ A Bugsy é uma biblioteca Kotlin Multiplatform (Android e iOS) que adiciona um p
 
 Junto das informações do dispositivo, dá para incluir detalhes do usuário que quiserem colocar, como identificador do usuário, email e segmento. Para abrir o overlay na hora, basta chacoalhar o celular, usar o botão flutuante ou tocar na notificação.
 
+<VideoEmbed src="/posts/bugsy/device-data.mp4" caption="Dados do dispositivo e do usuário na Bugsy: identificador, e-mail e documento do usuário, versão do app, ambiente, build, modelo do aparelho e sistema operacional, cada um com botão de copiar" />
+
 ### Os Problemas Práticos que a Bugsy Resolve no Dia a Dia
 
 Nada melhor do que explicar as dores que cada funcionalidade quer resolver para entender a existência de cada uma. Então, vale dividir por funcionalidade:
 
 - **Inspeção de rede sem proxy:** Imagina você estar validando seu APK ou IPA e, de repente, dá algum erro. Aí tem algumas saídas: olhar no Datadog ou em alguma ferramenta de monitoramento, ou rodar o aplicativo na IDE para analisar os logs em algum Logcat. Ou você é um QA ou PM e precisa dar detalhes do problema para facilitar a resolução do bug. Com a inspeção embutida, você consegue passar facilmente o `cURL` para o time do backend, por exemplo.
+
+<VideoEmbed src="/posts/bugsy/requests.mp4" caption="Inspeção de rede na Bugsy: lista de chamadas com filtros, detalhe da requisição com headers sensíveis mascarados e exportação em cURL" />
+
 - **Feature Flags:** Ter visibilidade rápida das flags do aplicativo para consultar e validar os cenários sem depender de ir em outra ferramenta ou mexer no código. Uma coisa que pensei enquanto escrevo aqui é que seria legal deixar uma linha dando contexto do que a flag faz. Claro que o nome deveria ser claro, afinal clean code, mas não custa ter uma descrição curta com um pouco mais de detalhes.
+
+<VideoEmbed src="/posts/bugsy/flags.mp4" caption="Feature flags na Bugsy: liga e desliga flags direto no app, com a marcação de override e o botão para resetar todos os overrides" />
+
 - **Mocks de resposta sob demanda:** Imagina você sendo QA ou PM querendo validar um cenário, como saber como o app se comporta se tiver um delay em uma rota ou se aparece uma tela específica de feedback. Ou não ter um cenário pronto no banco de sandbox, mas saber o contrato para não travar o desenvolvimento mobile e conseguir validar uma parte, porque isso não elimina a importância de ter os cenários reais em sandbox, e ganhar tempo. No desenvolvimento a gente até consegue contornar isso com ferramentas externas como o Mockoon, mas ter isso acessível direto no fluxo do app agiliza muito.
+
+<VideoEmbed src="/posts/bugsy/mocks.mp4" caption="Mocks na Bugsy: criação de regras com delay e modo one-shot, importação e exportação de regras e a ativação de cada mock por toggle" />
+
 - **Tela grande com a Bugsy Desktop:** Eu imagino uma pessoa que não queira ficar toda hora sacudindo o celular ou abrindo notificações para acompanhar os resultados da Bugsy na mão. Ou então tirando prints, copiando dados e passando por um app terceiro para mandar as informações para o time. Na tela do computador, acredito que teria um ganho claro de velocidade.
 
-<VideoEmbed src="/posts/bugsy/bugsy.webm" caption="Inspeção de rede na Bugsy: lista de chamadas GET, POST, PUT e DELETE, detalhe da requisição com status e duração, e headers sensíveis como Authorization e Cookie mascarados até serem revelados" />
-
-<VideoEmbed src="/posts/bugsy/bugsy-mock.mp4" caption="Mocks de resposta na Bugsy: importação de um arquivo JSON com quatro regras, como feed vazio, falha de login 401 em modo one-shot e erro 503 em pagamentos, cada uma com seu toggle de ativação" />
+<VideoEmbed src="/posts/bugsy/bugsy-desktop.mp4" caption="Bugsy Desktop: conexão com o app via QR code, e acompanhamento de requisições, mocks, flags e dados do dispositivo na tela do computador" landscape />
 
 O interceptor entra na jogada capturando as chamadas HTTP automaticamente, sem obrigar você a sair modificando o app inteiro. As últimas requisições ficam guardadas em memória, sem depender de banco de dados. Quando você sacode o aparelho ou toca no botão flutuante, o overlay abre com essas requisições prontas para consulta e exportação em `cURL`, junto com feature flags e informações do dispositivo.
 

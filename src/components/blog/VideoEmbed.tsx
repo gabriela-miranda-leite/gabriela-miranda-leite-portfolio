@@ -2,9 +2,10 @@ interface VideoEmbedProps {
   src: string;
   caption: string;
   poster?: string;
+  landscape?: boolean;
 }
 
-export function VideoEmbed({ src, caption, poster }: VideoEmbedProps) {
+export function VideoEmbed({ src, caption, poster, landscape = false }: VideoEmbedProps) {
   const type = src.endsWith('.webm') ? 'video/webm' : 'video/mp4';
   return (
     <>
@@ -35,8 +36,13 @@ export function VideoEmbed({ src, caption, poster }: VideoEmbedProps) {
           line-height: var(--leading-sm);
           color: var(--fg-2);
         }
+
+        .video-embed--landscape video,
+        .video-embed--landscape figcaption {
+          max-width: 100%;
+        }
       `}</style>
-      <figure className="video-embed">
+      <figure className={landscape ? 'video-embed video-embed--landscape' : 'video-embed'}>
         <video controls preload="metadata" playsInline poster={poster} aria-label={caption}>
           <source src={src} type={type} />
         </video>

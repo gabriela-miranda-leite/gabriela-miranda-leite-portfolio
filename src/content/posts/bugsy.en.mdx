@@ -27,18 +27,27 @@ Bugsy is a Kotlin Multiplatform library (Android and iOS) that adds a debug pane
 
 Alongside device information, you can include any user details you want, such as a user identifier, email, and segment. To open the overlay right away, just shake the phone, use the floating button, or tap the notification.
 
+<VideoEmbed src="/posts/bugsy/device-data.mp4" caption="Device and user data in Bugsy: user identifier, email, and document, app version, environment, build, device model, and operating system, each with a copy button" />
+
 ### The Everyday Problems Bugsy Solves
 
 The best way to understand why each feature exists is to explain the pain it's meant to solve. So let's go feature by feature:
 
 - **Network inspection without a proxy:** Imagine you're validating your APK or IPA and, out of nowhere, an error shows up. You have a few options: check Datadog or some other monitoring tool, or run the app from the IDE and dig through the logs in Logcat. Or you're a QA or PM and need to give details about the problem to help get the bug fixed. With built-in inspection, you can easily hand the `cURL` to the backend team, for example.
+
+<VideoEmbed src="/posts/bugsy/requests.mp4" caption="Network inspection in Bugsy: a list of calls with filters, request details with sensitive headers masked, and cURL export" />
+
 - **Feature flags:** Quick visibility into the app's flags so you can check and validate scenarios without jumping to another tool or touching the code. Something that crossed my mind while writing this is that it would be nice to have a line of context explaining what each flag does. Sure, the name should be clear, clean code and all, but a short description with a bit more detail doesn't hurt.
+
+<VideoEmbed src="/posts/bugsy/flags.mp4" caption="Feature flags in Bugsy: toggling flags right inside the app, with the override marker and a button to reset all overrides" />
+
 - **On-demand response mocks:** Imagine you're a QA or PM who wants to validate a scenario, like how the app behaves when a route is delayed, or whether a specific feedback screen shows up. Or there's no ready-made scenario in the sandbox database, but you know the contract, so mobile development doesn't get blocked and you can validate part of it and save time. That doesn't take away the importance of having real scenarios in sandbox. During development we can work around this with external tools like Mockoon, but having it right inside the app's flow speeds things up a lot.
+
+<VideoEmbed src="/posts/bugsy/mocks.mp4" caption="Mocks in Bugsy: creating rules with delay and one-shot mode, importing and exporting rules, and enabling each mock with a toggle" />
+
 - **Big screen with Bugsy Desktop:** I picture someone who doesn't want to keep shaking the phone or opening notifications to follow Bugsy's results by hand. Or taking screenshots, copying data, and going through a third-party app to send the information to the team. On a computer screen, I think there would be a clear gain in speed.
 
-<VideoEmbed src="/posts/bugsy/bugsy.webm" caption="Network inspection in Bugsy: a list of GET, POST, PUT, and DELETE calls, request details with status and duration, and sensitive headers like Authorization and Cookie masked until revealed" />
-
-<VideoEmbed src="/posts/bugsy/bugsy-mock.mp4" caption="Response mocks in Bugsy: importing a JSON file with four rules, such as an empty feed, a one-shot 401 login failure, and a 503 payments error, each with its own toggle" />
+<VideoEmbed src="/posts/bugsy/bugsy-desktop.mp4" caption="Bugsy Desktop: connecting to the app via QR code and following requests, mocks, flags, and device data on the computer screen" landscape />
 
 The interceptor captures HTTP calls automatically, without forcing you to change the whole app. The most recent requests are kept in memory, with no database involved. When you shake the device or tap the floating button, the overlay opens with those requests ready to inspect and export as `cURL`, along with feature flags and device information.
 
