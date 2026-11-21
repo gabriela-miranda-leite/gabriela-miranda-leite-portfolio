@@ -11,9 +11,9 @@ readingTime: 6
 
 *How to get rid of proxies, certificates, and backend dependencies when investigating and testing Android and iOS apps.*
 
-While building a personal project, I missed having a debugging tool built right into the app, something that went beyond Logcat or external proxies. Throughout my experience working on mobile apps in production, I had the chance to use tools that make day-to-day life easier for developers and QAs.
+Throughout my experience working on mobile apps in production, I had the chance to use tools that make day-to-day life easier for developers and QAs. When I started a personal project, that's exactly what I missed: a debugging tool built right into the app, something that went beyond Logcat or external proxies.
 
-When I started another personal project, I thought I could build a library (something I had never done before) so I could reuse it in other projects, and maybe make life easier for other people too.
+That's when I thought about building a library (something I had never done before) that I could reuse in other projects and that, as a bonus, could help make life easier for other people.
 
 Imagine running the app in a sandbox or development build and, when you hit a problem, not being able to quickly or easily figure out what the error was. Or validating a release and having to open a ticket without concrete details, like saying that when you opened the Home screen, the `app.sandbox.test/home` request returned a `403` forbidden error. Or not having a specific scenario ready on the backend, which is pretty common at a large company, where you run into all sorts of obstacles to get tailor-made scenarios. If you could mock it on the spot, you'd at least know whether the mobile app behaves as expected.
 
