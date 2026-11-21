@@ -11,11 +11,9 @@ readingTime: 6
 
 Ao longo da minha experiência trabalhando com apps mobile em produção, tive a oportunidade de ter contato com ferramentas que facilitam o dia a dia de devs e QAs. Quando comecei um projeto pessoal, senti falta justamente disso: uma ferramenta de debug embutida no próprio app, algo que fosse além do Logcat ou de proxies externos.
 
-Foi aí que pensei em construir uma lib (algo que eu nunca tinha feito), que eu pudesse reutilizar em outros projetos e que, de quebra, ajudasse a facilitar a vida de outras pessoas.
+Foi aí que pensei em construir uma lib (algo que eu nunca tinha feito), que eu pudesse reutilizar em outros projetos e que, de quebra, ajudasse a facilitar a vida de outras pessoas. Eu realmente não pesquisei muito se já existiam ferramentas antes de começar a construir para nativos de Android e iOS.
 
 Imagine estar com o app numa versão de sandbox ou desenvolvimento e, ao encontrar um problema, não conseguir saber rapidamente ou com facilidade qual foi o erro. Ou estar validando uma release e precisar abrir um ticket sem conseguir dar detalhes concretos, como dizer que, ao entrar na tela da Home, a requisição `app.sandbox.test/home` respondeu `403` com erro de forbidden. Ou ainda não ter um cenário específico pronto no backend, algo bem comum quando se trabalha em uma grande empresa e esbarra em vários empecilhos para gerar cenários sob medida. Se você pudesse mockar na hora, ao menos saberia se o mobile consegue executar conforme o esperado.
-
-Eu realmente não pesquisei muito se já existiam ferramentas antes de fazer para nativos de Android e iOS.
 
 ### O que é a Bugsy?
 
@@ -35,7 +33,7 @@ Nada melhor do que explicar as dores que cada funcionalidade quer resolver para 
 
 <VideoEmbed src="/posts/bugsy/requests.mp4" caption="Inspeção de rede na Bugsy: lista de chamadas com filtros, detalhe da requisição com headers sensíveis mascarados e exportação em cURL" />
 
-- **Feature Flags:** Ter visibilidade rápida das flags do aplicativo para consultar e validar os cenários sem depender de ir em outra ferramenta ou mexer no código. Uma coisa que pensei enquanto escrevo aqui é que seria legal deixar uma linha dando contexto do que a flag faz. Claro que o nome deveria ser claro, afinal clean code, mas não custa ter uma descrição curta com um pouco mais de detalhes.
+- **Feature Flags:** Ter visibilidade rápida das flags do aplicativo para consultar e validar os cenários sem depender de ir em outra ferramenta ou mexer no código (aliás, pensando nisso agora, seria bem útil ter uma linha curta com o contexto do que cada flag faz, mesmo quando o nome já é claro).
 
 <VideoEmbed src="/posts/bugsy/flags.mp4" caption="Feature flags na Bugsy: liga e desliga flags direto no app, com a marcação de override e o botão para resetar todos os overrides" />
 
@@ -49,7 +47,7 @@ Nada melhor do que explicar as dores que cada funcionalidade quer resolver para 
 
 O interceptor entra na jogada capturando as chamadas HTTP automaticamente, sem obrigar você a sair modificando o app inteiro. As últimas requisições ficam guardadas em memória, sem depender de banco de dados. Quando você sacode o aparelho ou toca no botão flutuante, o overlay abre com essas requisições prontas para consulta e exportação em `cURL`, junto com feature flags e informações do dispositivo.
 
-Quando o assunto é segurança e cuidado com o app final, três pontos fazem diferença no dia a dia:
+Depois de ver tudo isso funcionando na prática, surge uma preocupação natural: como garantir que essa facilidade não vire um risco para o app ou para os dados de quem usa? Quando o assunto é segurança e cuidado com o app final, três pontos fazem diferença no dia a dia:
 
 - **Não existe em produção:** O caminho recomendado é usar `debugImplementation` para deixar a biblioteca fora do APK ou IPA de release, com o R8 ou ProGuard limpando qualquer sobra. Além disso, existe uma implementação no-op para cenários específicos ou builds que não usam o fluxo padrão de debug, garantindo uma rede de segurança extra para que nada de debug vaze para o usuário final.
 - **Dados sensíveis mascarados por padrão:** Requisições carregam tokens, cookies, senhas ou dados pessoais o tempo todo. A ideia aqui é esconder o que é sensível antes mesmo de aparecer na tela, com `Authorization` e `Cookie` mascarados por padrão e exigindo uma escolha explícita quando alguém realmente precisar enxergar o valor real.

@@ -11,11 +11,9 @@ readingTime: 6
 
 Throughout my experience working on mobile apps in production, I had the chance to use tools that make day-to-day life easier for developers and QAs. When I started a personal project, that's exactly what I missed: a debugging tool built right into the app, something that went beyond Logcat or external proxies.
 
-That's when I thought about building a library (something I had never done before) that I could reuse in other projects and that, as a bonus, could help make life easier for other people.
+That's when I thought about building a library (something I had never done before) that I could reuse in other projects and that, as a bonus, could help make life easier for other people. Honestly, I didn't research much whether tools like this already existed for native Android and iOS before I started building it.
 
 Imagine running the app in a sandbox or development build and, when you hit a problem, not being able to quickly or easily figure out what the error was. Or validating a release and having to open a ticket without concrete details, like saying that when you opened the Home screen, the `app.sandbox.test/home` request returned a `403` forbidden error. Or not having a specific scenario ready on the backend, which is pretty common at a large company, where you run into all sorts of obstacles to get tailor-made scenarios. If you could mock it on the spot, you'd at least know whether the mobile app behaves as expected.
-
-Honestly, I didn't research much whether tools like this already existed for native Android and iOS before building it.
 
 ### What is Bugsy?
 
@@ -35,7 +33,7 @@ The best way to understand why each feature exists is to explain the pain it's m
 
 <VideoEmbed src="/posts/bugsy/requests.mp4" caption="Network inspection in Bugsy: a list of calls with filters, request details with sensitive headers masked, and cURL export" />
 
-- **Feature flags:** Quick visibility into the app's flags so you can check and validate scenarios without jumping to another tool or touching the code. Something that crossed my mind while writing this is that it would be nice to have a line of context explaining what each flag does. Sure, the name should be clear, clean code and all, but a short description with a bit more detail doesn't hurt.
+- **Feature flags:** Quick visibility into the app's flags so you can check and validate scenarios without jumping to another tool or touching the code (actually, thinking about it now, a short line of context on what each flag does would be really useful, even when the name is already clear).
 
 <VideoEmbed src="/posts/bugsy/flags.mp4" caption="Feature flags in Bugsy: toggling flags right inside the app, with the override marker and a button to reset all overrides" />
 
@@ -49,7 +47,7 @@ The best way to understand why each feature exists is to explain the pain it's m
 
 The interceptor captures HTTP calls automatically, without forcing you to change the whole app. The most recent requests are kept in memory, with no database involved. When you shake the device or tap the floating button, the overlay opens with those requests ready to inspect and export as `cURL`, along with feature flags and device information.
 
-When it comes to security and taking care of the final app, three things make a difference day to day:
+After seeing all of this in action, a natural concern comes up: how do you make sure this convenience doesn't become a risk for the app or for its users' data? When it comes to security and taking care of the final app, three things make a difference day to day:
 
 - **It doesn't exist in production:** The recommended path is to use `debugImplementation` to keep the library out of the release APK or IPA, with R8 or ProGuard cleaning up anything left over. On top of that, there's a no-op implementation for specific scenarios or builds that don't follow the standard debug flow, adding an extra safety net so nothing debug-related leaks to the end user.
 - **Sensitive data masked by default:** Requests carry tokens, cookies, passwords, or personal data all the time. The idea is to hide what's sensitive before it even shows up on screen, with `Authorization` and `Cookie` masked by default and requiring an explicit choice when someone really needs to see the actual value.
