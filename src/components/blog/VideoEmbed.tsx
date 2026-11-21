@@ -20,8 +20,11 @@ export function VideoEmbed({ src, caption, poster, landscape = false }: VideoEmb
           max-width: 320px;
           height: auto;
           margin: 0 auto;
+          border: 1px solid var(--border);
           border-radius: var(--radius-lg);
           background: var(--bg-s);
+          accent-color: var(--accent);
+          color-scheme: dark;
         }
 
         .video-embed video:focus-visible {
