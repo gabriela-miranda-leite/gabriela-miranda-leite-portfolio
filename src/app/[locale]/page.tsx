@@ -4,7 +4,7 @@ import { Hero } from '@/components/home/Hero';
 import { Stats } from '@/components/home/Stats';
 import { RecentPosts } from '@/components/home/RecentPosts';
 import { FeaturedProjects } from '@/components/home/FeaturedProjects';
-import { getAllPosts } from '@/lib/posts';
+import { getVisiblePosts } from '@/lib/post-visibility';
 import { getFeaturedRepos } from '@/lib/github';
 import { websiteJsonLd } from '@/lib/seo';
 import { SITE_URL as baseUrl } from '@/lib/constants';
@@ -44,7 +44,7 @@ export default async function HomePage({ params }: PageProps) {
   const { locale } = await params;
   setRequestLocale(locale);
 
-  const posts = getAllPosts(locale as 'pt' | 'en').slice(0, 3);
+  const posts = (await getVisiblePosts(locale as 'pt' | 'en')).slice(0, 3);
   const repos = await getFeaturedRepos(3);
   const jsonLd = websiteJsonLd(locale);
 

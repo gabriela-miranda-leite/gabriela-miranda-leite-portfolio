@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { Container } from '@/components/layout/Container';
 import { PostList } from '@/components/blog/PostList';
-import { getAllPosts } from '@/lib/posts';
+import { getVisiblePosts } from '@/lib/post-visibility';
 import { SITE_URL as baseUrl } from '@/lib/constants';
 
 type PageProps = { params: Promise<{ locale: string }> };
@@ -47,7 +47,7 @@ export default async function BlogPage({ params }: PageProps) {
   setRequestLocale(locale);
 
   const t = await getTranslations({ locale, namespace: 'blog.listing' });
-  const posts = getAllPosts(locale as 'pt' | 'en');
+  const posts = await getVisiblePosts(locale as 'pt' | 'en');
   const allTags = Array.from(new Set(posts.flatMap((p) => p.tags))).sort();
 
   return (

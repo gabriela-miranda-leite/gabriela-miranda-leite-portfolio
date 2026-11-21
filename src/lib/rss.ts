@@ -1,5 +1,6 @@
 import { SITE_URL } from './constants';
 import { getAllPosts } from './posts';
+import { excludeHiddenPosts, getHiddenPostSlugs } from './post-visibility';
 
 type Locale = 'pt' | 'en';
 
@@ -25,12 +26,12 @@ export function escapeXml(value: string): string {
     .replace(/'/g, '&apos;');
 }
 
-export function buildRssFeed(locale: Locale): string {
+export function buildRssFeed(locale: Locale, hiddenSlugs: string[] = []): string {
   const prefix = locale === 'pt' ? '' : '/en';
   const siteUrl = `${SITE_URL}${prefix}`;
   const feedUrl = `${siteUrl}/feed.xml`;
   const channel = CHANNEL[locale];
-  const posts = getAllPosts(locale);
+  const posts = excludeHiddenPosts(getAllPosts(locale), hiddenSlugs);
 
   const lastBuild = posts.length ? new Date(posts[0].date) : new Date();
 
@@ -70,8 +71,9 @@ ${items}
 `;
 }
 
-export function rssResponse(locale: Locale): Response {
-  return new Response(buildRssFeed(locale), {
+export async function rssResponse(locale: Locale): Promise<Response> {
+  const hiddenSlugs = await getHiddenPostSlugs();
+  return new Response(buildRssFeed(locale, hiddenSlugs), {
     headers: {
       'Content-Type': 'application/rss+xml; charset=utf-8',
       'Cache-Control': 'public, s-maxage=3600, stale-while-revalidate=86400',

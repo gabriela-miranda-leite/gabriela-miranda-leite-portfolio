@@ -8,6 +8,7 @@ import { PostNav } from '@/components/blog/PostNav';
 import { ShareBar } from '@/components/blog/ShareBar';
 import { RssCta } from '@/components/blog/RssCta';
 import { getAllPosts, getPostBySlug } from '@/lib/posts';
+import { getVisiblePosts, isPostVisible } from '@/lib/post-visibility';
 import { blogPostingJsonLd, postShareImageUrl } from '@/lib/seo';
 import { SITE_URL as baseUrl } from '@/lib/constants';
 
@@ -29,6 +30,8 @@ export async function generateStaticParams() {
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { locale, slug } = await params;
+  if (!(await isPostVisible(slug))) return {};
+
   const result = await getPostBySlug(slug, locale as 'pt' | 'en');
 
   if (!result) return {};
@@ -74,12 +77,14 @@ export default async function PostPage({ params }: PageProps) {
   const { locale, slug } = await params;
   setRequestLocale(locale);
 
+  if (!(await isPostVisible(slug))) notFound();
+
   const result = await getPostBySlug(slug, locale as 'pt' | 'en');
   if (!result) notFound();
 
   const { post, content } = result;
 
-  const allPosts = getAllPosts(locale as 'pt' | 'en');
+  const allPosts = await getVisiblePosts(locale as 'pt' | 'en');
   const idx = allPosts.findIndex((p) => p.slug === slug);
   const prev = idx < allPosts.length - 1 ? allPosts[idx + 1] : null;
   const next = idx > 0 ? allPosts[idx - 1] : null;

@@ -20,3 +20,14 @@ export const portfolioShowAbout = flag<boolean>({
   ],
   adapter: vercelAdapter(),
 });
+
+export const portfolioShowBugsy = flag<boolean>({
+  key: 'portfolio_show_bugsy',
+  description: 'Exibe o post da Bugsy no blog, na home, no RSS e no sitemap',
+  defaultValue: false,
+  options: [
+    { value: false, label: 'Oculto' },
+    { value: true, label: 'Visível' },
+  ],
+  adapter: vercelAdapter(),
+});

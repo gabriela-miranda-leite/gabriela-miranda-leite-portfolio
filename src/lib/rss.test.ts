@@ -1,5 +1,7 @@
 import { buildRssFeed, escapeXml } from './rss';
 
+jest.mock('@/flags', () => ({ portfolioShowBugsy: jest.fn() }));
+
 jest.mock('./posts', () => ({
   getAllPosts: jest.fn((locale: string) => [
     {
@@ -33,5 +35,11 @@ describe('rss', () => {
     expect(xml).toContain('<language>en</language>');
     expect(xml).toMatch(/<link>https?:\/\/[^/]+\/en\/blog\/hello<\/link>/);
     expect(xml).toMatch(/href="https?:\/\/[^/]+\/en\/feed\.xml"/);
+  });
+
+  it('leaves hidden posts out of the feed', () => {
+    const xml = buildRssFeed('pt', ['hello']);
+    expect(xml).not.toContain('/blog/hello');
+    expect(xml).not.toContain('<item>');
   });
 });
