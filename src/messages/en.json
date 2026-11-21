@@ -45,6 +45,22 @@
     "next": "Next",
     "rss_cta": "Enjoyed this? <link>Subscribe via RSS</link> so you don't miss the next ones.",
     "translation_pending": "Translation coming soon",
+    "image_zoom": {
+      "open": "Enlarge image",
+      "open_alt": "Enlarge image: {alt}",
+      "dialog": "Enlarged image",
+      "close": "Close",
+      "zoom_in": "Zoom in",
+      "zoom_out": "Zoom out",
+      "reset": "Reset size"
+    },
+    "repo_embed": {
+      "cta": "View on GitHub",
+      "aria": "{name} on GitHub (opens in a new tab)",
+      "stars": "{count, plural, one {# star} other {# stars}}",
+      "forks": "{count, plural, one {# fork} other {# forks}}",
+      "updated": "Updated on {date}"
+    },
     "share": {
       "label": "Share",
       "native": "Pick an app",

@@ -1,0 +1,66 @@
+---
+title: "Bugsy: um overlay de debug que cabe no bolso"
+description: "Como eliminar proxies, certificados e dependência de backend na hora de investigar e testar apps Android e iOS."
+date: "2026-11-21"
+tags: ["kotlin multiplatform", "android", "ios", "debug", "open source"]
+slug: "bugsy"
+readingTime: 6
+---
+
+# Como eliminar proxies, certificados e dependência de backend na hora de investigar e testar apps Android e iOS.
+
+Ao longo da minha experiência trabalhando com apps mobile em produção, tive a oportunidade de ter contato com ferramentas que facilitam o dia a dia de devs e QAs. Quando comecei um projeto pessoal, senti falta justamente disso: uma ferramenta de debug embutida no próprio app, algo que fosse além do Logcat ou de proxies externos.
+
+Foi aí que pensei em construir uma lib (algo que eu nunca tinha feito), que eu pudesse reutilizar em outros projetos e que, de quebra, ajudasse a facilitar a vida de outras pessoas.
+
+Imagine estar com o app numa versão de sandbox ou desenvolvimento e, ao encontrar um problema, não conseguir saber rapidamente ou com facilidade qual foi o erro. Ou estar validando uma release e precisar abrir um ticket sem conseguir dar detalhes concretos, como dizer que, ao entrar na tela da Home, a requisição `app.sandbox.test/home` respondeu `403` com erro de forbidden. Ou ainda não ter um cenário específico pronto no backend, algo bem comum quando se trabalha em uma grande empresa e esbarra em vários empecilhos para gerar cenários sob medida. Se você pudesse mockar na hora, ao menos saberia se o mobile consegue executar conforme o esperado.
+
+Eu realmente não pesquisei muito se já existiam ferramentas antes de fazer para nativos de Android e iOS.
+
+### O que é a Bugsy?
+
+A Bugsy é uma biblioteca Kotlin Multiplatform (Android e iOS) que adiciona um painel de debug embutido no próprio app. Ela funciona como um overlay, uma camada visual flutuante que aparece sobre o app ao agitar o celular, sem substituir a tela aberta, na mesma linha de ferramentas como Chucker e Flipper, com quatro frentes principais: inspeção de requisições de rede em tempo real, mocks de resposta, feature flags e informações do dispositivo.
+
+![Mapa das funcionalidades da Bugsy a partir do app Android/iOS: controlar flags (liga/desliga estados), dados do app (e-mail, documento e outros dados úteis), visualizar requests (detalhes, exportação em .har e mock a partir da request) e mockar requisições (importar/exportar, mock de execução única e configuração de body, header e status)](/posts/bugsy/funcionalidades.png)
+
+Junto das informações do dispositivo, dá para incluir detalhes do usuário que quiserem colocar, como identificador do usuário, email e segmento. Para abrir o overlay na hora, basta chacoalhar o celular, usar o botão flutuante ou tocar na notificação.
+
+<VideoEmbed src="/posts/bugsy/device-data.mp4" caption="Dados do dispositivo e do usuário na Bugsy: identificador, e-mail e documento do usuário, versão do app, ambiente, build, modelo do aparelho e sistema operacional, cada um com botão de copiar" />
+
+### Os Problemas Práticos que a Bugsy Resolve no Dia a Dia
+
+Nada melhor do que explicar as dores que cada funcionalidade quer resolver para entender a existência de cada uma. Então, vale dividir por funcionalidade:
+
+- **Inspeção de rede sem proxy:** Imagina você estar validando seu APK ou IPA e, de repente, dá algum erro. Aí tem algumas saídas: olhar no Datadog ou em alguma ferramenta de monitoramento, ou rodar o aplicativo na IDE para analisar os logs em algum Logcat. Ou você é um QA ou PM e precisa dar detalhes do problema para facilitar a resolução do bug. Com a inspeção embutida, você consegue passar facilmente o `cURL` para o time do backend, por exemplo.
+
+<VideoEmbed src="/posts/bugsy/requests.mp4" caption="Inspeção de rede na Bugsy: lista de chamadas com filtros, detalhe da requisição com headers sensíveis mascarados e exportação em cURL" />
+
+- **Feature Flags:** Ter visibilidade rápida das flags do aplicativo para consultar e validar os cenários sem depender de ir em outra ferramenta ou mexer no código. Uma coisa que pensei enquanto escrevo aqui é que seria legal deixar uma linha dando contexto do que a flag faz. Claro que o nome deveria ser claro, afinal clean code, mas não custa ter uma descrição curta com um pouco mais de detalhes.
+
+<VideoEmbed src="/posts/bugsy/flags.mp4" caption="Feature flags na Bugsy: liga e desliga flags direto no app, com a marcação de override e o botão para resetar todos os overrides" />
+
+- **Mocks de resposta sob demanda:** Imagina você sendo QA ou PM querendo validar um cenário, como saber como o app se comporta se tiver um delay em uma rota ou se aparece uma tela específica de feedback. Ou não ter um cenário pronto no banco de sandbox, mas saber o contrato para não travar o desenvolvimento mobile e conseguir validar uma parte, porque isso não elimina a importância de ter os cenários reais em sandbox, e ganhar tempo. No desenvolvimento a gente até consegue contornar isso com ferramentas externas como o Mockoon, mas ter isso acessível direto no fluxo do app agiliza muito.
+
+<VideoEmbed src="/posts/bugsy/mocks.mp4" caption="Mocks na Bugsy: criação de regras com delay e modo one-shot, importação e exportação de regras e a ativação de cada mock por toggle" />
+
+- **Tela grande com a Bugsy Desktop:** Eu imagino uma pessoa que não queira ficar toda hora sacudindo o celular ou abrindo notificações para acompanhar os resultados da Bugsy na mão. Ou então tirando prints, copiando dados e passando por um app terceiro para mandar as informações para o time. Na tela do computador, acredito que teria um ganho claro de velocidade.
+
+<VideoEmbed src="/posts/bugsy/bugsy-desktop.mp4" caption="Bugsy Desktop: conexão com o app via QR code, e acompanhamento de requisições, mocks, flags e dados do dispositivo na tela do computador" landscape />
+
+O interceptor entra na jogada capturando as chamadas HTTP automaticamente, sem obrigar você a sair modificando o app inteiro. As últimas requisições ficam guardadas em memória, sem depender de banco de dados. Quando você sacode o aparelho ou toca no botão flutuante, o overlay abre com essas requisições prontas para consulta e exportação em `cURL`, junto com feature flags e informações do dispositivo.
+
+Quando o assunto é segurança e cuidado com o app final, três pontos fazem diferença no dia a dia:
+
+- **Não existe em produção:** O caminho recomendado é usar `debugImplementation` para deixar a biblioteca fora do APK ou IPA de release, com o R8 ou ProGuard limpando qualquer sobra. Além disso, existe uma implementação no-op para cenários específicos ou builds que não usam o fluxo padrão de debug, garantindo uma rede de segurança extra para que nada de debug vaze para o usuário final.
+- **Dados sensíveis mascarados por padrão:** Requisições carregam tokens, cookies, senhas ou dados pessoais o tempo todo. A ideia aqui é esconder o que é sensível antes mesmo de aparecer na tela, com `Authorization` e `Cookie` mascarados por padrão e exigindo uma escolha explícita quando alguém realmente precisar enxergar o valor real.
+- **Tudo fica local:** A biblioteca não faz chamada de rede própria, não manda telemetria nem analytics e não grava histórico em disco. O que fica em memória vai embora quando o processo encerra.
+
+Esse cuidado também ajuda a evitar dores de cabeça com segurança mobile logo de cara, sem precisar virar um manual técnico nesta primeira conversa. Nos próximos artigos da série, quero entrar mais a fundo tanto na parte de segurança e prevenção de vazamentos quanto na arquitetura Kotlin Multiplatform por trás disso tudo. Além disso, também quero evoluir a biblioteca para dar suporte a React Native e Flutter.
+
+A Bugsy começou como algo para facilitar meus próprios projetos e acabou virando uma ferramenta que eu queria deixar aberta para ajudar mais gente no dia a dia. Ainda tem muita coisa para ser construída. Um ponto importante é que ela foi construída com ajuda de IA, especificamente o Claude Code, apoiando na criação de tasks no Jira e na implementação do que eu idealizei, sempre com revisão humana. Pretendo escrever de forma mais técnica sobre como ela funciona para trazer mais clareza depois, mas acredito que este primeiro texto tinha que explicar a motivação da existência dela.
+
+Para encontrar a Bugsy: ela é uma lib que está no Maven Central e no GitHub:
+
+<RepoEmbed repo="bugsy" />
+
+E por aí, o que mais toma tempo na hora de debugar ou validar um fluxo no mobile hoje?
