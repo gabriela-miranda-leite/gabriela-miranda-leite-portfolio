@@ -1,4 +1,5 @@
-import { fireEvent, render, screen } from '@testing-library/react';
+import { StrictMode } from 'react';
+import { act, fireEvent, render, screen } from '@testing-library/react';
 import { axe, toHaveNoViolations } from 'jest-axe';
 import { ZoomableImage } from './ZoomableImage';
 
@@ -28,7 +29,8 @@ beforeAll(() => {
   };
   HTMLDialogElement.prototype.close = function close(this: HTMLDialogElement) {
     this.removeAttribute('open');
-    this.dispatchEvent(new Event('close'));
+    // Browsers fire `close` asynchronously, after the current task
+    setTimeout(() => this.dispatchEvent(new Event('close')), 0);
   };
   Object.defineProperty(HTMLElement.prototype, 'offsetWidth', { configurable: true, value: 400 });
   Object.defineProperty(HTMLElement.prototype, 'offsetHeight', { configurable: true, value: 300 });
@@ -66,6 +68,20 @@ describe('ZoomableImage', () => {
 
     fireEvent.click(screen.getByRole('button', { name: 'close' }));
     expect(screen.queryByRole('dialog')).not.toBeInTheDocument();
+  });
+
+  it('stays open under StrictMode, whose simulated unmount must not close it', async () => {
+    render(
+      <StrictMode>
+        <ZoomableImage src="/posts/x/img.png" alt={alt} />
+      </StrictMode>,
+    );
+    fireEvent.click(screen.getByRole('button', { name: `open_alt: ${alt}` }));
+    await act(async () => {
+      await new Promise((resolve) => setTimeout(resolve, 10));
+    });
+
+    expect(screen.getByRole('dialog')).toBeInTheDocument();
   });
 
   it('renders the lightbox outside the paragraph markdown wraps images in', () => {

@@ -73,9 +73,11 @@ function Lightbox({ src, alt, onClose }: { src: string; alt: string; onClose: ()
     if (!dialog.open) dialog.showModal();
     const previousOverflow = document.body.style.overflow;
     document.body.style.overflow = 'hidden';
+    // No dialog.close() here: its async `close` event would fire onClose after StrictMode's
+    // simulated remount and shut the lightbox right after opening. Unmounting already
+    // removes the dialog from the top layer.
     return () => {
       document.body.style.overflow = previousOverflow;
-      if (dialog.open) dialog.close();
     };
   }, []);
 
