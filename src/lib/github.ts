@@ -53,6 +53,7 @@ const PINNED_QUERY = `
             url
             stargazerCount
             forkCount
+            createdAt
             pushedAt
             isFork
             isArchived
@@ -73,6 +74,7 @@ interface PinnedNode {
   url: string;
   stargazerCount: number;
   forkCount: number;
+  createdAt: string;
   pushedAt: string;
   isFork: boolean;
   isArchived: boolean;
@@ -112,6 +114,7 @@ export async function getPinnedRepos(): Promise<GithubRepo[]> {
         language: n.primaryLanguage?.name ?? null,
         stargazers_count: n.stargazerCount,
         forks_count: n.forkCount,
+        created_at: n.createdAt,
         pushed_at: n.pushedAt,
         topics: n.repositoryTopics.nodes.map((t) => t.topic.name),
       }));

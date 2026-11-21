@@ -63,4 +63,35 @@ describe('PostCard', () => {
     const results = await axe(container);
     expect(results).toHaveNoViolations();
   });
+
+  describe('freshness label', () => {
+    const NOW = Date.parse('2026-11-21T12:00:00Z');
+
+    beforeEach(() => jest.spyOn(Date, 'now').mockReturnValue(NOW));
+    afterEach(() => jest.restoreAllMocks());
+
+    it('marks a post published this week as new and ties it to the link', () => {
+      render(<PostCard post={{ ...mockPost, date: '2026-11-18' }} />);
+      const badge = screen.getByText('new');
+
+      expect(screen.getByRole('link')).toHaveAttribute('aria-describedby', badge.id);
+    });
+
+    it('shows the label even when the post has no tags', () => {
+      render(<PostCard post={{ ...mockPost, tags: [], date: '2026-11-18' }} />);
+      expect(screen.getByText('new')).toBeInTheDocument();
+    });
+
+    it('drops the label after a week', () => {
+      render(<PostCard post={{ ...mockPost, date: '2026-11-10' }} />);
+
+      expect(screen.queryByText('new')).not.toBeInTheDocument();
+      expect(screen.getByRole('link')).not.toHaveAttribute('aria-describedby');
+    });
+
+    it('has no accessibility violations with a label', async () => {
+      const { container } = render(<PostCard post={{ ...mockPost, date: '2026-11-18' }} />);
+      expect(await axe(container)).toHaveNoViolations();
+    });
+  });
 });

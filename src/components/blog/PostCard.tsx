@@ -1,8 +1,11 @@
 'use client';
 
+import { useId } from 'react';
 import { useTranslations } from 'next-intl';
 import { Link } from '@/i18n/navigation';
+import { FreshBadge } from '@/components/ui/FreshBadge';
 import { trackEvent } from '@/lib/analytics';
+import { useFreshness } from '@/lib/freshness';
 import type { Post } from '@/types/post';
 
 interface PostCardProps {
@@ -11,12 +14,15 @@ interface PostCardProps {
 
 export function PostCard({ post }: PostCardProps) {
   const t = useTranslations('blog');
+  const fresh = useFreshness(post.date);
+  const badgeId = useId();
 
   return (
     <Link
       href={`/blog/${post.slug}`}
       onClick={() => trackEvent({ screen: 'blog', action: 'button_clicked', reference: `Abriu o post ${post.slug}` })}
       aria-label={`${post.title} — ${t('listing.read_more')}`}
+      aria-describedby={fresh ? badgeId : undefined}
       className="post-card"
       style={{
         display: 'flex',
@@ -30,9 +36,10 @@ export function PostCard({ post }: PostCardProps) {
         color: 'inherit',
       }}
     >
-      {/* Tags */}
-      {post.tags.length > 0 && (
-        <div style={{ display: 'flex', gap: 'var(--space-3)', flexWrap: 'wrap' }}>
+      {/* Freshness + tags */}
+      {(fresh || post.tags.length > 0) && (
+        <div style={{ display: 'flex', gap: 'var(--space-3)', flexWrap: 'wrap', alignItems: 'center' }}>
+          {fresh && <FreshBadge kind={fresh} id={badgeId} />}
           {post.tags.slice(0, 3).map((tag) => (
             <span
               key={tag}

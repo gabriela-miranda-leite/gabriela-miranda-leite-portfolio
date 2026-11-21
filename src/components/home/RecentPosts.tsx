@@ -3,11 +3,18 @@
 import { useTranslations } from 'next-intl';
 import { Link } from '@/i18n/navigation';
 import { Container } from '@/components/layout/Container';
+import { FreshBadge } from '@/components/ui/FreshBadge';
 import { trackEvent } from '@/lib/analytics';
+import { useFreshness } from '@/lib/freshness';
 import type { Post } from '@/types/post';
 
 interface RecentPostsProps {
   posts: Post[];
+}
+
+function PostFreshBadge({ date }: { date: string }) {
+  const fresh = useFreshness(date);
+  return fresh ? <FreshBadge kind={fresh} /> : null;
 }
 
 export function RecentPosts({ posts }: RecentPostsProps) {
@@ -103,7 +110,7 @@ export function RecentPosts({ posts }: RecentPostsProps) {
                   margin: '0 0 var(--space-4)',
                 }}
               >
-                {post.title}
+                {post.title} <PostFreshBadge date={post.date} />
               </p>
               <p
                 style={{
