@@ -5,7 +5,7 @@ import { Stats } from '@/components/home/Stats';
 import { RecentPosts } from '@/components/home/RecentPosts';
 import { FeaturedProjects } from '@/components/home/FeaturedProjects';
 import { getAllPosts } from '@/lib/posts';
-import { getRepos } from '@/lib/github';
+import { getFeaturedRepos } from '@/lib/github';
 import { websiteJsonLd } from '@/lib/seo';
 import { SITE_URL as baseUrl } from '@/lib/constants';
 import { getCareerYears } from '@/lib/experience';
@@ -45,7 +45,7 @@ export default async function HomePage({ params }: PageProps) {
   setRequestLocale(locale);
 
   const posts = getAllPosts(locale as 'pt' | 'en').slice(0, 3);
-  const repos = (await getRepos()).slice(0, 3);
+  const repos = await getFeaturedRepos(3);
   const jsonLd = websiteJsonLd(locale);
 
   return (

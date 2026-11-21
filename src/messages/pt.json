@@ -45,6 +45,25 @@
     "next": "Próximo",
     "rss_cta": "Gostou? <link>Assine o RSS</link> para não perder os próximos.",
     "translation_pending": "Tradução em breve",
+    "video": {
+      "controls": "Controles do vídeo",
+      "play": "Reproduzir vídeo",
+      "pause": "Pausar vídeo",
+      "seek": "Posição do vídeo",
+      "seek_value": "{current} de {total}",
+      "speed": "Velocidade de reprodução",
+      "fullscreen": "Tela cheia",
+      "exit_fullscreen": "Sair da tela cheia"
+    },
+    "image_zoom": {
+      "open": "Ampliar imagem",
+      "open_alt": "Ampliar imagem: {alt}",
+      "dialog": "Imagem ampliada",
+      "close": "Fechar",
+      "zoom_in": "Aumentar zoom",
+      "zoom_out": "Diminuir zoom",
+      "reset": "Restaurar tamanho"
+    },
     "share": {
       "label": "Compartilhar",
       "native": "Escolher app",
@@ -72,6 +91,13 @@
       "no_results": "Nenhum post encontrado.",
       "read_more": "Ler post"
     }
+  },
+  "repo_card": {
+    "cta": "Ver no GitHub",
+    "aria": "{name} no GitHub (abre em nova aba)",
+    "stars": "{count, plural, one {# estrela} other {# estrelas}}",
+    "forks": "{count, plural, one {# fork} other {# forks}}",
+    "updated": "Atualizado em {date}"
   },
   "projects": {
     "repos": "Repositórios",

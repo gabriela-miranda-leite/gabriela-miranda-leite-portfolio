@@ -226,16 +226,6 @@
   .post-row-tag { justify-self: start; }
 }
 
-/* Project cards — icon beside the text on mobile, tags/stars on their own full-width row */
-@media (max-width: 639px) {
-  .project-card {
-    display: grid !important;
-    grid-template-columns: var(--space-17) minmax(0, 1fr);
-    align-items: start !important;
-  }
-  .project-card-footer { grid-column: 1 / -1; }
-}
-
 /* Stats — stacked on mobile, three columns with dividers from 640px */
 .stats-list {
   display: flex;
@@ -498,16 +488,6 @@ body {
 }
 .post-card:hover .post-card-title { color: var(--accent) !important; }
 
-/* ProjectCard */
-.project-card {
-  transition: transform 0.18s ease, border-color 0.18s ease !important;
-}
-.project-card:hover {
-  transform: translateY(-2px);
-  border-color: var(--fg-3) !important;
-}
-.project-card:hover .project-card-arrow { color: var(--fg) !important; }
-
 /* Nav links */
 .nav-link { transition: color 0.12s ease, background 0.12s ease; }
 .nav-link:hover { color: var(--fg) !important; background: var(--bg-s) !important; }
@@ -589,6 +569,12 @@ body {
   white-space: nowrap;
   transition: border-color 0.15s ease, color 0.15s ease, background 0.15s ease, transform 0.15s ease;
 }
+/* Label on its own row; pills share each row evenly so a wrap never leaves one orphaned */
+.share-bar-label { flex: 0 0 100%; }
+.share-bar .share-pill {
+  flex: 1 1 auto;
+  justify-content: center;
+}
 .share-pill:hover {
   border-color: var(--fg-2);
   color: var(--fg);
@@ -598,4 +584,274 @@ body {
   border-color: var(--accent) !important;
   background: var(--acc-a) !important;
   color: var(--accent) !important;
+}
+
+/* Blog image lightbox — click an image in a post to zoom/pan it over a blurred page */
+.zoomable-trigger {
+  display: block;
+  width: fit-content;
+  max-width: 100%;
+  margin: var(--space-10) 0;
+  padding: 0;
+  border: 0;
+  background: none;
+  border-radius: var(--radius-lg);
+  cursor: zoom-in;
+}
+.prose .zoomable-trigger img {
+  display: block;
+  margin: 0;
+}
+.zoomable-trigger:focus-visible,
+.lightbox-btn:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.lightbox {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  max-height: none;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--fg);
+  overflow: hidden;
+}
+.lightbox::backdrop {
+  background: color-mix(in srgb, var(--bg) 70%, transparent);
+  -webkit-backdrop-filter: blur(14px);
+  backdrop-filter: blur(14px);
+}
+.lightbox-stage {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overscroll-behavior: contain;
+  touch-action: none;
+}
+.lightbox-img {
+  max-width: calc(100% - 2 * var(--space-10));
+  max-height: 86vh;
+  object-fit: contain;
+  border-radius: var(--radius-lg);
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: none;
+  cursor: zoom-in;
+}
+.lightbox-img[data-zoomed='true'] {
+  cursor: grab;
+}
+.lightbox-img[data-zoomed='true']:active {
+  cursor: grabbing;
+}
+.lightbox-toolbar {
+  position: absolute;
+  top: var(--space-10);
+  right: var(--space-10);
+  max-width: calc(100% - 2 * var(--space-10));
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-end;
+  gap: var(--space-5);
+}
+.lightbox-zoom-level {
+  min-width: 4ch;
+  text-align: center;
+  font-family: var(--font-mono);
+  font-size: var(--text-eyebrow);
+  color: var(--fg-2);
+}
+.lightbox-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 44px;
+  min-height: 44px;
+  padding: 0;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-pill);
+  background: var(--bg-s);
+  color: var(--fg);
+  cursor: pointer;
+}
+.lightbox-btn:hover:not(:disabled) {
+  border-color: var(--fg-2);
+}
+.lightbox-btn:disabled {
+  color: var(--fg-2);
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+/* Blog video player — native <video> with blog-styled controls (native ones ship until hydrated) */
+.video-embed {
+  margin: var(--space-10) 0;
+}
+.video-embed-player {
+  max-width: 320px;
+  margin: 0 auto;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  background: var(--bg-s);
+  overflow: hidden;
+  accent-color: var(--accent);
+  color-scheme: dark;
+}
+:root[data-theme="light"] .video-embed-player {
+  color-scheme: light;
+}
+@media (prefers-color-scheme: light) {
+  :root:not([data-theme="dark"]) .video-embed-player {
+    color-scheme: light;
+  }
+}
+.video-embed--landscape .video-embed-player {
+  max-width: 100%;
+}
+.video-embed-screen {
+  position: relative;
+  line-height: 0;
+}
+.video-embed video {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+  background: var(--bg-s);
+}
+.video-embed video:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: -2px;
+}
+.video-embed-badge {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+  color: var(--accent);
+}
+.video-embed-badge svg {
+  width: 56px;
+  height: 56px;
+  padding: var(--space-8);
+  border: 1px solid var(--border);
+  border-radius: 50%;
+  background: color-mix(in srgb, var(--bg) 70%, transparent);
+}
+.video-embed-controls {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  padding: var(--space-5);
+  border-top: 1px solid var(--border);
+}
+.video-embed-seek {
+  width: 100%;
+  min-height: 24px;
+  margin: 0;
+  cursor: pointer;
+}
+.video-embed-seek:disabled {
+  cursor: not-allowed;
+}
+.video-embed-row {
+  display: flex;
+  align-items: center;
+  gap: var(--space-5);
+}
+.video-embed-time {
+  flex: 1;
+  min-width: 0;
+  font-family: var(--font-mono);
+  font-size: var(--text-eyebrow);
+  color: var(--fg-2);
+  white-space: nowrap;
+}
+.video-embed-btn,
+.video-embed-speed {
+  min-height: 44px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-pill);
+  background: var(--bg);
+  color: var(--fg);
+  cursor: pointer;
+}
+.video-embed-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 44px;
+  padding: 0;
+}
+.video-embed-speed-wrap {
+  position: relative;
+  display: inline-flex;
+}
+.video-embed-speed {
+  -webkit-appearance: none;
+  appearance: none;
+  padding: 0 calc(var(--space-10) + var(--space-8)) 0 var(--space-10);
+  font-family: var(--font-mono);
+  font-size: var(--text-eyebrow);
+}
+.video-embed-speed-caret {
+  position: absolute;
+  top: 50%;
+  right: var(--space-8);
+  transform: translateY(-50%);
+  color: var(--fg-2);
+  pointer-events: none;
+}
+.video-embed-btn:hover,
+.video-embed-speed:hover {
+  border-color: var(--fg-2);
+}
+.video-embed-btn:focus-visible,
+.video-embed-speed:focus-visible,
+.video-embed-seek:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+.video-embed figcaption {
+  max-width: 320px;
+  margin: var(--space-3) auto 0;
+  font-size: var(--text-sm);
+  line-height: var(--leading-sm);
+  color: var(--fg-2);
+}
+.video-embed--landscape figcaption {
+  max-width: 100%;
+}
+
+/* GitHub repo card — one look for the blog embed, the home and the projects grid */
+.repo-card {
+  min-width: 0;
+  max-width: 100%;
+  margin: var(--space-10) 0;
+}
+.repo-card--fill {
+  margin: 0;
+}
+.repo-card:hover {
+  border-color: var(--accent);
+}
+.repo-card:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .repo-card {
+    transition: border-color 0.15s ease;
+  }
 }
