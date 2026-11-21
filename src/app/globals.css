@@ -10,6 +10,10 @@
   --fg-3:    #343430;
   --accent:  #CCFF00;
   --acc-a:   rgba(204, 255, 0, 0.11);
+  --new:  #FF9A3C;
+  --new-a:  rgba(255, 154, 60, 0.11);
+  --updated:  #4DB8FF;
+  --updated-a:  rgba(77, 184, 255, 0.11);
   --border:  #232320;
 
   /* Typography — families */
@@ -81,6 +85,10 @@
     --fg-3:   #AEAEAD;
     --accent: #415200;
     --acc-a:  rgba(65, 82, 0, 0.11);
+    --new: #8A3A00;
+    --new-a: rgba(138, 58, 0, 0.11);
+    --updated: #0A4A8C;
+    --updated-a: rgba(10, 74, 140, 0.11);
     --border: #D2D2CC;
   }
 }
@@ -95,6 +103,10 @@
   --fg-3:   #AEAEAD;
   --accent: #415200;
   --acc-a:  rgba(65, 82, 0, 0.11);
+  --new: #8A3A00;
+  --new-a: rgba(138, 58, 0, 0.11);
+  --updated: #0A4A8C;
+  --updated-a: rgba(10, 74, 140, 0.11);
   --border: #D2D2CC;
 }
 
@@ -107,6 +119,10 @@
   --fg-3:    #343430;
   --accent:  #CCFF00;
   --acc-a:   rgba(204, 255, 0, 0.11);
+  --new:  #FF9A3C;
+  --new-a:  rgba(255, 154, 60, 0.11);
+  --updated:  #4DB8FF;
+  --updated-a:  rgba(77, 184, 255, 0.11);
   --border:  #232320;
 }
 
