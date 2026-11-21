@@ -92,6 +92,10 @@
       "read_more": "Read post"
     }
   },
+  "freshness": {
+    "new": "New",
+    "updated": "Updated"
+  },
   "repo_card": {
     "cta": "View on GitHub",
     "aria": "{name} on GitHub (opens in a new tab)",

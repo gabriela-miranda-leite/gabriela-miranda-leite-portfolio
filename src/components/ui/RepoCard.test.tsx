@@ -5,6 +5,9 @@ import { trackEvent } from '@/lib/analytics';
 import type { GithubRepo } from '@/types/project';
 
 jest.mock('@/lib/analytics', () => ({ trackEvent: jest.fn() }));
+jest.mock('next-intl', () => ({
+  useTranslations: () => (key: string) => key,
+}));
 
 expect.extend(toHaveNoViolations);
 
@@ -110,6 +113,41 @@ describe('RepoCard', () => {
 
     rerender(<RepoCard repo={repo} href={href} labels={labels} fill />);
     expect(screen.getByRole('link')).toHaveClass('repo-card--fill');
+  });
+
+  describe('freshness label', () => {
+    const NOW = Date.parse('2026-11-21T12:00:00Z');
+    const daysAgo = (d: number) => new Date(NOW - d * 24 * 60 * 60 * 1000).toISOString();
+
+    beforeEach(() => jest.spyOn(Date, 'now').mockReturnValue(NOW));
+    afterEach(() => jest.restoreAllMocks());
+
+    it('marks a repo created this week as new and ties it to the link', () => {
+      render(<RepoCard repo={{ ...repo, created_at: daysAgo(2), pushed_at: daysAgo(1) }} href={href} labels={labels} />);
+      const badge = screen.getByText('new');
+
+      expect(screen.getByRole('link')).toHaveAttribute('aria-describedby', badge.id);
+    });
+
+    it('marks an older repo pushed this week as updated', () => {
+      render(<RepoCard repo={{ ...repo, created_at: daysAgo(90), pushed_at: daysAgo(2) }} href={href} labels={labels} />);
+      expect(screen.getByText('updated')).toBeInTheDocument();
+    });
+
+    it('shows no label for a repo untouched for more than a week', () => {
+      render(<RepoCard repo={{ ...repo, created_at: daysAgo(90), pushed_at: daysAgo(10) }} href={href} labels={labels} />);
+
+      expect(screen.queryByText('new')).not.toBeInTheDocument();
+      expect(screen.queryByText('updated')).not.toBeInTheDocument();
+      expect(screen.getByRole('link')).not.toHaveAttribute('aria-describedby');
+    });
+
+    it('has no accessibility violations with a label', async () => {
+      const { container } = render(
+        <RepoCard repo={{ ...repo, created_at: daysAgo(2), pushed_at: daysAgo(1) }} href={href} labels={labels} />,
+      );
+      expect(await axe(container)).toHaveNoViolations();
+    });
   });
 
   it('has no accessibility violations', async () => {

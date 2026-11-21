@@ -1,6 +1,7 @@
 import React from 'react';
 
 interface ChipProps {
+  id?: string;
   label: string;
   selected?: boolean;
   onClick?: () => void;
@@ -21,7 +22,7 @@ const chipStyle = (selected: boolean): React.CSSProperties => ({
   border: selected ? '1px solid var(--accent)' : '1px solid var(--border)',
 });
 
-export function Chip({ label, selected = false, onClick, className = '' }: ChipProps) {
+export function Chip({ id, label, selected = false, onClick, className = '' }: ChipProps) {
   const interactive = Boolean(onClick);
 
   if (interactive) {
@@ -39,7 +40,7 @@ export function Chip({ label, selected = false, onClick, className = '' }: ChipP
   }
 
   return (
-    <span className={className} style={chipStyle(selected)}>
+    <span id={id} className={className} style={chipStyle(selected)}>
       {label}
     </span>
   );

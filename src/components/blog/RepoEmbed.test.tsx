@@ -4,6 +4,9 @@ import { RepoEmbed } from './RepoEmbed';
 import { getRepo } from '@/lib/github';
 import type { GithubRepo } from '@/types/project';
 
+jest.mock('next-intl', () => ({
+  useTranslations: () => (key: string) => key,
+}));
 jest.mock('next-intl/server', () => ({
   getLocale: async () => 'pt',
   getTranslations: async () => (key: string, values?: Record<string, unknown>) =>
@@ -62,6 +65,15 @@ describe('RepoEmbed', () => {
     const link = screen.getByRole('link');
     expect(link).toHaveAttribute('href', 'https://github.com/gabriela-miranda-leite/bugsy');
     expect(link).toHaveTextContent('gabriela-miranda-leite/bugsy');
+  });
+
+  it('labels a repo that was pushed this week', async () => {
+    jest.spyOn(Date, 'now').mockReturnValue(Date.parse('2026-11-21T12:00:00Z'));
+    getRepoMock.mockResolvedValue({ ...repo, created_at: '2026-01-01T00:00:00Z', pushed_at: '2026-11-20T00:00:00Z' });
+    render(await RepoEmbed({ repo: 'bugsy' }));
+
+    expect(screen.getByText('updated')).toBeInTheDocument();
+    jest.restoreAllMocks();
   });
 
   it('has no accessibility violations', async () => {

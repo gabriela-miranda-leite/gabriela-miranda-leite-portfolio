@@ -55,4 +55,26 @@ describe('RecentPosts', () => {
     const { container } = render(<RecentPosts posts={POSTS} />);
     expect(await axe(container)).toHaveNoViolations();
   });
+
+  describe('freshness label', () => {
+    const NOW = Date.parse('2026-11-21T12:00:00Z');
+
+    beforeEach(() => jest.spyOn(Date, 'now').mockReturnValue(NOW));
+    afterEach(() => jest.restoreAllMocks());
+
+    it('marks only posts published within the last week as new', () => {
+      const posts: Post[] = [
+        { ...POSTS[0], date: '2026-11-18' },
+        { ...POSTS[1], date: '2026-10-01' },
+      ];
+      const { getAllByText } = render(<RecentPosts posts={posts} />);
+
+      expect(getAllByText('new')).toHaveLength(1);
+    });
+
+    it('has no accessibility violations with a label', async () => {
+      const { container } = render(<RecentPosts posts={[{ ...POSTS[0], date: '2026-11-18' }]} />);
+      expect(await axe(container)).toHaveNoViolations();
+    });
+  });
 });
