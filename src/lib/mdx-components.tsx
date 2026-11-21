@@ -2,6 +2,7 @@ import type { MDXComponents } from 'mdx/types';
 import { CodeBlock } from '@/components/ui/CodeBlock';
 import { VideoEmbed } from '@/components/blog/VideoEmbed';
 import { RepoEmbed } from '@/components/blog/RepoEmbed';
+import { ZoomableImage } from '@/components/blog/ZoomableImage';
 
 type PreProps = React.ComponentPropsWithoutRef<'pre'>;
 
@@ -17,4 +18,5 @@ export const mdxComponents: MDXComponents = {
   pre: Pre,
   VideoEmbed,
   RepoEmbed,
+  img: ZoomableImage,
 };

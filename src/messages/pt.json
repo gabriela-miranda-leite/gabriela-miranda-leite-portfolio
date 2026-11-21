@@ -45,6 +45,15 @@
     "next": "Próximo",
     "rss_cta": "Gostou? <link>Assine o RSS</link> para não perder os próximos.",
     "translation_pending": "Tradução em breve",
+    "image_zoom": {
+      "open": "Ampliar imagem",
+      "open_alt": "Ampliar imagem: {alt}",
+      "dialog": "Imagem ampliada",
+      "close": "Fechar",
+      "zoom_in": "Aumentar zoom",
+      "zoom_out": "Diminuir zoom",
+      "reset": "Restaurar tamanho"
+    },
     "repo_embed": {
       "cta": "Ver no GitHub",
       "aria": "{name} no GitHub (abre em nova aba)",
