@@ -589,6 +589,12 @@ body {
   white-space: nowrap;
   transition: border-color 0.15s ease, color 0.15s ease, background 0.15s ease, transform 0.15s ease;
 }
+/* Label on its own row; pills share each row evenly so a wrap never leaves one orphaned */
+.share-bar-label { flex: 0 0 100%; }
+.share-bar .share-pill {
+  flex: 1 1 auto;
+  justify-content: center;
+}
 .share-pill:hover {
   border-color: var(--fg-2);
   color: var(--fg);
