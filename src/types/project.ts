@@ -6,6 +6,7 @@ export interface GithubRepo {
   html_url: string;
   language: string | null;
   stargazers_count: number;
+  forks_count?: number;
   pushed_at: string;
   topics: string[];
   fork?: boolean;
