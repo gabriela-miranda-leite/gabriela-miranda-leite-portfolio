@@ -1,6 +1,6 @@
 import { getLocale, getTranslations } from 'next-intl/server';
 import { getGithubUsername, getRepo } from '@/lib/github';
-import { RepoEmbedCard } from './RepoEmbedCard';
+import { RepoCard } from '@/components/ui/RepoCard';
 
 interface RepoEmbedProps {
   repo: string;
@@ -9,7 +9,7 @@ interface RepoEmbedProps {
 const GITHUB_URL_PREFIX = 'https://github.com/';
 
 export async function RepoEmbed({ repo: name }: RepoEmbedProps) {
-  const [data, t, locale] = await Promise.all([getRepo(name), getTranslations('blog.repo_embed'), getLocale()]);
+  const [data, t, locale] = await Promise.all([getRepo(name), getTranslations('repo_card'), getLocale()]);
   const fallbackHref = `${GITHUB_URL_PREFIX}${getGithubUsername()}/${encodeURIComponent(name)}`;
 
   if (!data) {
@@ -28,7 +28,7 @@ export async function RepoEmbed({ repo: name }: RepoEmbedProps) {
   );
 
   return (
-    <RepoEmbedCard
+    <RepoCard
       repo={{ ...data, topics: data.topics ?? [] }}
       href={href}
       labels={{

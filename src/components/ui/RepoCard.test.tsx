@@ -1,6 +1,6 @@
 import { fireEvent, render, screen } from '@testing-library/react';
 import { axe, toHaveNoViolations } from 'jest-axe';
-import { RepoEmbedCard } from './RepoEmbedCard';
+import { RepoCard } from './RepoCard';
 import { trackEvent } from '@/lib/analytics';
 import type { GithubRepo } from '@/types/project';
 
@@ -31,9 +31,11 @@ const labels = {
 
 const href = repo.html_url;
 
-describe('RepoEmbedCard', () => {
+describe('RepoCard', () => {
+  beforeEach(() => jest.clearAllMocks());
+
   it('links to the repo in a new tab with an accessible name', () => {
-    render(<RepoEmbedCard repo={repo} href={href} labels={labels} />);
+    render(<RepoCard repo={repo} href={href} labels={labels} />);
     const link = screen.getByRole('link', { name: labels.aria });
 
     expect(link).toHaveAttribute('href', href);
@@ -42,7 +44,7 @@ describe('RepoEmbedCard', () => {
   });
 
   it('shows name, description, stats and call to action', () => {
-    render(<RepoEmbedCard repo={repo} href={href} labels={labels} />);
+    render(<RepoCard repo={repo} href={href} labels={labels} />);
 
     expect(screen.getByText('gabriela-miranda-leite/bugsy')).toBeInTheDocument();
     expect(screen.getByText(repo.description as string)).toBeInTheDocument();
@@ -53,7 +55,7 @@ describe('RepoEmbedCard', () => {
   });
 
   it('shows the language chip once, even when it is also a topic', () => {
-    render(<RepoEmbedCard repo={repo} href={href} labels={labels} />);
+    render(<RepoCard repo={repo} href={href} labels={labels} />);
 
     expect(screen.getAllByText('Kotlin')).toHaveLength(1);
     expect(screen.getByText('debug')).toBeInTheDocument();
@@ -61,7 +63,7 @@ describe('RepoEmbedCard', () => {
 
   it('caps the number of topic chips', () => {
     const topics = Array.from({ length: 12 }, (_, i) => `topic-${i}`);
-    render(<RepoEmbedCard repo={{ ...repo, topics }} href={href} labels={labels} />);
+    render(<RepoCard repo={{ ...repo, topics }} href={href} labels={labels} />);
 
     expect(screen.getByText('topic-4')).toBeInTheDocument();
     expect(screen.queryByText('topic-5')).not.toBeInTheDocument();
@@ -69,7 +71,7 @@ describe('RepoEmbedCard', () => {
 
   it('hides stars and forks when they are zero', () => {
     render(
-      <RepoEmbedCard
+      <RepoCard
         repo={{ ...repo, stargazers_count: 0, forks_count: 0 }}
         href={href}
         labels={labels}
@@ -80,17 +82,38 @@ describe('RepoEmbedCard', () => {
     expect(screen.queryByText(labels.forks)).not.toBeInTheDocument();
   });
 
-  it('tracks the click', () => {
-    render(<RepoEmbedCard repo={repo} href={href} labels={labels} />);
+  it('tracks the click against the blog by default', () => {
+    render(<RepoCard repo={repo} href={href} labels={labels} />);
     fireEvent.click(screen.getByRole('link'));
 
-    expect(trackEvent).toHaveBeenCalledWith(
-      expect.objectContaining({ screen: 'blog', action: 'button_clicked' }),
-    );
+    expect(trackEvent).toHaveBeenCalledWith({
+      screen: 'blog',
+      action: 'button_clicked',
+      reference: 'Abriu o repositório bugsy',
+    });
+  });
+
+  it('tracks the click against the screen it is rendered on', () => {
+    render(<RepoCard repo={repo} href={href} labels={labels} screen="home" />);
+    fireEvent.click(screen.getByRole('link'));
+
+    expect(trackEvent).toHaveBeenCalledWith({
+      screen: 'home',
+      action: 'button_clicked',
+      reference: 'Abriu o projeto bugsy',
+    });
+  });
+
+  it('drops the vertical margin when it fills a grid', () => {
+    const { rerender } = render(<RepoCard repo={repo} href={href} labels={labels} />);
+    expect(screen.getByRole('link')).not.toHaveClass('repo-card--fill');
+
+    rerender(<RepoCard repo={repo} href={href} labels={labels} fill />);
+    expect(screen.getByRole('link')).toHaveClass('repo-card--fill');
   });
 
   it('has no accessibility violations', async () => {
-    const { container } = render(<RepoEmbedCard repo={repo} href={href} labels={labels} />);
+    const { container } = render(<RepoCard repo={repo} href={href} labels={labels} />);
     expect(await axe(container)).toHaveNoViolations();
   });
 });

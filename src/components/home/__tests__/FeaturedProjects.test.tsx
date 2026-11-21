@@ -3,8 +3,10 @@ import { axe, toHaveNoViolations } from 'jest-axe';
 import type { GithubRepo } from '@/types/project';
 
 jest.mock('next-intl', () => ({
+  useLocale: () => 'pt',
   useTranslations: () => (key: string) => key,
 }));
+jest.mock('@/lib/analytics', () => ({ trackEvent: jest.fn() }));
 
 jest.mock('@/i18n/navigation', () => ({
   Link: ({ href, children, ...props }: { href: string; children: React.ReactNode; [k: string]: unknown }) => (
