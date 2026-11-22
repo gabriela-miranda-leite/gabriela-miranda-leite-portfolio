@@ -18,5 +18,6 @@ export const mdxComponents: MDXComponents = {
   pre: Pre,
   VideoEmbed,
   RepoEmbed,
+  ZoomableImage,
   img: ZoomableImage,
 };
