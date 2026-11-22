@@ -235,22 +235,29 @@ function Lightbox({ src, alt, onClose }: { src: string; alt: string; onClose: ()
   );
 }
 
-export function ZoomableImage({ src, alt = '', ...rest }: ImgProps) {
+export function ZoomableImage({ src, alt = '', width, style, ...rest }: ImgProps) {
   const t = useTranslations('blog.image_zoom');
   const [open, setOpen] = useState(false);
 
   if (typeof src !== 'string') return null;
+
+  const constrainedWidth = width ? Number(width) : undefined;
+  const imgStyle: React.CSSProperties = {
+    ...style,
+    ...(constrainedWidth ? { display: 'block', width: '100%' } : undefined),
+  };
 
   return (
     <>
       <button
         type="button"
         className="zoomable-trigger"
+        style={constrainedWidth ? { maxWidth: constrainedWidth } : undefined}
         aria-label={alt ? t('open_alt', { alt }) : t('open')}
         onClick={() => setOpen(true)}
       >
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src={src} alt={alt} {...rest} />
+        <img src={src} alt={alt} style={imgStyle} {...rest} />
       </button>
       {/* Portaled because markdown wraps images in <p>, which can't contain a <dialog>/<div> */}
       {open && createPortal(<Lightbox src={src} alt={alt} onClose={() => setOpen(false)} />, document.body)}
