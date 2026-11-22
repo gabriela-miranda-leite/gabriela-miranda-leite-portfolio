@@ -235,7 +235,7 @@ function Lightbox({ src, alt, onClose }: { src: string; alt: string; onClose: ()
   );
 }
 
-export function ZoomableImage({ src, alt = '', ...rest }: ImgProps) {
+export function ZoomableImage({ src, alt = '', className, ...rest }: ImgProps) {
   const t = useTranslations('blog.image_zoom');
   const [open, setOpen] = useState(false);
 
@@ -245,7 +245,7 @@ export function ZoomableImage({ src, alt = '', ...rest }: ImgProps) {
     <>
       <button
         type="button"
-        className="zoomable-trigger"
+        className={`zoomable-trigger${className ? ` ${className}` : ''}`}
         aria-label={alt ? t('open_alt', { alt }) : t('open')}
         onClick={() => setOpen(true)}
       >

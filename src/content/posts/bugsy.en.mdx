@@ -1,7 +1,7 @@
 ---
 title: "Bugsy: a pocket-sized debug overlay"
 description: "How to get rid of proxies, certificates, and backend dependencies when investigating and testing Android and iOS apps."
-date: "2026-11-21"
+date: "2026-11-22"
 tags: ["kotlin multiplatform", "android", "ios", "debugging", "open source"]
 slug: "bugsy"
 readingTime: 6
@@ -20,15 +20,16 @@ Imagine running the app in a sandbox or development build and, when you hit a pr
 
 Bugsy is a Kotlin Multiplatform library (Android and iOS) that adds a debug panel built into the app itself. It works as an overlay, a floating visual layer that appears on top of the app when you shake the phone, without replacing the screen you're on, in the same spirit as tools like Chucker and Flipper, with four main areas: real-time network request inspection, response mocks, feature flags, and device information.
 
-![Map of Bugsy features from the Android/iOS app: control flags (toggle states on and off), app data (email, document, and other helpful data), view requests (details, .har export, and mocking from a request), and mock requests (import/export, one-shot mocks, and configurable body, headers, and status)](/posts/bugsy/funcionalidades.png)
+<div className="bugsy-intro-media">
+  <ZoomableImage src="/posts/bugsy/overlay-requests.png" alt="Bugsy overlay open on the sample app, showing the Requests tab with four listed calls: two POSTs and two GETs, with MOCK, once, and SLOW badges, and status codes 201, 500, and 200" className="phone" />
+  <ZoomableImage src="/posts/bugsy/funcionalidades.png" alt="Map of Bugsy features from the Android/iOS app: control flags (toggle states on and off), app data (email, document, and other helpful data), view requests (details, .har export, and mocking from a request), and mock requests (import/export, one-shot mocks, and configurable body, headers, and status)" />
+</div>
 
 ### The everyday problems Bugsy solves
 
 The best way to understand why each feature exists is to explain the pain it's meant to solve. So let's go feature by feature:
 
 - **Device data:** When working on a product, we have data that makes day-to-day life a lot easier, whether for a quick lookup or to understand expected behavior. That's exactly what the device data section is for. Sometimes knowing the user identifier saves the backend team time during an investigation, or knowing the user's profile helps clarify whether a given action is allowed or not. Alongside device information, you can include any user details you want, such as a user identifier, email, and segment. To open the overlay right away, just shake the phone, use the floating button, or tap the notification.
-
-<ZoomableImage src="/posts/bugsy/overlay-requests.png" alt="Bugsy overlay open on the sample app, showing the Requests tab with four listed calls: two POSTs and two GETs, with MOCK, once, and SLOW badges, and status codes 201, 500, and 200" width={320} />
 
 <VideoEmbed src="/posts/bugsy/device-data.mp4" caption="Device and user data in Bugsy: user identifier, email, and document, app version, environment, build, device model, and operating system, each with a copy button" />
 

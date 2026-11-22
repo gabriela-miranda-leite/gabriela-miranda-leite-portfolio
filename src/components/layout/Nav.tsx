@@ -13,9 +13,8 @@ import { screenFromPathname, trackEvent } from '@/lib/analytics';
 const BASE_NAV_LINKS = [
   { href: '/blog', key: 'blog' },
   { href: '/projects', key: 'projects' },
+  { href: '/about', key: 'about' },
 ] as const satisfies ReadonlyArray<{ href: string; key: string }>;
-
-const ABOUT_LINK = { href: '/about', key: 'about' } as const;
 
 const PILL: React.CSSProperties = {
   background: 'var(--bg-s)',
@@ -34,16 +33,12 @@ const PILL: React.CSSProperties = {
 
 export { PILL };
 
-interface NavProps {
-  showAbout?: boolean;
-}
-
-export function Nav({ showAbout = false }: NavProps) {
+export function Nav() {
   const t = useTranslations('nav');
   const pathname = usePathname();
   const [menuOpen, setMenuOpen] = useState(false);
 
-  const NAV_LINKS = showAbout ? [...BASE_NAV_LINKS, ABOUT_LINK] : BASE_NAV_LINKS;
+  const NAV_LINKS = BASE_NAV_LINKS;
   const screen = screenFromPathname(pathname);
 
   return (

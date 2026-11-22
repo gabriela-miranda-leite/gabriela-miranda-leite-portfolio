@@ -22,16 +22,33 @@ async function loadGoogleFont(family: string, weight: number, text: string) {
   return fetch(fontUrl).then((res) => res.arrayBuffer());
 }
 
+async function resolveImage(imageParam: string, req: NextRequest): Promise<string> {
+  let url = imageParam;
+  // In dev, the client sends http://localhost:3000/... which the Edge runtime can't
+  // reach externally. Rewrite to the internal origin so the fetch stays local.
+  const reqOrigin = `${req.nextUrl.protocol}//${req.nextUrl.host}`;
+  const paramOrigin = new URL(imageParam).origin;
+  if (paramOrigin !== reqOrigin) {
+    url = imageParam.replace(paramOrigin, reqOrigin);
+  }
+  const res = await fetch(url);
+  if (!res.ok) return imageParam;
+  const buf = await res.arrayBuffer();
+  const mime = res.headers.get('content-type') ?? 'image/png';
+  return `data:${mime};base64,${Buffer.from(buf).toString('base64')}`;
+}
+
 export async function GET(req: NextRequest) {
   const { searchParams } = req.nextUrl;
   const title = searchParams.get('title') ?? 'Gabi Miranda';
   const subtitle = searchParams.get('subtitle') ?? '';
-  const image = searchParams.get('image');
+  const imageParam = searchParams.get('image');
 
-  const [frauncesBold, jakartaRegular, jakartaMedium] = await Promise.all([
+  const [frauncesBold, jakartaRegular, jakartaMedium, image] = await Promise.all([
     loadGoogleFont('Fraunces', 600, title),
     loadGoogleFont('Plus Jakarta Sans', 400, subtitle || ' '),
     loadGoogleFont('Plus Jakarta Sans', 600, `${SITE_HOST}Gabi MirandaBLOG`),
+    imageParam ? resolveImage(imageParam, req) : Promise.resolve(null),
   ]);
 
   return new ImageResponse(
