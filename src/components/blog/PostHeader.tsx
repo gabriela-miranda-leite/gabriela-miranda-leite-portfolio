@@ -129,6 +129,7 @@ export function PostHeader({ post }: PostHeaderProps) {
             day: 'numeric',
             month: 'short',
             year: 'numeric',
+            timeZone: 'UTC',
           })}
         </time>
 
