@@ -617,6 +617,27 @@ body {
 .prose .zoomable-trigger img {
   display: block;
   margin: 0;
+  height: auto;
+}
+.zoomable-trigger.phone {
+  width: 320px;
+  max-width: 100%;
+  margin-inline: auto;
+}
+.bugsy-intro-media {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-8);
+  margin: var(--space-10) 0;
+}
+.bugsy-intro-media .zoomable-trigger {
+  margin: 0;
+}
+@media (max-width: 600px) {
+  .bugsy-intro-media {
+    flex-direction: column;
+    align-items: center;
+  }
 }
 .zoomable-trigger:focus-visible,
 .lightbox-btn:focus-visible {

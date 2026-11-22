@@ -1,7 +1,7 @@
 ---
 title: "Bugsy: um overlay de debug que cabe no bolso"
 description: "Como eliminar proxies, certificados e dependência de backend na hora de investigar e testar apps Android e iOS."
-date: "2026-11-21"
+date: "2026-11-22"
 tags: ["kotlin multiplatform", "android", "ios", "debug", "open source"]
 slug: "bugsy"
 readingTime: 6
@@ -20,15 +20,16 @@ Imagine estar com o app numa versão de sandbox ou desenvolvimento e, ao encontr
 
 A Bugsy é uma biblioteca Kotlin Multiplatform (Android e iOS) que adiciona um painel de debug embutido no próprio app. Ela funciona como um overlay, uma camada visual flutuante que aparece sobre o app ao agitar o celular, sem substituir a tela aberta, na mesma linha de ferramentas como Chucker e Flipper, com quatro frentes principais: inspeção de requisições de rede em tempo real, mocks de resposta, feature flags e informações do dispositivo.
 
-![Mapa das funcionalidades da Bugsy a partir do app Android/iOS: controlar flags (liga/desliga estados), dados do app (e-mail, documento e outros dados úteis), visualizar requests (detalhes, exportação em .har e mock a partir da request) e mockar requisições (importar/exportar, mock de execução única e configuração de body, header e status)](/posts/bugsy/funcionalidades.png)
+<div className="bugsy-intro-media">
+  <ZoomableImage src="/posts/bugsy/overlay-requests.png" alt="Overlay da Bugsy aberto sobre o app de exemplo, mostrando a aba Requests com quatro chamadas listadas: dois POSTs e dois GETs, com badges de MOCK, once e SLOW, e status 201, 500 e 200" className="phone" />
+  <ZoomableImage src="/posts/bugsy/funcionalidades.png" alt="Mapa das funcionalidades da Bugsy a partir do app Android/iOS: controlar flags (liga/desliga estados), dados do app (e-mail, documento e outros dados úteis), visualizar requests (detalhes, exportação em .har e mock a partir da request) e mockar requisições (importar/exportar, mock de execução única e configuração de body, header e status)" />
+</div>
 
 ### Os problemas práticos que a Bugsy resolve no dia a dia
 
 Nada melhor do que explicar as dores que cada funcionalidade quer resolver para entender a existência de cada uma. Então, vale dividir por funcionalidade:
 
 - **Dados do dispositivo:** Quando trabalhamos em um produto, temos dados que facilitam muito no dia a dia, seja para fazer uma busca rápida ou para entender o comportamento esperado. Essa parte de dados do dispositivo existe justamente para isso. Às vezes, saber o identificador do usuário faz o backend ganhar tempo na investigação, ou então saber qual é o perfil daquele usuário ajuda a entender se determinada ação é permitida ou não. Junto das informações do dispositivo, dá para incluir detalhes do usuário que quiserem colocar, como identificador do usuário, email e segmento. Para abrir o overlay na hora, basta chacoalhar o celular, usar o botão flutuante ou tocar na notificação.
-
-<ZoomableImage src="/posts/bugsy/overlay-requests.png" alt="Overlay da Bugsy aberto sobre o app de exemplo, mostrando a aba Requests com quatro chamadas listadas: dois POSTs e dois GETs, com badges de MOCK, once e SLOW, e status 201, 500 e 200" width={320} />
 
 <VideoEmbed src="/posts/bugsy/device-data.mp4" caption="Dados do dispositivo e do usuário na Bugsy: identificador, e-mail e documento do usuário, versão do app, ambiente, build, modelo do aparelho e sistema operacional, cada um com botão de copiar" />
 
