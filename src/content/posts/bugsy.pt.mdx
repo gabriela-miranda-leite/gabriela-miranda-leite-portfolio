@@ -5,6 +5,7 @@ date: "2026-11-21"
 tags: ["kotlin multiplatform", "android", "ios", "debug", "open source"]
 slug: "bugsy"
 readingTime: 6
+image: "/posts/bugsy/overlay-requests.png"
 ---
 
 # Como eliminar proxies, certificados e dependência de backend na hora de investigar e testar apps Android e iOS.
@@ -21,13 +22,15 @@ A Bugsy é uma biblioteca Kotlin Multiplatform (Android e iOS) que adiciona um p
 
 ![Mapa das funcionalidades da Bugsy a partir do app Android/iOS: controlar flags (liga/desliga estados), dados do app (e-mail, documento e outros dados úteis), visualizar requests (detalhes, exportação em .har e mock a partir da request) e mockar requisições (importar/exportar, mock de execução única e configuração de body, header e status)](/posts/bugsy/funcionalidades.png)
 
-Junto das informações do dispositivo, dá para incluir detalhes do usuário que quiserem colocar, como identificador do usuário, email e segmento. Para abrir o overlay na hora, basta chacoalhar o celular, usar o botão flutuante ou tocar na notificação.
-
-<VideoEmbed src="/posts/bugsy/device-data.mp4" caption="Dados do dispositivo e do usuário na Bugsy: identificador, e-mail e documento do usuário, versão do app, ambiente, build, modelo do aparelho e sistema operacional, cada um com botão de copiar" />
-
 ### Os problemas práticos que a Bugsy resolve no dia a dia
 
 Nada melhor do que explicar as dores que cada funcionalidade quer resolver para entender a existência de cada uma. Então, vale dividir por funcionalidade:
+
+- **Dados do dispositivo:** Quando trabalhamos em um produto, temos dados que facilitam muito no dia a dia, seja para fazer uma busca rápida ou para entender o comportamento esperado. Essa parte de dados do dispositivo existe justamente para isso. Às vezes, saber o identificador do usuário faz o backend ganhar tempo na investigação, ou então saber qual é o perfil daquele usuário ajuda a entender se determinada ação é permitida ou não. Junto das informações do dispositivo, dá para incluir detalhes do usuário que quiserem colocar, como identificador do usuário, email e segmento. Para abrir o overlay na hora, basta chacoalhar o celular, usar o botão flutuante ou tocar na notificação.
+
+![Overlay da Bugsy aberto sobre o app de exemplo, mostrando a aba Requests com quatro chamadas listadas: dois POSTs e dois GETs, com badges de MOCK, once e SLOW, e status 201, 500 e 200](/posts/bugsy/overlay-requests.png)
+
+<VideoEmbed src="/posts/bugsy/device-data.mp4" caption="Dados do dispositivo e do usuário na Bugsy: identificador, e-mail e documento do usuário, versão do app, ambiente, build, modelo do aparelho e sistema operacional, cada um com botão de copiar" />
 
 - **Inspeção de rede sem proxy:** Imagina você estar validando seu APK ou IPA e, de repente, dá algum erro. Aí tem algumas saídas: olhar no Datadog ou em alguma ferramenta de monitoramento, ou rodar o aplicativo na IDE para analisar os logs em algum Logcat. Ou você é um QA ou PM e precisa dar detalhes do problema para facilitar a resolução do bug. Com a inspeção embutida, você consegue passar facilmente o `cURL` para o time do backend, por exemplo.
 
